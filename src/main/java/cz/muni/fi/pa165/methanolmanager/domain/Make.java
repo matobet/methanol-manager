@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import java.util.List;
 
@@ -12,8 +13,11 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @Entity
-public class Producer extends AbstractNamedEntity {
+public class Make extends AbstractNamedEntity {
 
-    @OneToMany(mappedBy = "producer")
-    private List<Make> makes;
+    @ManyToOne
+    private Producer producer;
+
+    @OneToMany(mappedBy = "make")
+    private List<Bottle> bottles;
 }

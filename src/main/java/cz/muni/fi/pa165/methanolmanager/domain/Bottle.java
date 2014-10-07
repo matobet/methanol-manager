@@ -16,13 +16,21 @@ public class Bottle extends AbstractNamedEntity {
 
     private boolean toxic;
 
-    private boolean stamped;
-
     private Date productionDate;
 
+    private Date stampDate;
+
     @ManyToOne
-    private Producer producer;
+    private Make make;
 
     @ManyToOne
     private Store store;
+
+    public boolean isStamped() {
+        return stampDate != null;
+    }
+
+    public void stamp() {
+        stampDate = new Date();
+    }
 }
