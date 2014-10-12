@@ -40,4 +40,6 @@ public class MakeTest {
         assertEquals(bottleRepository.findAll().get(0).getMake(), makeBozkov);
     }
 
+    
+
 }
