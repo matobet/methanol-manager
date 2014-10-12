@@ -11,8 +11,6 @@ public interface BottleRepository extends JpaRepository<Bottle, Integer> {
     Bottle findByName(String name);
     List<Bottle> findByToxicTrue();
 
-    @Query("select b from Bottle b where b.stampDate != null")
+    @Query("select b from Bottle b where b.stampDate is not null")
     List<Bottle> findAllStamped();
-
-    Bottle findByName(String name);
 }
