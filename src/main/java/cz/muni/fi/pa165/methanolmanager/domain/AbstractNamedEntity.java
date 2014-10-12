@@ -8,6 +8,10 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 
+/*
+ * @author Martin Betak
+ */
+
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)

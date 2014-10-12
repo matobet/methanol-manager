@@ -1,31 +1,30 @@
 package cz.muni.fi.pa165.methanolmanager;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.nullValue;
-
-import java.util.Arrays;
-import java.util.Date;
-
-import javax.inject.Inject;
-import javax.transaction.Transactional;
-
+import cz.muni.fi.pa165.methanolmanager.domain.Bottle;
+import cz.muni.fi.pa165.methanolmanager.domain.Make;
+import cz.muni.fi.pa165.methanolmanager.domain.Producer;
 import cz.muni.fi.pa165.methanolmanager.domain.Store;
+import cz.muni.fi.pa165.methanolmanager.repository.BottleRepository;
+import cz.muni.fi.pa165.methanolmanager.repository.MakeRepository;
+import cz.muni.fi.pa165.methanolmanager.repository.ProducerRepository;
+import cz.muni.fi.pa165.methanolmanager.repository.StoreRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import cz.muni.fi.pa165.methanolmanager.domain.Bottle;
-import cz.muni.fi.pa165.methanolmanager.domain.Make;
-import cz.muni.fi.pa165.methanolmanager.domain.Producer;
-import cz.muni.fi.pa165.methanolmanager.repository.BottleRepository;
-import cz.muni.fi.pa165.methanolmanager.repository.MakeRepository;
-import cz.muni.fi.pa165.methanolmanager.repository.ProducerRepository;
-import cz.muni.fi.pa165.methanolmanager.repository.StoreRepository;
+import javax.inject.Inject;
+import javax.transaction.Transactional;
+import java.util.Arrays;
+import java.util.Date;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
+
+/*
+ * @author Martin Betak
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = App.class)
 @Transactional

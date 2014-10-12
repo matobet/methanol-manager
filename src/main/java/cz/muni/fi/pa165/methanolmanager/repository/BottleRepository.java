@@ -9,7 +9,9 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-
+/*
+ * @author Pavel Vomacka
+ */
 public interface BottleRepository extends JpaRepository<Bottle, Integer> {
     Bottle findByName(String name);
 
