@@ -35,6 +35,16 @@ public class BottleTest {
     }
 
     @Test
+    public void testFindByName() {
+        Bottle bottle = new Bottle();
+        bottle.setName("foo");
+
+        bottleRepository.save(bottle);
+
+        assertThat(bottleRepository.findByName("foo"), is(bottle));
+    }
+
+    @Test
     public void testFindToxic() {
         Bottle bottle = new Bottle();
         bottle.setName("Vodka");

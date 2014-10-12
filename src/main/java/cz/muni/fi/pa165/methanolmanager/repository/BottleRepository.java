@@ -6,5 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface BottleRepository extends JpaRepository<Bottle, Integer> {
+    Bottle findByName(String name);
     List<Bottle> findByToxicTrue();
 }

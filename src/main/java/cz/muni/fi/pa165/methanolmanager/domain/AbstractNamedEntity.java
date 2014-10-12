@@ -5,11 +5,13 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
+import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
+@MappedSuperclass
 public abstract class AbstractNamedEntity extends AbstractPersistable<Integer> {
 
     @NotNull
