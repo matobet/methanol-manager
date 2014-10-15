@@ -7,8 +7,7 @@
   <inherits name="com.gwtplatform.mvp.Mvp" />
 
   <set-property name="gwt.logging.consoleHandler" value="DISABLED" />
-  <set-property name="gwt.logging.developmentModeHandler"
-                value="ENABLED" />
+  <set-property name="gwt.logging.developmentModeHandler" value="ENABLED" />
   <set-property name="gwt.logging.popupHandler" value="DISABLED" />
 
   <inherits name="com.google.gwt.resources.Resources" />
@@ -35,6 +34,14 @@
   <entry-point class='cz.muni.fi.pa165.methanolmanager.frontend.GwtApp' />
 
   <!-- Specify the paths for translatable code -->
-  <source path='' />
+  <source path="">
+    <exclude name="App.java" />
+  </source>
+
+  <add-linker name="xsiframe" />
+
+  <set-configuration-property name="devModeRedirectEnabled" value="true" />
+
+  <set-property name="compiler.useSourceMaps" value="true" />
 
 </module>

@@ -16,14 +16,20 @@
 
 package cz.muni.fi.pa165.methanolmanager.frontend;
 
+import cz.muni.fi.pa165.methanolmanager.api.ApiConfig;
 import cz.muni.fi.pa165.methanolmanager.backend.BackendConfig;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration
-@Import(BackendConfig.class)
-public class App {
+@EnableAutoConfiguration
+@ComponentScan(basePackageClasses = {App.class, BackendConfig.class, ApiConfig.class})
+public class App extends WebMvcAutoConfiguration.WebMvcAutoConfigurationAdapter {
 
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(App.class, args);

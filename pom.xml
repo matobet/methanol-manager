@@ -17,6 +17,7 @@
 
   <modules>
     <module>backend</module>
+    <module>api</module>
     <module>frontend</module>
   </modules>
 
@@ -47,13 +48,13 @@
 
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
         <configuration>
           <mainClass>cz.muni.fi.pa165.methanolmanager.frontend.App</mainClass>
         </configuration>
-			</plugin>
+      </plugin>
       <plugin>
         <groupId>org.projectlombok</groupId>
         <artifactId>lombok-maven-plugin</artifactId>
