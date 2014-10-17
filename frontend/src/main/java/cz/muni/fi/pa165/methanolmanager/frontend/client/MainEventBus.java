@@ -8,6 +8,6 @@ import com.mvp4g.client.event.EventBusWithLookup;
 @Events(startPresenter = MainPresenter.class)
 public interface MainEventBus extends EventBusWithLookup {
     @Start
-    @Event(handlers = MainPresenter.class)
+    @Event(handlers = {MainPresenter.class, Bootstrap.class})
     void applicationLoad();
 }

@@ -86,6 +86,30 @@
     </dependency>
   </dependencies>
 
+  <profiles>
+    <profile>
+      <id>dev</id>
+      <properties>
+        <gwt.userAgent>safari</gwt.userAgent>
+        <gwt.locale>en</gwt.locale>
+        <gwt.cssResourceStyle>pretty</gwt.cssResourceStyle>
+      </properties>
+      <build>
+        <pluginManagement>
+          <plugins>
+            <plugin>
+              <groupId>org.codehaus.mojo</groupId>
+              <artifactId>gwt-maven-plugin</artifactId>
+              <configuration>
+                <draftCompile>true</draftCompile>
+              </configuration>
+            </plugin>
+          </plugins>
+        </pluginManagement>
+      </build>
+    </profile>
+  </profiles>
+
   <build>
     <outputDirectory>${outputFolder}/WEB-INF/classes</outputDirectory>
     <plugins>
@@ -104,6 +128,8 @@
           <runTarget>index.html</runTarget>
           <hostedWebapp>${outputFolder}</hostedWebapp>
           <webappDirectory>${outputFolder}</webappDirectory>
+          <noServer>true</noServer>
+          <port>8080</port>
           <failOnError>true</failOnError>
           <modules>
             <module>cz.muni.fi.pa165.methanolmanager.frontend.GwtApp</module>

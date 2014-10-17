@@ -13,4 +13,9 @@ public class BottleController {
     List<String> getBottleNames() {
         return Arrays.asList("Vodka", "Finlandia", "Bozkov");
     }
+
+    @RequestMapping("/api/stores")
+    List<String> getStores() {
+        return Arrays.asList("Tesco", "Brnenkab");
+    }
 }
