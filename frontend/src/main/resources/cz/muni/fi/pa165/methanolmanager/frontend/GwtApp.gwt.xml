@@ -11,6 +11,9 @@
   <set-property name="gwt.logging.popupHandler" value="DISABLED" />
 
   <inherits name="com.google.gwt.resources.Resources" />
+  <inherits name="com.github.gwtbootstrap.Bootstrap" />
+
+  <inherits name="org.fusesource.restygwt.RestyGWT"/>
 
   <!-- Gin -->
   <inherits name="com.google.gwt.inject.Inject" />
