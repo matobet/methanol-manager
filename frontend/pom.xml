@@ -75,7 +75,7 @@
         </executions>
         <configuration>
           <runTarget>index.html</runTarget>
-          <hostedWebapp>${outputFolder}</hostedWebapp>
+          <!--<hostedWebapp>${outputFolder}</hostedWebapp>-->
           <webappDirectory>${outputFolder}</webappDirectory>
           <failOnError>true</failOnError>
           <modules>
