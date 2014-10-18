@@ -19,7 +19,7 @@
     <gwt.version>2.6.1</gwt.version>
     <gin.version>2.1.2</gin.version>
     <mvp4g.version>1.5.0</mvp4g.version>
-    <gwt-bootstrap.version>2.3.2.0</gwt-bootstrap.version>
+    <gwtbootstrap3.version>0.8.1</gwtbootstrap3.version>
     <restygwt.version>1.4</restygwt.version>
   </properties>
 
@@ -68,9 +68,9 @@
     </dependency>
 
     <dependency>
-      <groupId>com.github.gwtbootstrap</groupId>
-      <artifactId>gwt-bootstrap</artifactId>
-      <version>${gwt-bootstrap.version}</version>
+      <groupId>org.gwtbootstrap3</groupId>
+      <artifactId>gwtbootstrap3</artifactId>
+      <version>${gwtbootstrap3.version}</version>
     </dependency>
 
     <dependency>
