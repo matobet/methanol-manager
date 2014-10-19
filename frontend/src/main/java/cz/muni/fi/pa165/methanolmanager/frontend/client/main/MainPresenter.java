@@ -18,11 +18,7 @@ import java.util.List;
 
 public class MainPresenter extends Presenter<MainPresenter.ViewDef, MainPresenter.Proxy> {
 
-    private final RestDispatch restDispatch;
-    private final BottleService bottleService;
-
     public interface ViewDef extends View {
-        void setBottles(List<String> bottles);
     }
 
     @ProxyStandard
@@ -31,28 +27,7 @@ public class MainPresenter extends Presenter<MainPresenter.ViewDef, MainPresente
     }
 
     @Inject
-    public MainPresenter(EventBus eventBus, ViewDef view, Proxy proxy,
-                         RestDispatch restDispatch, BottleService bottleService) {
+    public MainPresenter(EventBus eventBus, ViewDef view, Proxy proxy) {
         super(eventBus, view, proxy, RevealType.Root);
-
-        this.restDispatch = restDispatch;
-        this.bottleService = bottleService;
-    }
-
-    @Override
-    protected void revealInParent() {
-        super.revealInParent();
-
-        restDispatch.execute(bottleService.getBottles(), new AsyncCallback<List<String>>() {
-            @Override
-            public void onFailure(Throwable caught) {
-                Window.alert("FAIL!");
-            }
-
-            @Override
-            public void onSuccess(List<String> result) {
-                getView().setBottles(result);
-            }
-        });
     }
 }
