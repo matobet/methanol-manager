@@ -13,7 +13,7 @@ import cz.muni.fi.pa165.methanolmanager.frontend.client.main.MainView;
 public class MainModule extends AbstractPresenterModule {
     @Override
     protected void configure() {
-        install(new DefaultModule(DefaultPlaceManager.class));
+        install(new DefaultModule.Builder().placeManager(DefaultPlaceManager.class).build());
 
         bindConstant().annotatedWith(DefaultPlace.class).to(ApplicationPlaces.MAIN_PLACE);
         bindConstant().annotatedWith(ErrorPlace.class).to(ApplicationPlaces.MAIN_PLACE);

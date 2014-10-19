@@ -7,7 +7,7 @@ import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewImpl;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 
-public class MainView extends ViewWithUiHandlers implements MainPresenter.ViewDef {
+public class MainView extends ViewImpl implements MainPresenter.ViewDef {
     interface ViewUiBinder extends UiBinder<HTMLPanel, MainView> {
     }
 

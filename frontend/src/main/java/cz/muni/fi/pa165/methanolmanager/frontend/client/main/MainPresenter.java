@@ -13,11 +13,11 @@ import javax.inject.Inject;
 
 public class MainPresenter extends Presenter<MainPresenter.ViewDef, MainPresenter.Proxy> {
 
-    @ProxyStandard
-    @NameToken(ApplicationPlaces.MAIN_PLACE)
     public interface ViewDef extends View {
     }
 
+    @ProxyStandard
+    @NameToken(ApplicationPlaces.MAIN_PLACE)
     public interface Proxy extends ProxyPlace<MainPresenter> {
     }
 

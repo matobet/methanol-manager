@@ -4,7 +4,7 @@
   <inherits name='com.google.gwt.user.User' />
   <inherits name="com.google.gwt.logging.Logging" />
 
-  <inherits name="com.gwtplatform.mvp.Mvp" />
+  <inherits name="com.gwtplatform.mvp.MvpWithEntryPoint" />
   <inherits name="com.gwtplatform.dispatch.rest.DispatchRest"/>
 
   <set-property name="gwt.logging.consoleHandler" value="DISABLED" />
@@ -31,8 +31,7 @@
 
   <!-- Other module inherits -->
 
-  <!-- Specify the app entry point class. -->
-  <entry-point class='cz.muni.fi.pa165.methanolmanager.frontend.client.GwtApp' />
+  <set-configuration-property name="gin.ginjector.modules" value="cz.muni.fi.pa165.methanolmanager.frontend.client.gin.MainModule" />
 
   <add-linker name="xsiframe" />
 
