@@ -5,6 +5,10 @@
   <inherits name="fr.putnami.pwt.core.model.Model" />
   <inherits name="fr.putnami.pwt.core.mvp.Mvp" />
   <inherits name="fr.putnami.pwt.core.widget.Widget"/>
+  <inherits name="fr.putnami.pwt.core.error.DefaultErrorDisplayer" />
+  <inherits name="fr.putnami.pwt.core.service.Service" />
+
+  <inherits name="org.fusesource.restygwt.RestyGWT" />
 
   <entry-point class="cz.muni.fi.pa165.methanolmanager.frontend.client.GwtApp"/>
 

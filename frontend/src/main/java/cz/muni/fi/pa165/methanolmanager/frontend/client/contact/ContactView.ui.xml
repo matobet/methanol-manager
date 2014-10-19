@@ -3,7 +3,13 @@
   <ui:with field="noteItems" type="java.util.List" />
   <ui:with field="subjectItems" type="java.util.List" />
 
-  <w:HTMLPanel>
+  <ui:style>
+    .panel {
+      max-width: 200px;
+    }
+  </ui:style>
+
+  <w:HTMLPanel styleName="panel">
     <w:Heading level="1" text="Contact" styleName="page-header" />
     <w:Form ui:field="contactEditor" layout="HORIZONTAL">
       <fieldset>

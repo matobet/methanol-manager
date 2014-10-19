@@ -18,6 +18,7 @@
     <gwt.version>2.6.1</gwt.version>
     <outputFolder>${project.build.directory}/${project.build.finalName}</outputFolder>
     <pwt.version>1.1.0</pwt.version>
+    <restygwt.version>1.4</restygwt.version>
   </properties>
 
   <dependencies>
@@ -57,6 +58,12 @@
       <version>${gwt.version}</version>
       <scope>provided</scope>
     </dependency>
+
+    <dependency>
+      <groupId>org.fusesource.restygwt</groupId>
+      <artifactId>restygwt</artifactId>
+      <version>${restygwt.version}</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -78,6 +85,7 @@
           <!--<hostedWebapp>${outputFolder}</hostedWebapp>-->
           <webappDirectory>${outputFolder}</webappDirectory>
           <failOnError>true</failOnError>
+          <extraJvmArgs>-javaagent:${settings.localRepository}/org/projectlombok/lombok/${lombok.version}/lombok-${lombok.version}.jar=ECJ</extraJvmArgs>
           <modules>
             <module>cz.muni.fi.pa165.methanolmanager.frontend.GwtApp</module>
           </modules>
