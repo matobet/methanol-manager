@@ -52,7 +52,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
         <configuration>
-          <mainClass>cz.muni.fi.pa165.methanolmanager.frontend.App</mainClass>
+          <mainClass>cz.muni.fi.pa165.methanolmanager.frontend.server.App</mainClass>
         </configuration>
       </plugin>
       <plugin>

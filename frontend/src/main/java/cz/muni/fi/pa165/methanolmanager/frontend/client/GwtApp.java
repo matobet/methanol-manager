@@ -1,4 +1,4 @@
-package cz.muni.fi.pa165.methanolmanager.frontend;
+package cz.muni.fi.pa165.methanolmanager.frontend.client;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.Label;

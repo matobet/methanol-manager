@@ -1,4 +1,4 @@
-package cz.muni.fi.pa165.methanolmanager.frontend.gin;
+package cz.muni.fi.pa165.methanolmanager.frontend.client.gin;
 
 import com.gwtplatform.mvp.client.annotations.DefaultPlace;
 import com.gwtplatform.mvp.client.annotations.ErrorPlace;
@@ -7,8 +7,8 @@ import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
 import com.gwtplatform.mvp.client.gin.DefaultModule;
 import com.gwtplatform.mvp.client.proxy.DefaultPlaceManager;
 import cz.muni.fi.pa165.methanolmanager.frontend.client.ApplicationPlaces;
-import cz.muni.fi.pa165.methanolmanager.frontend.client.MainPresenter;
-import cz.muni.fi.pa165.methanolmanager.frontend.client.MainView;
+import cz.muni.fi.pa165.methanolmanager.frontend.client.main.MainPresenter;
+import cz.muni.fi.pa165.methanolmanager.frontend.client.main.MainView;
 
 public class MainModule extends AbstractPresenterModule {
     @Override

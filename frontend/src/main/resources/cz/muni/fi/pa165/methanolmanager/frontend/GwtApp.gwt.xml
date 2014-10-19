@@ -32,12 +32,7 @@
   <!-- Other module inherits -->
 
   <!-- Specify the app entry point class. -->
-  <entry-point class='cz.muni.fi.pa165.methanolmanager.frontend.GwtApp' />
-
-  <!-- Specify the paths for translatable code -->
-  <source path="">
-    <exclude name="App.java" />
-  </source>
+  <entry-point class='cz.muni.fi.pa165.methanolmanager.frontend.client.GwtApp' />
 
   <add-linker name="xsiframe" />
 
