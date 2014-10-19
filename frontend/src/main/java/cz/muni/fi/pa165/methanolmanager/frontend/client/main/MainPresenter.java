@@ -33,7 +33,7 @@ public class MainPresenter extends Presenter<MainPresenter.ViewDef, MainPresente
     @Inject
     public MainPresenter(EventBus eventBus, ViewDef view, Proxy proxy,
                          RestDispatch restDispatch, BottleService bottleService) {
-        super(eventBus, view, proxy);
+        super(eventBus, view, proxy, RevealType.Root);
 
         this.restDispatch = restDispatch;
         this.bottleService = bottleService;
@@ -41,7 +41,7 @@ public class MainPresenter extends Presenter<MainPresenter.ViewDef, MainPresente
 
     @Override
     protected void revealInParent() {
-        RevealRootContentEvent.fire(this, this);
+        super.revealInParent();
 
         restDispatch.execute(bottleService.getBottles(), new AsyncCallback<List<String>>() {
             @Override
