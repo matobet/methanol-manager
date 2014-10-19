@@ -1,5 +1,7 @@
 package cz.muni.fi.pa165.methanolmanager.frontend.client.gin;
 
+import com.gwtplatform.dispatch.rest.client.RestApplicationPath;
+import com.gwtplatform.dispatch.rest.client.gin.RestDispatchAsyncModule;
 import com.gwtplatform.mvp.client.annotations.DefaultPlace;
 import com.gwtplatform.mvp.client.annotations.ErrorPlace;
 import com.gwtplatform.mvp.client.annotations.UnauthorizedPlace;
@@ -14,6 +16,9 @@ public class MainModule extends AbstractPresenterModule {
     @Override
     protected void configure() {
         install(new DefaultModule.Builder().placeManager(DefaultPlaceManager.class).build());
+        install(new RestDispatchAsyncModule.Builder().build());
+
+        bindConstant().annotatedWith(RestApplicationPath.class).to("/api");
 
         bindConstant().annotatedWith(DefaultPlace.class).to(ApplicationPlaces.MAIN_PLACE);
         bindConstant().annotatedWith(ErrorPlace.class).to(ApplicationPlaces.MAIN_PLACE);
