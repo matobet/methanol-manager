@@ -1,5 +1,6 @@
-package cz.muni.fi.pa165.methanolmanager;
+package cz.muni.fi.pa165.methanolmanager.repository;
 
+import cz.muni.fi.pa165.methanolmanager.App;
 import cz.muni.fi.pa165.methanolmanager.domain.Store;
 import cz.muni.fi.pa165.methanolmanager.repository.StoreRepository;
 import org.junit.Test;

@@ -17,6 +17,8 @@ import java.util.List;
 @Entity
 public class Store extends AbstractNamedEntity {
 
+    private String address;
+
     @OneToMany(mappedBy = "store")
     private List<Bottle> bottles;
 }

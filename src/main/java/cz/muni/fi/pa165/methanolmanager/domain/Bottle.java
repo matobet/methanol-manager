@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.methanolmanager.domain;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import org.dozer.Mapping;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;

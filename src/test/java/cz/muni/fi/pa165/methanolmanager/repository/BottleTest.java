@@ -1,5 +1,6 @@
-package cz.muni.fi.pa165.methanolmanager;
+package cz.muni.fi.pa165.methanolmanager.repository;
 
+import cz.muni.fi.pa165.methanolmanager.App;
 import cz.muni.fi.pa165.methanolmanager.domain.Bottle;
 import cz.muni.fi.pa165.methanolmanager.domain.Make;
 import cz.muni.fi.pa165.methanolmanager.domain.Producer;
