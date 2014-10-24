@@ -1,42 +1,39 @@
 package cz.muni.fi.pa165.methanolmanager.service;
 
 
-import cz.muni.fi.pa165.methanolmanager.App;
-import cz.muni.fi.pa165.methanolmanager.dal.domain.Bottle;
-import cz.muni.fi.pa165.methanolmanager.dal.domain.Make;
-import cz.muni.fi.pa165.methanolmanager.dal.domain.Store;
-import cz.muni.fi.pa165.methanolmanager.service.dto.BottleDto;
-import cz.muni.fi.pa165.methanolmanager.service.dto.StoreDto;
-import cz.muni.fi.pa165.methanolmanager.dal.repository.BottleRepository;
-import cz.muni.fi.pa165.methanolmanager.dal.repository.MakeRepository;
-import cz.muni.fi.pa165.methanolmanager.dal.repository.StoreRepository;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.util.Arrays;
+import java.util.List;
 
 import javax.inject.Inject;
 
-import java.util.List;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.empty;
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import cz.muni.fi.pa165.methanolmanager.dal.domain.Bottle;
+import cz.muni.fi.pa165.methanolmanager.dal.domain.Make;
+import cz.muni.fi.pa165.methanolmanager.dal.domain.Store;
+import cz.muni.fi.pa165.methanolmanager.dal.repository.MakeRepository;
+import cz.muni.fi.pa165.methanolmanager.dal.repository.StoreRepository;
+import cz.muni.fi.pa165.methanolmanager.service.dto.BottleDto;
+import cz.muni.fi.pa165.methanolmanager.service.dto.StoreDto;
 
 /**
  * @author Martin Betak
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = App.class)
-public class StoreServiceTest {
+public class StoreServiceTest extends ServiceTest {
+
+    public static final int STORE_ID = 0;
+    public static final String STORE_NAME = "tesco";
+    public static final String STORE_ADDRESS = "kralovo pole";
 
     @Inject
     StoreRepository storeRepository;
-
-    @Inject
-    BottleRepository bottleRepository;
 
     @Inject
     MakeRepository makeRepository;
@@ -44,33 +41,37 @@ public class StoreServiceTest {
     @Inject
     StoreService storeService;
 
-    @Test
-    public void testGetStores() {
-        Store store = new Store();
-        store.setName("tesco");
-        storeRepository.save(store);
-        assertEquals("tesco", storeService.getStores().get(0).getName());
-    }
-
-    @Test
-    public void testGetStoreWithBottles() {
-        Store store = new Store();
-        store.setName("tesco");
-
+    @Before
+    public void setup() {
         Make make = new Make();
         make.setName("Bozkov");
 
         Bottle bottle = new Bottle();
         bottle.setToxic(true);
         bottle.setName("vodka");
-        bottle.setStore(store);
         bottle.setMake(make);
 
-        storeRepository.save(store);
-        makeRepository.save(make);
-        bottleRepository.save(bottle);
+        Store store = new Store() {{
+            setId(STORE_ID);
+        }};
+        store.setName(STORE_NAME);
+        store.setAddress(STORE_ADDRESS);
+        store.setBottles(Arrays.asList(bottle));
 
-        List<BottleDto> bottles = storeService.getStoreWithBottles(store.getId()).getBottles();
+        bottle.setStore(store);
+
+        when(storeRepository.findOne(STORE_ID)).thenReturn(store);
+        when(storeRepository.findAll()).thenReturn(Arrays.asList(store));
+    }
+
+    @Test
+    public void testGetStores() {
+        assertEquals(STORE_NAME, storeService.getStores().get(0).getName());
+    }
+
+    @Test
+    public void testGetStoreWithBottles() {
+        List<BottleDto> bottles = storeService.getStoreWithBottles(STORE_ID).getBottles();
         assertTrue(bottles.get(0).isToxic());
         assertEquals("vodka", bottles.get(0).getName());
         assertEquals("Bozkov", bottles.get(0).getMakeName());
@@ -79,25 +80,22 @@ public class StoreServiceTest {
     @Test
     public void testCreateStore() {
         StoreDto storeDto = new StoreDto();
-        storeDto.setName("tesco");
-        storeDto.setAddress("kralovo pole");
+        storeDto.setName(STORE_NAME);
+        storeDto.setAddress(STORE_ADDRESS);
 
         storeService.createStore(storeDto);
 
-        Store store = storeRepository.findByName("tesco");
-        assertEquals("kralovo pole", store.getAddress());
+        ArgumentCaptor<Store> captor = ArgumentCaptor.forClass(Store.class);
+        verify(storeRepository).save(captor.capture());
+
+        assertEquals(captor.getValue().getName(), STORE_NAME);
+        assertEquals(captor.getValue().getAddress(), STORE_ADDRESS);
     }
 
     @Test
     public void testDeleteStore() {
-        Store store = new Store();
-        store.setName("tesco");
-        store.setAddress("kralovo pole");
+        storeService.deleteStore(STORE_ID);
 
-        storeRepository.save(store);
-
-        storeService.deleteStore(store.getId());
-
-        assertThat(storeRepository.findAll(), is(empty()));
+        verify(storeRepository).delete(STORE_ID);
     }
 }
