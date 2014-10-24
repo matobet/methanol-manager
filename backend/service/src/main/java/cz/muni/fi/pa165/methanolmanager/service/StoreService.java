@@ -5,7 +5,10 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import cz.muni.fi.pa165.methanolmanager.service.exception.EntityNotFoundException;
 import org.dozer.Mapper;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,6 +40,9 @@ public class StoreService {
 
     public StoreWithBottlesDto getStoreWithBottles(int storeId) {
         Store store = storeRepository.findOne(storeId);
+        if (store == null) {
+            throw new EntityNotFoundException(storeId);
+        }
 
         return mapper.map(store, StoreWithBottlesDto.class);
     }
@@ -50,6 +56,10 @@ public class StoreService {
 
     @Transactional
     public void deleteStore(int storeId) {
-        storeRepository.delete(storeId);
+        try {
+            storeRepository.delete(storeId);
+        } catch (EmptyResultDataAccessException e) {
+            throw new EntityNotFoundException(storeId);
+        }
     }
 }
