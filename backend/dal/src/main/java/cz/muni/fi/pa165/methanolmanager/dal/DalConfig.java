@@ -14,28 +14,16 @@
  * limitations under the License.
  */
 
-package cz.muni.fi.pa165.methanolmanager.frontend.server;
+package cz.muni.fi.pa165.methanolmanager.dal;
 
-import cz.muni.fi.pa165.methanolmanager.dal.DalConfig;
-import cz.muni.fi.pa165.methanolmanager.api.ApiConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.context.web.SpringBootServletInitializer;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @EnableAutoConfiguration
-@ComponentScan(basePackageClasses = {App.class, DalConfig.class, ApiConfig.class})
-public class App extends SpringBootServletInitializer {
-
-	public static void main(String[] args) throws Exception {
-		SpringApplication.run(App.class, args);
-	}
-
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(App.class);
-    }
+@ComponentScan
+public class DalConfig {
 }
