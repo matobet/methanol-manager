@@ -27,7 +27,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @EnableAutoConfiguration
-@ComponentScan(basePackageClasses = {App.class, DalConfig.class, ApiConfig.class})
+@ComponentScan(basePackages = "cz.muni.fi.pa165.methanolmanager")
 public class App extends SpringBootServletInitializer {
 
 	public static void main(String[] args) throws Exception {
