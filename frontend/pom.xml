@@ -24,20 +24,6 @@
   <dependencies>
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>backend</artifactId>
-      <version>${project.version}</version>
-      <type>jar</type>
-    </dependency>
-
-    <dependency>
-      <groupId>cz.fi.muni.pa165.methanolmanager</groupId>
-      <artifactId>dal</artifactId>
-      <version>${project.version}</version>
-      <scope>provided</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>${project.groupId}</groupId>
       <artifactId>api</artifactId>
       <version>${project.version}</version>
     </dependency>

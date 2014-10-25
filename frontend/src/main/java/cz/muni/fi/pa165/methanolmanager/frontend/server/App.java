@@ -16,14 +16,14 @@
 
 package cz.muni.fi.pa165.methanolmanager.frontend.server;
 
-import cz.muni.fi.pa165.methanolmanager.dal.DalConfig;
-import cz.muni.fi.pa165.methanolmanager.api.ApiConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
+import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration
 @EnableAutoConfiguration
