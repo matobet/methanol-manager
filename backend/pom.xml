@@ -9,7 +9,6 @@
   </parent>
 
   <artifactId>backend</artifactId>
-  <groupId>cz.fi.muni.pa165.methanolmanager</groupId>
   <packaging>pom</packaging>
   <name>Methanol Manager - Backend Module</name>
 
