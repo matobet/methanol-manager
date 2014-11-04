@@ -8,7 +8,6 @@
   </parent>
 
   <artifactId>service</artifactId>
-  <groupId>cz.fi.muni.pa165.methanolmanager</groupId>
   <packaging>jar</packaging>
   <name>Methanol Manager - Service Layer Module</name>
 
