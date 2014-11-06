@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
-import java.util.Date;
 
 /**
  * @author Pavel Vomacka
@@ -50,7 +49,7 @@ public class BottleService {
         }
 
         if (!bottle.isStamped()) {
-            bottle.setStampDate(new Date(System.currentTimeMillis()));
+            bottle.stamp();
         }
 
         bottleRepository.save(bottle);
