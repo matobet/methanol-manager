@@ -1,19 +1,23 @@
 package cz.muni.fi.pa165.methanolmanager.service;
 
-import cz.muni.fi.pa165.methanolmanager.dal.domain.Bottle;
-import cz.muni.fi.pa165.methanolmanager.dal.repository.BottleRepository;
-import cz.muni.fi.pa165.methanolmanager.service.dto.BottleDto;
-import cz.muni.fi.pa165.methanolmanager.service.exception.EntityNotFoundException;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.reset;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import javax.inject.Inject;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.springframework.dao.EmptyResultDataAccessException;
 
-import javax.inject.Inject;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.*;
+import cz.muni.fi.pa165.methanolmanager.dal.domain.Bottle;
+import cz.muni.fi.pa165.methanolmanager.dal.repository.BottleRepository;
+import cz.muni.fi.pa165.methanolmanager.service.dto.BottleDto;
+import cz.muni.fi.pa165.methanolmanager.service.exception.EntityNotFoundException;
 
 /**
  * @author Pavel Vomacka
@@ -34,6 +38,9 @@ public class BottleServiceTest extends ServiceTest {
         Bottle bottle = new Bottle();
         bottle.setName(BOTTLE_NAME);
 
+        // reset bottle repository mock before each test
+        // in order to reset the argument captor call count
+        reset(bottleRepository);
         when(bottleRepository.findOne(BOTTLE_ID)).thenReturn(bottle);
         doThrow(EmptyResultDataAccessException.class).when(bottleRepository).delete(INVALID_BOTTLE_ID);
     }
