@@ -13,7 +13,7 @@ import javax.inject.Inject;
 import java.util.Date;
 
 /**
- * Created by pavel on 27.10.14.
+ * @author Pavel Vomacka
  */
 
 @Service
@@ -29,7 +29,6 @@ public class BottleService {
     @Transactional
     public void createBottle(BottleDto bottleDto) {
         Bottle bottle = mapper.map(bottleDto, Bottle.class);
-
         bottleRepository.save(bottle);
     }
 
@@ -42,45 +41,18 @@ public class BottleService {
         }
     }
 
-    /*
-     * If bottle is already stamped function returns false.
-     * If stamped is set then function returns true.
-     */
     @Transactional
-    public boolean setStamped(int bottleId) {
-        Bottle bottle;
-        try {
-            bottle = bottleRepository.findOne(bottleId);
-        } catch (EmptyResultDataAccessException e) {
+    public void stampBottle(int bottleId) {
+        Bottle bottle = bottleRepository.findOne(bottleId);
+
+        if(bottle == null) {
             throw new EntityNotFoundException(bottleId);
         }
-        if(!bottle.isStamped()) {
+
+        if (!bottle.isStamped()) {
             bottle.setStampDate(new Date(System.currentTimeMillis()));
-        } else {
-            return false;
         }
 
         bottleRepository.save(bottle);
-        return true;
     }
-
-    /*
-     * Returns true if bottle is stamped.
-     */
-    public boolean isStamped(int bottleId) {
-        Bottle bottle;
-        try {
-            bottle = bottleRepository.findOne(bottleId);
-        } catch (EmptyResultDataAccessException e) {
-            throw new EntityNotFoundException(bottleId);
-        }
-
-        if(bottle.isStamped()) {
-            return true;
-        } else {
-            return false;
-        }
-
-    }
-
 }
