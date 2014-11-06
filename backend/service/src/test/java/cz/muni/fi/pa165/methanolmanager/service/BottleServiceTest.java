@@ -20,7 +20,7 @@ import static org.mockito.Mockito.*;
  */
 public class BottleServiceTest extends ServiceTest {
     public static final int BOTTLE_ID = 1;
-    public static final int INVALID_BOTTLE_ID = 2;
+    public static final int INVALID_BOTTLE_ID = 0;
     public static final String BOTTLE_NAME = "Tuzemsky";
 
     @Inject
