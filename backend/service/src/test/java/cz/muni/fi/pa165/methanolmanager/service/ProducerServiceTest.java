@@ -2,7 +2,6 @@ package cz.muni.fi.pa165.methanolmanager.service;
 
 import cz.muni.fi.pa165.methanolmanager.dal.domain.Producer;
 import cz.muni.fi.pa165.methanolmanager.dal.repository.BottleRepository;
-import cz.muni.fi.pa165.methanolmanager.dal.repository.MakeRepository;
 import cz.muni.fi.pa165.methanolmanager.dal.repository.ProducerRepository;
 import cz.muni.fi.pa165.methanolmanager.service.dto.ProducerDto;
 import cz.muni.fi.pa165.methanolmanager.service.exception.EntityNotFoundException;
@@ -35,13 +34,10 @@ public class ProducerServiceTest extends ServiceTest {
     ProducerService producerService;
 
     @Inject
-    MakeRepository makeRepository;
-
-    @Inject
     BottleRepository bottleRepository;
 
     @Before
-    public void setup(){
+    public void setup() {
         Producer producer = new Producer();
         producer.setName(PRODUCER_NAME);
 
@@ -59,17 +55,17 @@ public class ProducerServiceTest extends ServiceTest {
     }
 
     @Test
-    public void testProducedToxicBottles(){
+    public void testProducedToxicBottles() {
         assertEquals(2, producerService.countProducedToxicBottles(PRODUCER_ID));
     }
 
     @Test
-    public void testProducedNonToxicBottles(){
+    public void testProducedNonToxicBottles() {
         assertEquals(1, producerService.countProducedNonToxicBottles(PRODUCER_ID));
     }
 
     @Test
-    public void testCreateProducer(){
+    public void testCreateProducer() {
         ProducerDto producerDto = new ProducerDto();
         producerDto.setName(PRODUCER_NAME);
 
@@ -82,7 +78,7 @@ public class ProducerServiceTest extends ServiceTest {
     }
 
     @Test
-    public void testDeleteProducer(){
+    public void testDeleteProducer() {
         producerService.deleteProducer(PRODUCER_ID);
 
         verify(producerRepository).delete(PRODUCER_ID);

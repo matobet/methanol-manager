@@ -19,7 +19,7 @@ import java.util.List;
  */
 
 @Service
-@Transactional (readOnly = true)
+@Transactional(readOnly = true)
 public class ProducerService {
 
     @Inject
@@ -32,34 +32,34 @@ public class ProducerService {
     Mapper mapper;
 
     @Transactional
-    public void createProducer(ProducerDto producerDto){
+    public void createProducer(ProducerDto producerDto) {
         Producer producer = mapper.map(producerDto, Producer.class);
 
         producerRepository.save(producer);
     }
 
     public List<ProducerDto> getProducers() {
-        List<ProducerDto> producers = new ArrayList<ProducerDto>();
+        List<ProducerDto> producers = new ArrayList<>();
         for (Producer producer : producerRepository.findAll()) {
             producers.add(mapper.map(producer, ProducerDto.class));
         }
-        return  producers;
+        return producers;
     }
 
-    public long countProducedToxicBottles(int producerId){
+    public long countProducedToxicBottles(int producerId) {
         Producer producer = producerRepository.findOne(producerId);
 
-        if (producer == null){
+        if (producer == null) {
             throw new EntityNotFoundException(producerId);
         }
 
         return bottleRepository.countToxicByProducer(producer);
     }
 
-    public long countProducedNonToxicBottles(int producerId){
+    public long countProducedNonToxicBottles(int producerId) {
         Producer producer = producerRepository.findOne(producerId);
 
-        if (producer == null){
+        if (producer == null) {
             throw new EntityNotFoundException(producerId);
         }
 
@@ -68,10 +68,10 @@ public class ProducerService {
 
 
     @Transactional
-    public void deleteProducer(int producerId){
-        try{
+    public void deleteProducer(int producerId) {
+        try {
             producerRepository.delete(producerId);
-        } catch (EmptyResultDataAccessException e){
+        } catch (EmptyResultDataAccessException e) {
             throw new EntityNotFoundException(producerId);
         }
     }
