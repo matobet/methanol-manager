@@ -64,6 +64,26 @@
     </dependency>
   </dependencies>
 
+
+    <profiles>
+        <profile>
+            <id>production</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>gwt-maven-plugin</artifactId>
+                        <configuration>
+                            <module>cz.muni.fi.pa165.methanolmanager.frontend.GwtApp</module>
+                            <draftCompile>false</draftCompile>
+                            <style>OBF</style>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
   <build>
     <outputDirectory>${outputFolder}/WEB-INF/classes</outputDirectory>
     <plugins>
@@ -83,8 +103,10 @@
           <hostedWebapp>${outputFolder}</hostedWebapp>
           <webappDirectory>${outputFolder}</webappDirectory>
           <failOnError>true</failOnError>
+          <noServer>true</noServer>
+          <draftCompile>true</draftCompile>
           <modules>
-            <module>cz.muni.fi.pa165.methanolmanager.frontend.GwtApp</module>
+            <module>cz.muni.fi.pa165.methanolmanager.frontend.GwtAppDev</module>
           </modules>
         </configuration>
       </plugin>

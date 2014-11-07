@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to="methanolmanager">
+  <inherits name="cz.muni.fi.pa165.methanolmanager.frontend.GwtApp" />
+
+  <set-configuration-property name="devModeRedirectEnabled" value="true" />
+
+  <set-property name="compiler.useSourceMaps" value="true" />
+
+  <collapse-all-properties />
+
+</module>
