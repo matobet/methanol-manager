@@ -24,6 +24,9 @@ public interface BottleRepository extends JpaRepository<Bottle, Integer> {
     @Query("select count(b) from Bottle b where b.toxic = true and b.make.producer = ?1")
     long countToxicByProducer(Producer producer);
 
+    @Query("select count(b) from Bottle b where b.toxic = false and b.make.producer = ?1")
+    long countNotToxicByProducer(Producer producer);
+
     @Query("select count(b) from Bottle b where b.toxic = true and b.make = ?1")
     long countToxicByMake(Make make);
 

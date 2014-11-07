@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.methanolmanager.service;
 
 import cz.muni.fi.pa165.methanolmanager.dal.domain.Producer;
+import cz.muni.fi.pa165.methanolmanager.dal.repository.BottleRepository;
 import cz.muni.fi.pa165.methanolmanager.dal.repository.ProducerRepository;
 import cz.muni.fi.pa165.methanolmanager.service.dto.ProducerDto;
 import cz.muni.fi.pa165.methanolmanager.service.exception.EntityNotFoundException;
@@ -8,9 +9,10 @@ import org.dozer.Mapper;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Petr Barton
@@ -24,6 +26,9 @@ public class ProducerService {
     ProducerRepository producerRepository;
 
     @Inject
+    BottleRepository bottleRepository;
+
+    @Inject
     Mapper mapper;
 
     @Transactional
@@ -33,12 +38,32 @@ public class ProducerService {
         producerRepository.save(producer);
     }
 
-    public int producedToxicBottles(){
-        throw new NotImplementedException();
+    public List<ProducerDto> getProducers() {
+        List<ProducerDto> producers = new ArrayList<ProducerDto>();
+        for (Producer producer : producerRepository.findAll()) {
+            producers.add(mapper.map(producer, ProducerDto.class));
+        }
+        return  producers;
     }
 
-    public int producedNonToxicBottles(){
-        throw new NotImplementedException();
+    public long countProducedToxicBottles(int producerId){
+        Producer producer = producerRepository.findOne(producerId);
+
+        if (producer == null){
+            throw new EntityNotFoundException(producerId);
+        }
+
+        return bottleRepository.countToxicByProducer(producer);
+    }
+
+    public long countProducedNonToxicBottles(int producerId){
+        Producer producer = producerRepository.findOne(producerId);
+
+        if (producer == null){
+            throw new EntityNotFoundException(producerId);
+        }
+
+        return bottleRepository.countNotToxicByProducer(producer);
     }
 
 

@@ -181,17 +181,21 @@ public class BottleTest {
         Bottle bottle4 = new Bottle();
         bottle4.setName("Ceresna");
         bottle4.setMake(spis);
-        bottle3.setStore(tesco);
+        bottle4.setStore(tesco);
 
         bottleRepository.save(bottle);
         bottleRepository.save(bottle2);
         bottleRepository.save(bottle3);
+        bottleRepository.save(bottle4);
 
         assertThat(bottleRepository.countToxicByMake(bozkov), is(equalTo(1l)));
         assertThat(bottleRepository.countToxicByMake(spis), is(equalTo(1l)));
 
         assertThat(bottleRepository.countToxicByProducer(bozkovProducer), is(equalTo(1l)));
         assertThat(bottleRepository.countToxicByProducer(spisProducer), is(equalTo(1l)));
+
+        assertThat(bottleRepository.countNotToxicByProducer(bozkovProducer), is(equalTo(1l)));
+        assertThat(bottleRepository.countNotToxicByProducer(spisProducer), is(equalTo(1l)));
 
         assertThat(bottleRepository.countToxicByStore(brnenka), is(equalTo(1l)));
         assertThat(bottleRepository.countToxicByStore(tesco), is(equalTo(1l)));
