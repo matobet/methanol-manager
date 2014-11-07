@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.methanolmanager.service;
 
 import cz.muni.fi.pa165.methanolmanager.dal.domain.Bottle;
 import cz.muni.fi.pa165.methanolmanager.dal.domain.Make;
+import cz.muni.fi.pa165.methanolmanager.dal.repository.BottleRepository;
 import cz.muni.fi.pa165.methanolmanager.dal.repository.MakeRepository;
 import cz.muni.fi.pa165.methanolmanager.service.dto.MakeDto;
 import cz.muni.fi.pa165.methanolmanager.service.exception.EntityNotFoundException;
@@ -32,6 +33,9 @@ public class MakeServiceTest extends ServiceTest{
     MakeRepository makeRepository;
 
     @Inject
+    BottleRepository bottleRepository;
+
+    @Inject
     MakeService makeService;
 
     @Before
@@ -48,6 +52,7 @@ public class MakeServiceTest extends ServiceTest{
         make.setBottles(Arrays.asList(bottle));
 
         when(makeRepository.findOne(MAKE_ID)).thenReturn(make);
+        when(bottleRepository.countToxicByMake(make)).thenReturn((long) 1);
         doThrow(EmptyResultDataAccessException.class).when(makeRepository).delete(INVALID_MAKE_ID);
     }
 

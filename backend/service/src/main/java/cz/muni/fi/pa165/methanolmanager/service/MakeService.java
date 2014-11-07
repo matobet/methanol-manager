@@ -1,7 +1,7 @@
 package cz.muni.fi.pa165.methanolmanager.service;
 
-import cz.muni.fi.pa165.methanolmanager.dal.domain.Bottle;
 import cz.muni.fi.pa165.methanolmanager.dal.domain.Make;
+import cz.muni.fi.pa165.methanolmanager.dal.repository.BottleRepository;
 import cz.muni.fi.pa165.methanolmanager.dal.repository.MakeRepository;
 import cz.muni.fi.pa165.methanolmanager.service.dto.MakeDto;
 import cz.muni.fi.pa165.methanolmanager.service.exception.EntityNotFoundException;
@@ -24,6 +24,9 @@ public class MakeService {
     MakeRepository makeRepository;
 
     @Inject
+    BottleRepository bottleRepository;
+
+    @Inject
     Mapper mapper;
 
     @Transactional
@@ -37,12 +40,7 @@ public class MakeService {
         if (make == null) {
             throw new EntityNotFoundException(makeId);
         }
-        for(Bottle bottle : make.getBottles()){
-            if(bottle.isToxic()){
-                return true;
-            }
-        }
-        return false;
+        return (bottleRepository.countToxicByMake(make) > 0);
     }
 
     @Transactional
