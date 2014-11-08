@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+  <modelVersion>4.0.0</modelVersion>
   <parent>
-		<!-- Your own application should inherit from spring-boot-starter-parent -->
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.1.8.RELEASE</version>
-	</parent>
+    <!-- Your own application should inherit from spring-boot-starter-parent -->
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>1.1.8.RELEASE</version>
+  </parent>
 
-	<artifactId>methanol-manager-root</artifactId>
-	<groupId>cz.fi.muni.pa165.methanolmanager</groupId>
-	<packaging>pom</packaging>
-	<name>Methanol Manager</name>
-	<description>Liquor bottles registry during prohibition</description>
-	<version>1.0-SNAPSHOT</version>
+  <artifactId>methanol-manager-root</artifactId>
+  <groupId>cz.fi.muni.pa165.methanolmanager</groupId>
+  <packaging>pom</packaging>
+  <name>Methanol Manager</name>
+  <description>Liquor bottles registry during prohibition</description>
+  <version>1.0-SNAPSHOT</version>
 
   <properties>
     <java.version>1.7</java.version>
@@ -26,7 +26,7 @@
     <module>backend</module>
   </modules>
 
-	<dependencies>
+  <dependencies>
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
@@ -39,27 +39,27 @@
       <artifactId>javax.inject</artifactId>
       <version>1</version>
     </dependency>
-	</dependencies>
+  </dependencies>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
       <plugin>
         <groupId>org.projectlombok</groupId>
-        <artifactId>lombok-maven-plugin</artifactId>
-        <version>${lombok.version}</version>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>${java.version}</source>
-          <target>${java.version}</target>
-        </configuration>
-      </plugin>
-		</plugins>
-	</build>
+          <artifactId>lombok-maven-plugin</artifactId>
+          <version>${lombok.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <configuration>
+            <source>${java.version}</source>
+            <target>${java.version}</target>
+          </configuration>
+        </plugin>
+    </plugins>
+  </build>
 </project>
