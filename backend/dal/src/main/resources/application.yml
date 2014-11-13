@@ -1,5 +1,11 @@
 spring:
+  datasource:
+    url: jdbc:derby://localhost/pa165
+    username: pa165
+    password: pa165
+    driverClassName: org.apache.derby.jdbc.ClientDriver
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      dialect: org.hibernate.dialect.DerbyTenElevenDialect
+      default_schema: APP
     show-sql: false

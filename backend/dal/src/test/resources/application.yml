@@ -1,5 +1,12 @@
 spring:
+  datasource:
+    url: jdbc:hsqldb:mem:testdb
+    username: sa
+    password:
+    driverClassName: org.hsqldb.jdbcDriver
   jpa:
     hibernate:
+      dialect: org.hibernate.dialect.HSQLDialect
+      default_schema: PUBLIC
       ddl-auto: create-drop
     show-sql: true

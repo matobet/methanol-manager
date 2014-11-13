@@ -13,7 +13,7 @@
   <name>Methanol Manager - Data Access Layer Module</name>
 
   <properties>
-    <hsqldb.version>2.3.2</hsqldb.version>
+    <derby.version>10.11.1.1</derby.version>
   </properties>
 
   <dependencies>
@@ -22,10 +22,20 @@
       <artifactId>spring-boot-starter-data-jpa</artifactId>
     </dependency>
     <dependency>
+      <groupId>org.apache.derby</groupId>
+      <artifactId>derby</artifactId>
+      <version>${derby.version}</version>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.derby</groupId>
+      <artifactId>derbyclient</artifactId>
+      <version>${derby.version}</version>
+    </dependency>
+    <dependency>
       <groupId>org.hsqldb</groupId>
       <artifactId>hsqldb</artifactId>
-      <version>${hsqldb.version}</version>
-      <scope>runtime</scope>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.hibernate</groupId>
