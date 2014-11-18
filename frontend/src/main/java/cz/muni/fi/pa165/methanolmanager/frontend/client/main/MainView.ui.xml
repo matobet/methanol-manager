@@ -1,0 +1,8 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:wb="urn:import:cz.muni.fi.pa165.methanolmanager.frontend.client.widget.bottle">
+  <g:HTMLPanel>
+    Hello World !!!
+    <wb:BottleListWidget ui:field="bottles" />
+  </g:HTMLPanel>
+</ui:UiBinder>

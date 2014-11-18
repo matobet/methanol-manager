@@ -1,6 +1,6 @@
 package cz.muni.fi.pa165.methanolmanager.dal.repository;
 
-import cz.muni.fi.pa165.methanolmanager.App;
+import cz.muni.fi.pa165.methanolmanager.dal.DalConfig;
 import cz.muni.fi.pa165.methanolmanager.dal.domain.Bottle;
 import cz.muni.fi.pa165.methanolmanager.dal.domain.Make;
 import cz.muni.fi.pa165.methanolmanager.dal.domain.Producer;
@@ -23,7 +23,7 @@ import static org.hamcrest.Matchers.*;
  * @author Martin Betak
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = App.class)
+@SpringApplicationConfiguration(classes = DalConfig.class)
 @Transactional
 public class BottleTest {
 
