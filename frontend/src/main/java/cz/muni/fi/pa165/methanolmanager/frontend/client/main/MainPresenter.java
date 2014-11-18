@@ -3,7 +3,6 @@ package cz.muni.fi.pa165.methanolmanager.frontend.client.main;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.web.bindery.event.shared.EventBus;
-import com.gwtplatform.dispatch.rest.shared.RestDispatch;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
 import com.gwtplatform.mvp.client.annotations.NameToken;

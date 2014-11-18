@@ -9,11 +9,11 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.inject.Inject;
-import com.gwtplatform.dispatch.rest.client.RestApplicationPath;
-import com.gwtplatform.dispatch.rest.client.RestDispatchAsync;
-import com.gwtplatform.dispatch.rest.shared.RestDispatch;
 import com.gwtplatform.mvp.client.ViewImpl;
 import cz.muni.fi.pa165.methanolmanager.frontend.client.rest.BottleService;
+import org.fusesource.restygwt.client.Defaults;
+import org.fusesource.restygwt.client.Method;
+import org.fusesource.restygwt.client.MethodCallback;
 
 import java.util.List;
 
@@ -25,17 +25,18 @@ public class BottleListWidget extends Composite {
     ListBox listBox;
 
     @Inject
-    public BottleListWidget(ViewUiBinder uiBinder, RestDispatch restDispatch, BottleService bottleService, @RestApplicationPath final String path) {
+    public BottleListWidget(ViewUiBinder uiBinder, BottleService bottleService) {
         initWidget(uiBinder.createAndBindUi(this));
 
-        restDispatch.execute(bottleService.getBottles(), new AsyncCallback<List<String>>() {
+        bottleService.getBottles(new MethodCallback<List<String>>() {
             @Override
-            public void onFailure(Throwable caught) {
-                Window.alert("fail! " + path  + ": " + caught.getLocalizedMessage());
+            public void onFailure(Method method, Throwable exception) {
+                Defaults.getServiceRoot();
+                Window.alert("fail: " + method.getResponse().getHeadersAsString());
             }
 
             @Override
-            public void onSuccess(List<String> result) {
+            public void onSuccess(Method method, List<String> result) {
                 setBottles(result);
             }
         });
