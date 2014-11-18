@@ -11,6 +11,8 @@ import com.google.gwt.user.client.ui.ListBox;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewImpl;
 import cz.muni.fi.pa165.methanolmanager.frontend.client.rest.BottleService;
+import cz.muni.fi.pa165.methanolmanager.frontend.client.rest.StoreService;
+import cz.muni.fi.pa165.methanolmanager.service.dto.StoreDto;
 import org.fusesource.restygwt.client.Defaults;
 import org.fusesource.restygwt.client.Method;
 import org.fusesource.restygwt.client.MethodCallback;
@@ -25,19 +27,30 @@ public class BottleListWidget extends Composite {
     ListBox listBox;
 
     @Inject
-    public BottleListWidget(ViewUiBinder uiBinder, BottleService bottleService) {
+    public BottleListWidget(ViewUiBinder uiBinder, BottleService bottleService, StoreService storeService) {
         initWidget(uiBinder.createAndBindUi(this));
 
         bottleService.getBottles(new MethodCallback<List<String>>() {
             @Override
             public void onFailure(Method method, Throwable exception) {
-                Defaults.getServiceRoot();
                 Window.alert("fail: " + method.getResponse().getHeadersAsString());
             }
 
             @Override
             public void onSuccess(Method method, List<String> result) {
                 setBottles(result);
+            }
+        });
+
+        storeService.getStore(1, new MethodCallback<StoreDto>() {
+            @Override
+            public void onFailure(Method method, Throwable exception) {
+                Window.alert("fail: " + method.getResponse().getHeadersAsString());
+            }
+
+            @Override
+            public void onSuccess(Method method, StoreDto response) {
+                Window.alert("Much success: " + response.toString());
             }
         });
     }

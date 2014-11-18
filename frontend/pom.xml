@@ -70,6 +70,13 @@
       <artifactId>javax.ws.rs-api</artifactId>
       <version>${javax.ws.rs-api.version}</version>
     </dependency>
+
+    <dependency>
+      <groupId>cz.fi.muni.pa165.methanolmanager</groupId>
+      <artifactId>service</artifactId>
+      <version>${project.version}</version>
+      <classifier>sources</classifier>
+    </dependency>
   </dependencies>
 
 
@@ -114,6 +121,7 @@
           <draftCompile>true</draftCompile>
           <noServer>true</noServer>
           <port>8080</port>
+          <extraJvmArgs>-javaagent:${settings.localRepository}/org/projectlombok/lombok/${lombok.version}/lombok-${lombok.version}.jar=ECJ</extraJvmArgs>
           <modules>
             <module>cz.muni.fi.pa165.methanolmanager.frontend.GwtAppDev</module>
           </modules>

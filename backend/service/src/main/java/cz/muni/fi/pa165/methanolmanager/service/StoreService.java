@@ -38,6 +38,15 @@ public class StoreService {
         return stores;
     }
 
+    public StoreDto getStore(int storeId) {
+        Store store = storeRepository.findOne(storeId);
+        if (store == null) {
+            throw new EntityNotFoundException(storeId);
+        }
+
+        return mapper.map(store, StoreDto.class);
+    }
+
     public StoreWithBottlesDto getStoreWithBottles(int storeId) {
         Store store = storeRepository.findOne(storeId);
         if (store == null) {

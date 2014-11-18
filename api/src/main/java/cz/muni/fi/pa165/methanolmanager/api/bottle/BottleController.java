@@ -1,4 +1,4 @@
-package cz.muni.fi.pa165.methanolmanager.api;
+package cz.muni.fi.pa165.methanolmanager.api.bottle;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
