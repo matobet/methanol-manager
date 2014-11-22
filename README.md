@@ -1,5 +1,7 @@
 # Methanol Manager
 
+[![Build Status](https://travis-ci.org/matobet/methanol-manager.svg?branch=master)](https://travis-ci.org/matobet/methanol-manager)
+
 Project for PA165: Liquor bottles registry during prohibition
 
 # Development
