@@ -1,4 +1,4 @@
-package cz.muni.fi.pa165.methanolmanager.frontend.client.main;
+package cz.muni.fi.pa165.methanolmanager.frontend.client.application;
 
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;

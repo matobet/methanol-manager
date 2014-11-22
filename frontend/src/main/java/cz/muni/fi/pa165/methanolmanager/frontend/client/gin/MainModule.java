@@ -6,19 +6,19 @@ import com.gwtplatform.mvp.client.annotations.UnauthorizedPlace;
 import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
 import com.gwtplatform.mvp.client.gin.DefaultModule;
 import com.gwtplatform.mvp.client.proxy.DefaultPlaceManager;
-import cz.muni.fi.pa165.methanolmanager.frontend.client.ApplicationPlaces;
-import cz.muni.fi.pa165.methanolmanager.frontend.client.main.ApplicationPresenter;
-import cz.muni.fi.pa165.methanolmanager.frontend.client.main.ApplicationView;
+import cz.muni.fi.pa165.methanolmanager.frontend.client.application.ApplicationPresenter;
+import cz.muni.fi.pa165.methanolmanager.frontend.client.application.ApplicationView;
+import cz.muni.fi.pa165.methanolmanager.frontend.client.place.NameTokens;
 
 public class MainModule extends AbstractPresenterModule {
+
     @Override
     protected void configure() {
         install(new DefaultModule.Builder().placeManager(DefaultPlaceManager.class).build());
+        install(new PresenterModule());
 
-        bindConstant().annotatedWith(DefaultPlace.class).to(ApplicationPlaces.MAIN_PLACE);
-        bindConstant().annotatedWith(ErrorPlace.class).to(ApplicationPlaces.MAIN_PLACE);
-        bindConstant().annotatedWith(UnauthorizedPlace.class).to(ApplicationPlaces.MAIN_PLACE);
-
-        bindPresenter(ApplicationPresenter.class, ApplicationPresenter.ViewDef.class, ApplicationView.class, ApplicationPresenter.Proxy.class);
+        bindConstant().annotatedWith(DefaultPlace.class).to(NameTokens.STORES);
+        bindConstant().annotatedWith(ErrorPlace.class).to(NameTokens.STORES);
+        bindConstant().annotatedWith(UnauthorizedPlace.class).to(NameTokens.STORES);
     }
 }

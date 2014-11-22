@@ -7,6 +7,12 @@
   <ui:with field="nameTokens" type="cz.muni.fi.pa165.methanolmanager.frontend.client.place.NameTokens" />
   <ui:with field="constants" type="cz.muni.fi.pa165.methanolmanager.frontend.client.i18n.ApplicationConstants" />
 
+  <ui:style>
+    .push-down {
+      padding-top: 70px;    /* push below bootstrap nav-bar */
+    }
+  </ui:style>
+
   <g:ScrollPanel>
     <b:Container>
 
@@ -27,7 +33,7 @@
         </b:Container>
       </b:Navbar>
 
-      <g:SimplePanel ui:field="contentContainer" />
+      <g:SimplePanel ui:field="contentContainer" addStyleNames="{style.push-down}" />
 
     </b:Container>
   </g:ScrollPanel>

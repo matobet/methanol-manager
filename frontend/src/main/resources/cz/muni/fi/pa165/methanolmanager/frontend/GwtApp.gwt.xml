@@ -11,7 +11,7 @@
 
   <inherits name="cz.muni.fi.pa165.methanolmanager.service.Dto" />
 
-  <set-configuration-property name="gwtp.bootstrapper" value="cz.muni.fi.pa165.methanolmanager.frontend.client.main.ApplicationInit"/>
+  <set-configuration-property name="gwtp.bootstrapper" value="cz.muni.fi.pa165.methanolmanager.frontend.client.application.ApplicationInit"/>
 
   <set-property name="gwt.logging.consoleHandler" value="DISABLED" />
   <set-property name="gwt.logging.developmentModeHandler" value="ENABLED" />
