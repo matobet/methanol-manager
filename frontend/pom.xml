@@ -21,6 +21,7 @@
     <gwtp.version>1.3.1</gwtp.version>
     <restygwt.version>1.4</restygwt.version>
     <javax.ws.rs-api.version>2.0</javax.ws.rs-api.version>
+    <gwtbootstrap3.version>0.8.1</gwtbootstrap3.version>
   </properties>
 
   <dependencies>
@@ -72,13 +73,24 @@
     </dependency>
 
     <dependency>
+      <groupId>org.gwtbootstrap3</groupId>
+      <artifactId>gwtbootstrap3</artifactId>
+      <version>${gwtbootstrap3.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.gwtbootstrap3</groupId>
+      <artifactId>gwtbootstrap3-extras</artifactId>
+      <version>${gwtbootstrap3.version}</version>
+    </dependency>
+
+    <dependency>
       <groupId>cz.fi.muni.pa165.methanolmanager</groupId>
       <artifactId>service</artifactId>
       <version>${project.version}</version>
       <classifier>sources</classifier>
     </dependency>
   </dependencies>
-
 
   <profiles>
     <profile>

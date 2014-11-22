@@ -5,19 +5,17 @@ import com.gwtplatform.mvp.client.Bootstrapper;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import org.fusesource.restygwt.client.Defaults;
 
-public class AppInit implements Bootstrapper {
+public class ApplicationInit implements Bootstrapper {
+
+    public static final String REST_ROOT_URL = "/api";
 
     @Inject
     PlaceManager placeManager;
 
     @Override
     public void onBootstrap() {
-        Defaults.setServiceRoot(getRestApiServiceRoot());
+        Defaults.setServiceRoot(REST_ROOT_URL);
 
         placeManager.revealCurrentPlace();
-    }
-
-    protected String getRestApiServiceRoot() {
-        return "/api";
     }
 }
