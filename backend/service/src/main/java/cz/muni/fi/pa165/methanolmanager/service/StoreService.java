@@ -57,10 +57,12 @@ public class StoreService {
     }
 
     @Transactional
-    public void createStore(StoreDto storeDto) {
+    public StoreDto createStore(StoreDto storeDto) {
         Store store = mapper.map(storeDto, Store.class);
 
         storeRepository.save(store);
+
+        return mapper.map(store, StoreDto.class);
     }
 
     @Transactional

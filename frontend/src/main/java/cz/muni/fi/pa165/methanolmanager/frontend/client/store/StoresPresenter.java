@@ -13,6 +13,7 @@ import com.gwtplatform.mvp.client.View;
 import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
+import com.gwtplatform.mvp.client.proxy.RevealRootPopupContentEvent;
 import cz.muni.fi.pa165.methanolmanager.frontend.client.application.ApplicationPresenter;
 import cz.muni.fi.pa165.methanolmanager.frontend.client.i18n.ApplicationMessages;
 import cz.muni.fi.pa165.methanolmanager.frontend.client.place.NameTokens;
@@ -51,14 +52,18 @@ public class StoresPresenter extends Presenter<StoresPresenter.ViewDef, StoresPr
     private ListDataProvider<StoreDto> storesData;
     private final StoreService storeService;
     private final ApplicationMessages messages;
+    private final StorePopupView storePopup;
+    private StoreDto editedItem;
 
     @Inject
     public StoresPresenter(EventBus eventBus, ViewDef view, Proxy proxy,
-                           StoreService storeService, ApplicationMessages messages) {
+                           StoreService storeService, ApplicationMessages messages,
+                           StorePopupView storePopup) {
         super(eventBus, view, proxy, ApplicationPresenter.MAIN_CONTENT);
 
         this.storeService = storeService;
         this.messages = messages;
+        this.storePopup = storePopup;
     }
 
     @Override
@@ -68,14 +73,29 @@ public class StoresPresenter extends Presenter<StoresPresenter.ViewDef, StoresPr
         registerHandler(getView().getCreateButton().addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent event) {
-                // show popup
+                storePopup.setSubmitHandler(new StorePopupView.SubmitHandler() {
+                    @Override
+                    public void onSubmit(StoreDto store) {
+                        createStore(store);
+                    }
+                });
+                storePopup.edit(new StoreDto());
+                storePopup.show();
             }
         }));
 
         registerHandler(getView().getEditButton().addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent event) {
-                // show popup
+                storePopup.setSubmitHandler(new StorePopupView.SubmitHandler() {
+                    @Override
+                    public void onSubmit(StoreDto store) {
+                        updateStore(store);
+                    }
+                });
+                editedItem = getView().getStoreTableSelection().getSelectedSet().iterator().next();
+                storePopup.edit(editedItem);
+                storePopup.show();
             }
         }));
 
@@ -130,6 +150,41 @@ public class StoresPresenter extends Presenter<StoresPresenter.ViewDef, StoresPr
         });
     }
 
+    private void createStore(final StoreDto store) {
+        storeService.createStore(store, new MethodCallback<StoreDto>() {
+            @Override
+            public void onFailure(Method method, Throwable throwable) {
+                showError(messages.createStoreError(throwable.getLocalizedMessage()));
+            }
+
+            @Override
+            public void onSuccess(Method method, StoreDto createdStore) {
+                storesData.getList().add(createdStore);
+                storesData.flush();
+                growl(messages.storeCreated(createdStore.getName()));
+            }
+        });
+    }
+
+    private void updateStore(final StoreDto store) {
+        storeService.updateStore(store, new MethodCallback<StoreDto>() {
+            @Override
+            public void onFailure(Method method, Throwable throwable) {
+                showError(messages.updateStoreError(throwable.getLocalizedMessage()));
+            }
+
+            @Override
+            public void onSuccess(Method method, StoreDto storeDto) {
+                storesData.getList().remove(editedItem);
+                storesData.getList().add(storeDto);
+                storesData.flush();
+                storesData.refresh();
+                editedItem = null;
+                growl(messages.storeUpdated(storeDto.getName()));
+            }
+        });
+    }
+
     private void deleteStore(final StoreDto store) {
         storeService.deleteStore(store.getId(), new MethodCallback<Void>() {
             @Override
@@ -149,5 +204,4 @@ public class StoresPresenter extends Presenter<StoresPresenter.ViewDef, StoresPr
         options.setDangerType();
         growl(error, options);
     }
-
 }

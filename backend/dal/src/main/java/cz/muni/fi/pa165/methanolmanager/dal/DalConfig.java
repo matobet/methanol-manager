@@ -67,22 +67,22 @@ public class DalConfig {
                 Make m2 = new Make("Finlandia", p2);
                 Make m3 = new Make("Bechcer", p3);
 
-                //makeRepository.save(m1);
+                makeRepository.save(m1);
                 makeRepository.save(m2);
                 makeRepository.save(m3);
 
-//                bottleRepository.save(new Bottle("Tuzemak", new Date(), new Date(), false, m1, s1));
-//                bottleRepository.save(new Bottle("Vodka", new Date(), new Date(), false, m2, s2));
-//                bottleRepository.save(new Bottle("Becherovka", new Date(), new Date(), false, m3, s3));
-//                bottleRepository.save(new Bottle("Tuzemak", new Date(), new Date(), false, m1, s1));
-//                bottleRepository.save(new Bottle("Vodka", new Date(), new Date(), false, m2, s2));
-//                bottleRepository.save(new Bottle("Becherovka", new Date(), new Date(), false, m3, s3));
-//                bottleRepository.save(new Bottle("Tuzemak", new Date(), new Date(), false, m1, s1));
-//                bottleRepository.save(new Bottle("Vodka", new Date(), new Date(), false, m2, s2));
-//                bottleRepository.save(new Bottle("Becherovka", new Date(), new Date(), false, m3, s3));
-//                bottleRepository.save(new Bottle("Tuzemak", new Date(), new Date(), false, m1, s1));
-//                bottleRepository.save(new Bottle("Vodka", new Date(), new Date(), false, m2, s2));
-//                bottleRepository.save(new Bottle("Becherovka", new Date(), new Date(), false, m3, s3));
+                bottleRepository.save(new Bottle("Tuzemak", new Date(), new Date(), false, m1, s1));
+                bottleRepository.save(new Bottle("Vodka", new Date(), new Date(), false, m2, s2));
+                bottleRepository.save(new Bottle("Becherovka", new Date(), new Date(), false, m3, s3));
+                bottleRepository.save(new Bottle("Tuzemak", new Date(), new Date(), false, m1, s1));
+                bottleRepository.save(new Bottle("Vodka", new Date(), new Date(), false, m2, s2));
+                bottleRepository.save(new Bottle("Becherovka", new Date(), new Date(), false, m3, s3));
+                bottleRepository.save(new Bottle("Tuzemak", new Date(), new Date(), false, m1, s1));
+                bottleRepository.save(new Bottle("Vodka", new Date(), new Date(), false, m2, s2));
+                bottleRepository.save(new Bottle("Becherovka", new Date(), new Date(), false, m3, s3));
+                bottleRepository.save(new Bottle("Tuzemak", new Date(), new Date(), false, m1, s1));
+                bottleRepository.save(new Bottle("Vodka", new Date(), new Date(), false, m2, s2));
+                bottleRepository.save(new Bottle("Becherovka", new Date(), new Date(), false, m3, s3));
             }
         };
     }

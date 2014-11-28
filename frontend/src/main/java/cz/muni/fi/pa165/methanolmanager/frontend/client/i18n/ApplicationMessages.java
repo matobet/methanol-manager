@@ -21,4 +21,16 @@ public interface ApplicationMessages extends Messages {
 
     @DefaultMessage("Bottle {0} sucessfully deleted!")
     String bottleDeleted(String name);
+
+    @DefaultMessage("Error creating store: {0}")
+    String createStoreError(String error);
+
+    @DefaultMessage("Store {0} sucessfully created!")
+    String storeCreated(String name);
+
+    @DefaultMessage("Error updating store: {0}")
+    String updateStoreError(String error);
+
+    @DefaultMessage("Store {0} successfully updated!")
+    String storeUpdated(String name);
 }

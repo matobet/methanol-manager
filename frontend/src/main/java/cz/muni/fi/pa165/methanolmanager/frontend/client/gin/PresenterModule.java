@@ -5,12 +5,12 @@ import cz.muni.fi.pa165.methanolmanager.frontend.client.admin.AdminPresenter;
 import cz.muni.fi.pa165.methanolmanager.frontend.client.admin.AdminView;
 import cz.muni.fi.pa165.methanolmanager.frontend.client.application.ApplicationPresenter;
 import cz.muni.fi.pa165.methanolmanager.frontend.client.application.ApplicationView;
+import cz.muni.fi.pa165.methanolmanager.frontend.client.bottles.BottlesPresenter;
+import cz.muni.fi.pa165.methanolmanager.frontend.client.bottles.BottlesView;
 import cz.muni.fi.pa165.methanolmanager.frontend.client.producer.ProducersPresenter;
 import cz.muni.fi.pa165.methanolmanager.frontend.client.producer.ProducersView;
 import cz.muni.fi.pa165.methanolmanager.frontend.client.store.StoresPresenter;
 import cz.muni.fi.pa165.methanolmanager.frontend.client.store.StoresView;
-import cz.muni.fi.pa165.methanolmanager.frontend.client.bottles.BottlesPresenter;
-import cz.muni.fi.pa165.methanolmanager.frontend.client.bottles.BottlesView;
 
 public class PresenterModule extends AbstractPresenterModule {
 

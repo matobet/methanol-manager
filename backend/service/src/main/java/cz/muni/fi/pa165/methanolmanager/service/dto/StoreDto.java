@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class StoreDto {
 
-    private Integer id;
+    public Integer id;
 
     private String name;
 
