@@ -15,4 +15,7 @@ public interface ApplicationConstants extends Constants {
 
     @DefaultStringValue("Admin")
     String admin();
+    
+    @DefaultStringValue("Bottles")
+    String bottles();
 }
