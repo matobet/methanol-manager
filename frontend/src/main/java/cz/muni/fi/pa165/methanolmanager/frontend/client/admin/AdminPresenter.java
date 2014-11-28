@@ -1,5 +1,8 @@
 package cz.muni.fi.pa165.methanolmanager.frontend.client.admin;
 
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
@@ -14,8 +17,8 @@ import javax.inject.Inject;
 public class AdminPresenter extends Presenter<AdminPresenter.ViewDef, AdminPresenter.Proxy> {
 
     public interface ViewDef extends View {
-
     }
+
     @ProxyCodeSplit
     @NameToken(NameTokens.ADMIN)
     public interface Proxy extends ProxyPlace<AdminPresenter> {

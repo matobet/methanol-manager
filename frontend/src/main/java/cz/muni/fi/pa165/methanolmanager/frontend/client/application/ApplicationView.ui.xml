@@ -9,7 +9,7 @@
 
   <ui:style>
     .push-down {
-      padding-top: 70px;    /* push below bootstrap nav-bar */
+      padding-top: 40px;    /* push below bootstrap nav-bar */
     }
   </ui:style>
 
@@ -25,10 +25,10 @@
 
           <b:NavbarCollapse b:id="navbar-collapse">
             <b:NavbarNav>
+              <b:AnchorListItem text="{constants.bottles}" targetHistoryToken="{nameTokens.bottles}" />
               <b:AnchorListItem text="{constants.stores}" targetHistoryToken="{nameTokens.stores}" />
               <b:AnchorListItem text="{constants.producers}" targetHistoryToken="{nameTokens.producers}" />
               <b:AnchorListItem text="{constants.admin}" targetHistoryToken="{nameTokens.admin}" />
-              <b:AnchorListItem text="{constants.bottles}" targetHistoryToken="{nameTokens.bottles}" />
             </b:NavbarNav>
           </b:NavbarCollapse>
         </b:Container>

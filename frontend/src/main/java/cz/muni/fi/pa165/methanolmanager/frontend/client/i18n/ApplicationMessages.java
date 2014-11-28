@@ -4,6 +4,6 @@ import com.google.gwt.i18n.client.Constants;
 import com.google.gwt.i18n.client.Messages;
 
 public interface ApplicationMessages extends Messages {
-    @DefaultMessage("Create bottle {0} of make {1}")
-    String bottleCreated(String bottleName, String makeName);
+    @DefaultMessage("Error fetching data: {0}")
+    String loadError(String error);
 }
