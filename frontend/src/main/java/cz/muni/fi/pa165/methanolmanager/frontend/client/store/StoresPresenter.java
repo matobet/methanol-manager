@@ -58,7 +58,7 @@ public class StoresPresenter extends Presenter<StoresPresenter.ViewDef, StoresPr
     @Inject
     public StoresPresenter(EventBus eventBus, ViewDef view, Proxy proxy,
                            StoreService storeService, ApplicationMessages messages,
-                           StorePopupView storePopup) {
+            StorePopupView storePopup) {
         super(eventBus, view, proxy, ApplicationPresenter.MAIN_CONTENT);
 
         this.storeService = storeService;

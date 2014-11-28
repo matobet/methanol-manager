@@ -53,4 +53,16 @@ public interface ApplicationMessages extends Messages {
 
     @DefaultMessage("Producer {0} successfully updated!")
     String producerUpdated(String name);
+
+    @DefaultMessage("Error creating bottle: {0}")
+    String createBottleError(String error);
+
+    @DefaultMessage("Bottle {0} sucessfully created!")
+    String bottleCreated(String name);
+
+    @DefaultMessage("Error updating bottle: {0}")
+    String updateBottleError(String error);
+
+    @DefaultMessage("Bottle {0} successfully updated!")
+    String bottleUpdated(String name);
 }

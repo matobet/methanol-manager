@@ -48,4 +48,13 @@ public interface ApplicationConstants extends Constants {
 
     @DefaultStringValue("Save")
     String save();
+
+    @DefaultStringValue("Make")
+    String makeName();
+
+    @DefaultStringValue("Production date")
+    String productionDate();
+
+    @DefaultStringValue("Stamp date")
+    String stampDate();
 }

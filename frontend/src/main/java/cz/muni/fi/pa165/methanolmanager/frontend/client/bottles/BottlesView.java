@@ -10,14 +10,15 @@ package cz.muni.fi.pa165.methanolmanager.frontend.client.bottles;
  * @author petr
  */
 
-import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.cellview.client.SimplePager;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.cellview.client.TextHeader;
 import com.google.gwt.view.client.HasData;
+import com.google.gwt.view.client.MultiSelectionModel;
 import com.google.gwt.view.client.RangeChangeEvent;
+import com.google.gwt.view.client.SetSelectionModel;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewImpl;
 import cz.muni.fi.pa165.methanolmanager.frontend.client.i18n.ApplicationConstants;
@@ -27,6 +28,7 @@ import org.gwtbootstrap3.client.ui.Label;
 import org.gwtbootstrap3.client.ui.Pagination;
 import org.gwtbootstrap3.client.ui.ProgressBar;
 import org.gwtbootstrap3.client.ui.Row;
+import org.gwtbootstrap3.client.ui.base.button.AbstractButton;
 import org.gwtbootstrap3.client.ui.gwt.CellTable;
 
 public class BottlesView extends ViewImpl implements BottlesPresenter.ViewDef {
@@ -49,6 +51,8 @@ public class BottlesView extends ViewImpl implements BottlesPresenter.ViewDef {
     @UiField
     Pagination bottlesPagination;
 
+    MultiSelectionModel<BottleDto> selectionModel;
+
     private final ApplicationConstants applicationConstants;
 
     @Inject
@@ -60,23 +64,28 @@ public class BottlesView extends ViewImpl implements BottlesPresenter.ViewDef {
     }
     
     @Override
-    public HasClickHandlers getCreateButton() {
+    public AbstractButton getCreateButton() {
         return createButton;
     }
 
     @Override
-    public HasClickHandlers getEditButton() {
+    public AbstractButton getEditButton() {
         return editButton;
     }
 
     @Override
-    public HasClickHandlers getDeleteButton() {
+    public AbstractButton getDeleteButton() {
         return deleteButton;
     }
 
     @Override
     public HasData<BottleDto> getBottlesTable() {
         return bottlesTable;
+    }
+
+    @Override
+    public SetSelectionModel<BottleDto> getBottleTableSelection() {
+        return selectionModel;
     }
 
     private void initBottlesTable() {
@@ -110,6 +119,9 @@ public class BottlesView extends ViewImpl implements BottlesPresenter.ViewDef {
                 return bottle.getStampDate().toString();
             }
         }, new TextHeader("Stamp date"));
+
+        selectionModel = new MultiSelectionModel<>();
+        bottlesTable.setSelectionModel(selectionModel);
 
         final SimplePager pager = new SimplePager();
 

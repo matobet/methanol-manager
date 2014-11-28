@@ -12,12 +12,13 @@ package cz.muni.fi.pa165.methanolmanager.frontend.client.bottles;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.cellview.client.LoadingStateChangeEvent;
 import static com.google.gwt.user.cellview.client.LoadingStateChangeEvent.LoadingState.LOADED;
 import static com.google.gwt.user.cellview.client.LoadingStateChangeEvent.LoadingState.LOADING;
 import com.google.gwt.view.client.HasData;
 import com.google.gwt.view.client.ListDataProvider;
+import com.google.gwt.view.client.SelectionChangeEvent;
+import com.google.gwt.view.client.SetSelectionModel;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
@@ -30,21 +31,24 @@ import cz.muni.fi.pa165.methanolmanager.frontend.client.place.NameTokens;
 import cz.muni.fi.pa165.methanolmanager.frontend.client.rest.BottleService;
 import cz.muni.fi.pa165.methanolmanager.service.dto.BottleDto;
 import java.util.List;
+import java.util.Set;
 
 import javax.inject.Inject;
 import org.fusesource.restygwt.client.Method;
 import org.fusesource.restygwt.client.MethodCallback;
+import org.gwtbootstrap3.client.ui.base.button.AbstractButton;
 import static org.gwtbootstrap3.extras.growl.client.ui.Growl.growl;
 import org.gwtbootstrap3.extras.growl.client.ui.GrowlHelper;
 import org.gwtbootstrap3.extras.growl.client.ui.GrowlOptions;
 
-public class BottlesPresenter extends Presenter<BottlesPresenter.ViewDef, BottlesPresenter.Proxy> {
+public class BottlesPresenter extends Presenter<BottlesPresenter.ViewDef, BottlesPresenter.Proxy> implements SelectionChangeEvent.Handler {
 
     public interface ViewDef extends View {
-        HasClickHandlers getCreateButton();
-        HasClickHandlers getEditButton();
-        HasClickHandlers getDeleteButton();
+        AbstractButton getCreateButton();
+        AbstractButton getEditButton();
+        AbstractButton getDeleteButton();
         HasData<BottleDto> getBottlesTable();
+        SetSelectionModel<BottleDto> getBottleTableSelection();
     }
 
     @ProxyStandard
@@ -55,14 +59,18 @@ public class BottlesPresenter extends Presenter<BottlesPresenter.ViewDef, Bottle
     private ListDataProvider<BottleDto> bottlesData;
     private final BottleService bottleService;
     private final ApplicationMessages messages;
+    private final BottlePopupView bottlePopup;
+    private BottleDto editedItem;
 
     @Inject
     public BottlesPresenter(EventBus eventBus, ViewDef view, Proxy proxy, 
-            BottleService bottleService, ApplicationMessages applicationMessages) {
+            BottleService bottleService, ApplicationMessages applicationMessages,
+            BottlePopupView bottlePopupView) {
         super(eventBus, view, proxy, ApplicationPresenter.MAIN_CONTENT);
         
         this.bottleService = bottleService;
         this.messages = applicationMessages;
+        this.bottlePopup = bottlePopupView;
     }
     
     @Override
@@ -72,26 +80,63 @@ public class BottlesPresenter extends Presenter<BottlesPresenter.ViewDef, Bottle
         registerHandler(getView().getCreateButton().addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent event) {
-                // show popup
+                bottlePopup.setSubmitHandler(new BottlePopupView.SubmitHandler() {
+                    @Override
+                    public void onSubmit(BottleDto bottle) {
+                        createBottle(bottle);
+                    }
+                });
+                bottlePopup.edit(new BottleDto());
+                bottlePopup.show();
             }
         }));
 
         registerHandler(getView().getEditButton().addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent event) {
-                // show popup
+                bottlePopup.setSubmitHandler(new BottlePopupView.SubmitHandler() {
+                    @Override
+                    public void onSubmit(BottleDto bottle) {
+                        updateBottle(bottle);
+                    }
+                });
+                editedItem = getView().getBottleTableSelection().getSelectedSet().iterator().next();
+                bottlePopup.edit(editedItem);
+                bottlePopup.show();
             }
         }));
 
-        registerHandler(getView().getEditButton().addClickHandler(new ClickHandler() {
+        registerHandler(getView().getDeleteButton().addClickHandler(new ClickHandler() {
             @Override
-            public void onClick(ClickEvent event) {
-                // delete selected
+            public void onClick(final ClickEvent event) {
+                Set<BottleDto> bottlesToDelete = getView().getBottleTableSelection().getSelectedSet();
+                bottlesData.getList().removeAll(bottlesToDelete);
+                for (BottleDto bottle : bottlesToDelete) {
+                    deleteBottle(bottle);
+                }
+                bottlesData.flush();
             }
         }));
+
+        registerHandler(getView().getBottleTableSelection().addSelectionChangeHandler(this));
 
         bottlesData = new ListDataProvider<>();
         bottlesData.addDataDisplay(getView().getBottlesTable());
+    }
+
+    @Override
+    protected void onReveal() {
+        super.onReveal();
+
+        fetchData();
+        onSelectionChange(null);
+    }
+
+    @Override
+    public void onSelectionChange(SelectionChangeEvent event) {
+        Set<BottleDto> selectedItems = getView().getBottleTableSelection().getSelectedSet();
+        getView().getEditButton().setEnabled(selectedItems.size() == 1);
+        getView().getDeleteButton().setEnabled(selectedItems.size() > 0);
     }
 
     private void fetchData() {
@@ -108,6 +153,51 @@ public class BottlesPresenter extends Presenter<BottlesPresenter.ViewDef, Bottle
                 bottlesData.setList(response);
                 bottlesData.flush();
                 fireEvent(new LoadingStateChangeEvent(LOADED));
+            }
+        });
+    }
+
+    private void createBottle(final BottleDto bottle) {
+        bottleService.createBottle(bottle, new MethodCallback<BottleDto>() {
+            @Override
+            public void onFailure(Method method, Throwable throwable) {
+                showError(messages.createBottleError(throwable.getLocalizedMessage()));
+            }
+
+            @Override
+            public void onSuccess(Method method, BottleDto createdBottle) {
+                fetchData();
+                growl(messages.bottleCreated(createdBottle.getName()));
+            }
+        });
+    }
+
+    private void updateBottle(final BottleDto bottle) {
+        bottleService.updateBottle(bottle.getId(), bottle, new MethodCallback<BottleDto>() {
+            @Override
+            public void onFailure(Method method, Throwable throwable) {
+                showError(messages.updateBottleError(throwable.getLocalizedMessage()));
+            }
+
+            @Override
+            public void onSuccess(Method method, BottleDto bottleDto) {
+                fetchData();
+                editedItem = null;
+                growl(messages.bottleUpdated(bottleDto.getName()));
+            }
+        });
+    }
+
+    private void deleteBottle(final BottleDto bottle) {
+        bottleService.deleteBottle(bottle.getId(), new MethodCallback<Void>() {
+            @Override
+            public void onFailure(Method method, Throwable exception) {
+                showError(messages.deleteBottleError(bottle.getName(), exception.getLocalizedMessage()));
+            }
+
+            @Override
+            public void onSuccess(Method method, Void response) {
+                growl(messages.bottleDeleted(bottle.getName()));
             }
         });
     }
