@@ -73,4 +73,17 @@ public class StoreService {
             throw new EntityNotFoundException(storeId);
         }
     }
+
+    @Transactional
+    public StoreDto updateStore(StoreDto storeDto) {
+        try {
+            Store store = storeRepository.findOne(storeDto.getId());
+            mapper.map(storeDto, store);
+            storeRepository.save(store);t
+
+            return mapper.map(store, StoreDto.class);
+        } catch (EmptyResultDataAccessException e) {
+            throw new EntityNotFoundException(storeDto.getId());
+        }
+    }
 }

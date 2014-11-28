@@ -16,7 +16,7 @@
         <b:FieldSet>
           <b:FormGroup>
             <b:FormLabel for="nameEditor" text="{constants.name}" />
-            <b:TextBox ui:field="nameEditor" b:id="nameEditor" />
+            <b:TextBox ui:field="nameEditor" b:id="nameEditor" focus="true" />
           </b:FormGroup>
           <b:FormGroup>
             <b:FormLabel for="addressEditor" text="{constants.address}" />

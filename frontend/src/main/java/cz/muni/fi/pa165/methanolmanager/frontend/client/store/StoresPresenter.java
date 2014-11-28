@@ -159,15 +159,14 @@ public class StoresPresenter extends Presenter<StoresPresenter.ViewDef, StoresPr
 
             @Override
             public void onSuccess(Method method, StoreDto createdStore) {
-                storesData.getList().add(createdStore);
-                storesData.flush();
+                fetchData();
                 growl(messages.storeCreated(createdStore.getName()));
             }
         });
     }
 
     private void updateStore(final StoreDto store) {
-        storeService.updateStore(store, new MethodCallback<StoreDto>() {
+        storeService.updateStore(store.getId(), store, new MethodCallback<StoreDto>() {
             @Override
             public void onFailure(Method method, Throwable throwable) {
                 showError(messages.updateStoreError(throwable.getLocalizedMessage()));
@@ -175,10 +174,7 @@ public class StoresPresenter extends Presenter<StoresPresenter.ViewDef, StoresPr
 
             @Override
             public void onSuccess(Method method, StoreDto storeDto) {
-                storesData.getList().remove(editedItem);
-                storesData.getList().add(storeDto);
-                storesData.flush();
-                storesData.refresh();
+                fetchData();
                 editedItem = null;
                 growl(messages.storeUpdated(storeDto.getName()));
             }

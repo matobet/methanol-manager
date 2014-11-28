@@ -21,6 +21,7 @@ import java.util.List;
 import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 @RestController
 @RequestMapping("/api/stores")
@@ -51,5 +52,10 @@ public class StoreController {
     @RequestMapping(value = "/{id}", method = DELETE)
     public void deleteStore(@PathVariable int id) {
         storeService.deleteStore(id);
+    }
+
+    @RequestMapping(value = "/{id}", method = PUT)
+    public StoreDto updateStore(@PathVariable("id") int id, @RequestBody StoreDto store) {
+        return storeService.updateStore(store);
     }
 }

@@ -30,7 +30,7 @@ public interface StoreService extends RestService {
 
     @PUT
     @Path("/{id}")
-    void updateStore(@PathParam("id") @Attribute("id") StoreDto storeDto, MethodCallback<StoreDto> callback);
+    void updateStore(@PathParam("id") int id, StoreDto storeDto, MethodCallback<StoreDto> callback);
 
     @DELETE
     @Path("/{id}")
