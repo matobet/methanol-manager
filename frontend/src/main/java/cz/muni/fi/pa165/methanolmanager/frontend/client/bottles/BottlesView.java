@@ -10,18 +10,121 @@ package cz.muni.fi.pa165.methanolmanager.frontend.client.bottles;
  * @author petr
  */
 
+import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.cellview.client.SimplePager;
+import com.google.gwt.user.cellview.client.TextColumn;
+import com.google.gwt.user.cellview.client.TextHeader;
+import com.google.gwt.view.client.HasData;
+import com.google.gwt.view.client.RangeChangeEvent;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewImpl;
+import cz.muni.fi.pa165.methanolmanager.frontend.client.i18n.ApplicationConstants;
+import cz.muni.fi.pa165.methanolmanager.service.dto.BottleDto;
+import org.gwtbootstrap3.client.ui.Button;
+import org.gwtbootstrap3.client.ui.Label;
+import org.gwtbootstrap3.client.ui.Pagination;
+import org.gwtbootstrap3.client.ui.ProgressBar;
 import org.gwtbootstrap3.client.ui.Row;
+import org.gwtbootstrap3.client.ui.gwt.CellTable;
 
 public class BottlesView extends ViewImpl implements BottlesPresenter.ViewDef {
 
     interface Binder extends UiBinder<Row, BottlesView> {
     }
+    
+    @UiField
+    Button createButton;
+
+    @UiField
+    Button editButton;
+
+    @UiField
+    Button deleteButton;;
+
+    @UiField
+    CellTable<BottleDto> bottlesTable;
+
+    @UiField
+    Pagination bottlesPagination;
+
+    private final ApplicationConstants applicationConstants;
 
     @Inject
-    public BottlesView(Binder binder) {
+    public BottlesView(Binder binder, ApplicationConstants applicationConstants) {
+        this.applicationConstants = applicationConstants;
+        
         initWidget(binder.createAndBindUi(this));
+        initBottlesTable();
+    }
+    
+    @Override
+    public HasClickHandlers getCreateButton() {
+        return createButton;
+    }
+
+    @Override
+    public HasClickHandlers getEditButton() {
+        return editButton;
+    }
+
+    @Override
+    public HasClickHandlers getDeleteButton() {
+        return deleteButton;
+    }
+
+    @Override
+    public HasData<BottleDto> getBottlesTable() {
+        return bottlesTable;
+    }
+
+    private void initBottlesTable() {
+        bottlesTable.addColumn(new TextColumn<BottleDto>() {
+            @Override
+            public String getValue(BottleDto bottle) {
+                return bottle.getId().toString();
+            }
+        }, new TextHeader("Id"));
+        bottlesTable.addColumn(new TextColumn<BottleDto>() {
+            @Override
+            public String getValue(BottleDto bottle) {
+                return bottle.getName();
+            }
+        }, new TextHeader("Name"));
+        bottlesTable.addColumn(new TextColumn<BottleDto>() {
+            @Override
+            public String getValue(BottleDto bottle) {
+                return bottle.getMakeName();
+            }
+        }, new TextHeader("Make"));
+        bottlesTable.addColumn(new TextColumn<BottleDto>() {
+            @Override
+            public String getValue(BottleDto bottle) {
+                return bottle.getProductionDate().toString();
+            }
+        }, new TextHeader("Production date"));
+        bottlesTable.addColumn(new TextColumn<BottleDto>() {
+            @Override
+            public String getValue(BottleDto bottle) {
+                return bottle.getStampDate().toString();
+            }
+        }, new TextHeader("Stamp date"));
+
+        final SimplePager pager = new SimplePager();
+
+        bottlesTable.addRangeChangeHandler(new RangeChangeEvent.Handler() {
+            @Override
+            public void onRangeChange(RangeChangeEvent event) {
+                bottlesPagination.rebuild(pager);
+            }
+        });
+
+        bottlesTable.setLoadingIndicator(new ProgressBar());
+        bottlesTable.setEmptyTableWidget(new Label(applicationConstants.noBottlesYet()));
+
+        pager.setDisplay(bottlesTable);
+        bottlesPagination.clear();
+        bottlesPagination.rebuild(pager);
     }
 }

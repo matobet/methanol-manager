@@ -30,4 +30,7 @@ public interface ApplicationConstants extends Constants {
 
     @DefaultStringValue("No stores added yet!")
     String noStoresYet();
+    
+    @DefaultStringValue("No bottles added yet!")
+    String noBottlesYet();
 }
