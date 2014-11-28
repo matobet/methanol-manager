@@ -1,6 +1,5 @@
 package cz.muni.fi.pa165.methanolmanager.frontend.client.i18n;
 
-import com.google.gwt.i18n.client.Constants;
 import com.google.gwt.i18n.client.Messages;
 
 public interface ApplicationMessages extends Messages {
@@ -10,7 +9,7 @@ public interface ApplicationMessages extends Messages {
     @DefaultMessage("Error deleting store {0}: {1}")
     String deleteStoreError(String name, String error);
 
-    @DefaultMessage("Bottle {0} sucessfully deleted!")
+    @DefaultMessage("Store {0} sucessfully deleted!")
     String storeDeleted(String name);
     
     @DefaultMessage("Error loading bottle: {0}")
@@ -33,4 +32,25 @@ public interface ApplicationMessages extends Messages {
 
     @DefaultMessage("Store {0} successfully updated!")
     String storeUpdated(String name);
+
+    @DefaultMessage("Error updating producer: {0}")
+    String updateProducerError(String error);
+
+    @DefaultMessage("Error loading producers: {0}")
+    String loadProducerError(String error);
+
+    @DefaultMessage("Error deleting producer {0}: {1}")
+    String deleteProducerError(String name, String error);
+
+    @DefaultMessage("Producer {0} sucessfully deleted!")
+    String producerDeleted(String name);
+
+    @DefaultMessage("Error creating producer: {0}")
+    String createProducerError(String error);
+
+    @DefaultMessage("Producer {0} sucessfully created!")
+    String producerCreated(String name);
+
+    @DefaultMessage("Producer {0} successfully updated!")
+    String producerUpdated(String name);
 }

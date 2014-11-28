@@ -32,10 +32,21 @@ public class ProducerService {
     Mapper mapper;
 
     @Transactional
-    public void createProducer(ProducerDto producerDto) {
+    public ProducerDto createProducer(ProducerDto producerDto) {
         Producer producer = mapper.map(producerDto, Producer.class);
 
         producerRepository.save(producer);
+
+        return mapper.map(producer, ProducerDto.class);
+    }
+
+    public ProducerDto getProducer(int producerId) {
+        Producer producer = producerRepository.findOne(producerId);
+        if (producer == null) {
+            throw new EntityNotFoundException(producerId);
+        }
+
+        return mapper.map(producer, ProducerDto.class);
     }
 
     public List<ProducerDto> getProducers() {
