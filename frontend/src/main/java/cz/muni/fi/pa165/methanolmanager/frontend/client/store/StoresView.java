@@ -9,7 +9,9 @@ import com.google.gwt.user.cellview.client.TextHeader;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.HasData;
 import com.google.gwt.view.client.ListDataProvider;
+import com.google.gwt.view.client.MultiSelectionModel;
 import com.google.gwt.view.client.RangeChangeEvent;
+import com.google.gwt.view.client.SetSelectionModel;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewImpl;
 import cz.muni.fi.pa165.methanolmanager.frontend.client.i18n.ApplicationConstants;
@@ -19,6 +21,7 @@ import org.gwtbootstrap3.client.ui.Label;
 import org.gwtbootstrap3.client.ui.Pagination;
 import org.gwtbootstrap3.client.ui.ProgressBar;
 import org.gwtbootstrap3.client.ui.Row;
+import org.gwtbootstrap3.client.ui.base.button.AbstractButton;
 import org.gwtbootstrap3.client.ui.gwt.CellTable;
 
 public class StoresView extends ViewImpl implements StoresPresenter.ViewDef {
@@ -41,6 +44,8 @@ public class StoresView extends ViewImpl implements StoresPresenter.ViewDef {
     @UiField
     Pagination storesPagination;
 
+    MultiSelectionModel<StoreDto> selectionModel;
+
     private final ApplicationConstants applicationConstants;
 
     @Inject
@@ -52,23 +57,28 @@ public class StoresView extends ViewImpl implements StoresPresenter.ViewDef {
     }
 
     @Override
-    public HasClickHandlers getCreateButton() {
+    public AbstractButton getCreateButton() {
         return createButton;
     }
 
     @Override
-    public HasClickHandlers getEditButton() {
+    public AbstractButton getEditButton() {
         return editButton;
     }
 
     @Override
-    public HasClickHandlers getDeleteButton() {
+    public AbstractButton getDeleteButton() {
         return deleteButton;
     }
 
     @Override
     public HasData<StoreDto> getStoreTable() {
         return storesTable;
+    }
+
+    @Override
+    public SetSelectionModel<StoreDto> getStoreTableSelection() {
+        return selectionModel;
     }
 
     private void initStoresTable() {
@@ -90,6 +100,9 @@ public class StoresView extends ViewImpl implements StoresPresenter.ViewDef {
                 return store.getAddress();
             }
         }, new TextHeader("Address"));
+
+        selectionModel = new MultiSelectionModel<>();
+        storesTable.setSelectionModel(selectionModel);
 
         final SimplePager pager = new SimplePager();
 

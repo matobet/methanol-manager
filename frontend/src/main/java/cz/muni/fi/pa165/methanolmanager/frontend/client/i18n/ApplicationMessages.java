@@ -4,6 +4,12 @@ import com.google.gwt.i18n.client.Constants;
 import com.google.gwt.i18n.client.Messages;
 
 public interface ApplicationMessages extends Messages {
-    @DefaultMessage("Error fetching data: {0}")
-    String loadError(String error);
+    @DefaultMessage("Error loading stores: {0}")
+    String loadStoreError(String error);
+
+    @DefaultMessage("Error deleting store {0}: {1}")
+    String deleteStoreError(String name, String error);
+
+    @DefaultMessage("Store {0} sucessfully deleted!")
+    String storeDeleted(String name);
 }

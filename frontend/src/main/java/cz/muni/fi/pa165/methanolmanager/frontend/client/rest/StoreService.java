@@ -4,6 +4,7 @@ import cz.muni.fi.pa165.methanolmanager.service.dto.StoreDto;
 import org.fusesource.restygwt.client.MethodCallback;
 import org.fusesource.restygwt.client.RestService;
 
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -18,4 +19,8 @@ public interface StoreService extends RestService {
 
     @GET
     void getStores(MethodCallback<List<StoreDto>> callback);
+
+    @DELETE
+    @Path("/{id}")
+    void deleteStore(@PathParam("id") int id, MethodCallback<Void> callback);
 }

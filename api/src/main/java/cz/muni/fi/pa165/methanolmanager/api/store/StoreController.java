@@ -16,6 +16,7 @@ import javax.inject.Inject;
 
 import java.util.List;
 
+import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
@@ -42,5 +43,10 @@ public class StoreController {
     @RequestMapping(method = POST)
     public void createStore(@RequestBody StoreDto store) {
         storeService.createStore(store);
+    }
+
+    @RequestMapping(value = "/{id}", method = DELETE)
+    public void deleteStore(@PathVariable int id) {
+        storeService.deleteStore(id);
     }
 }
