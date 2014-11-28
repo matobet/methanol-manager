@@ -17,6 +17,16 @@ Project for PA165: Liquor bottles registry during prohibition
 ## Running
 
     mvn spring-boot:run
+    
+## Production Build
+
+    mvn clean package -Pproduction
+
+## Production Run
+
+    java -jar frontend/target/frontend-1.0-SNAPSHOT.war
+    
+or deploy frontend/target/frontend-1.0-SNAPSHOT.war.original to Tomcat.
 
 ## Debugging GWT
 

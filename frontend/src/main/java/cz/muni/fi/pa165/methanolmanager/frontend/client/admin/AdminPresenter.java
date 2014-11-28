@@ -19,8 +19,8 @@ public class AdminPresenter extends Presenter<AdminPresenter.ViewDef, AdminPrese
     @ProxyCodeSplit
     @NameToken(NameTokens.ADMIN)
     public interface Proxy extends ProxyPlace<AdminPresenter> {
-
     }
+
     @Inject
     public AdminPresenter(EventBus eventBus, ViewDef view, Proxy proxy) {
         super(eventBus, view, proxy, ApplicationPresenter.MAIN_CONTENT);

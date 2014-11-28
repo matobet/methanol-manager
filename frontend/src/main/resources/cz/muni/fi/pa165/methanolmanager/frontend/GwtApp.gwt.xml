@@ -24,12 +24,10 @@
   <inherits name="com.google.gwt.inject.Inject" />
 
   <!-- Czech language, independent of country -->
-  <extend-property name="locale" values="cz" />
+  <extend-property name="locale" values="cs" />
 
-  <!-- English language, independent of country -->
-  <extend-property name="locale" values="en" />
-
-  <set-property-fallback name="locale" value="cz" />
+  <set-configuration-property name="locale.useragent" value="Y"/>
+  <set-configuration-property name="locale.searchorder" value="useragent,queryparam,cookie,meta"/>
 
   <!-- Inherit the default GWT style sheet. You can change -->
   <!-- the theme of your GWT application by uncommenting -->
