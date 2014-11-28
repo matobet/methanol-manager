@@ -79,7 +79,7 @@ public class StoreService {
         try {
             Store store = storeRepository.findOne(storeDto.getId());
             mapper.map(storeDto, store);
-            storeRepository.save(store);t
+            storeRepository.save(store);
 
             return mapper.map(store, StoreDto.class);
         } catch (EmptyResultDataAccessException e) {
