@@ -87,6 +87,13 @@ public class StoresPresenter extends Presenter<StoresPresenter.ViewDef, StoresPr
         storesData.addDataDisplay(getView().getStoreTable());
     }
 
+    @Override
+    protected void onReveal() {
+        super.onReveal();
+
+        fetchData();
+    }
+
     private void fetchData() {
         fireEvent(new LoadingStateChangeEvent(LOADING));
         storeService.getStores(new MethodCallback<List<StoreDto>>() {

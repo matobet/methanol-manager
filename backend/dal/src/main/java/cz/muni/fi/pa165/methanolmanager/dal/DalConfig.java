@@ -16,6 +16,9 @@
 
 package cz.muni.fi.pa165.methanolmanager.dal;
 
+import cz.muni.fi.pa165.methanolmanager.dal.domain.Store;
+import cz.muni.fi.pa165.methanolmanager.dal.repository.StoreRepository;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.orm.jpa.EntityScan;
@@ -30,4 +33,15 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EntityScan(basePackages = "cz.muni.fi.pa165.methanolmanager.dal.domain")
 @ComponentScan
 public class DalConfig {
+    @Bean
+    InitializingBean seedData(final StoreRepository storeRepository) {
+        return new InitializingBean() {
+            @Override
+            public void afterPropertiesSet() throws Exception {
+                storeRepository.save(new Store("Brnenka", "Lidicka 234"));
+                storeRepository.save(new Store("Tesco", "Kr. Pole"));
+                storeRepository.save(new Store("NonStop", "Arabska 15"));
+            }
+        };
+    }
 }

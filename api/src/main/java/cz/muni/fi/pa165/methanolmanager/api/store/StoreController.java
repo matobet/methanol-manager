@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
 
+import java.util.List;
+
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
@@ -29,6 +32,11 @@ public class StoreController {
     @RequestMapping("/{id}")
     public StoreDto getStore(@PathVariable int id) {
         return storeService.getStore(id);
+    }
+
+    @RequestMapping(method = GET)
+    public List<StoreDto> getStores() {
+        return storeService.getStores();
     }
 
     @RequestMapping(method = POST)

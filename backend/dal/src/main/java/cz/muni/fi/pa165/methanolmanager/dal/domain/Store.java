@@ -1,7 +1,9 @@
 package cz.muni.fi.pa165.methanolmanager.dal.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.Entity;
@@ -14,6 +16,7 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
+@NoArgsConstructor
 @Entity
 public class Store extends AbstractNamedEntity {
 
@@ -21,4 +24,9 @@ public class Store extends AbstractNamedEntity {
 
     @OneToMany(mappedBy = "store")
     private List<Bottle> bottles;
+
+    public Store(String name, String address) {
+        super(name);
+        this.address = address;
+    }
 }
