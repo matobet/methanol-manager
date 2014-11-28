@@ -7,6 +7,7 @@ import lombok.ToString;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import java.util.Date;
+import lombok.NoArgsConstructor;
 
 /*
  * @author Pavel Vomacka
@@ -14,6 +15,7 @@ import java.util.Date;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
+@NoArgsConstructor
 @Entity
 public class Bottle extends AbstractNamedEntity {
 
@@ -35,5 +37,14 @@ public class Bottle extends AbstractNamedEntity {
 
     public void stamp() {
         stampDate = new Date();
+    }
+
+    public Bottle(String name, Date productionDate, Date stampDate, boolean toxic, Make make, Store store) {
+        super(name);
+        this.productionDate = productionDate;
+        this.stampDate = stampDate;
+        this.toxic = toxic;
+        this.make = make;
+        this.store = store;
     }
 }

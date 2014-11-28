@@ -7,6 +7,7 @@ import lombok.ToString;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.util.List;
+import lombok.NoArgsConstructor;
 
 /*
  * @author Zuzana Melsova
@@ -14,9 +15,14 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
+@NoArgsConstructor
 @Entity
 public class Producer extends AbstractNamedEntity {
 
     @OneToMany(mappedBy = "producer")
     private List<Make> makes;
+
+    public Producer(String name) {
+        super(name);
+    }
 }
