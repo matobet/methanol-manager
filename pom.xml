@@ -11,7 +11,7 @@
   <artifactId>methanol-manager-root</artifactId>
   <groupId>cz.fi.muni.pa165.methanolmanager</groupId>
   <packaging>pom</packaging>
-  <name>Methanol Manager</name>
+  <name>Methanol Manager :: Root</name>
   <description>Liquor bottles registry during prohibition</description>
   <version>1.0-SNAPSHOT</version>
 
@@ -19,6 +19,8 @@
     <module>backend</module>
     <module>api</module>
     <module>frontend</module>
+    <module>service-api</module>
+    <module>cli</module>
   </modules>
 
   <properties>

@@ -9,9 +9,8 @@
   </parent>
 
   <artifactId>frontend</artifactId>
-  <groupId>cz.fi.muni.pa165.methanolmanager</groupId>
   <packaging>war</packaging>
-  <name>Methanol Manager - Frontend Module</name>
+  <name>Methanol Manager :: Frontend Module</name>
 
   <properties>
     <outputFolder>${project.build.directory}/${project.build.finalName}</outputFolder>
@@ -85,8 +84,8 @@
     </dependency>
 
     <dependency>
-      <groupId>cz.fi.muni.pa165.methanolmanager</groupId>
-      <artifactId>service</artifactId>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>service-api</artifactId>
       <version>${project.version}</version>
       <classifier>sources</classifier>
     </dependency>

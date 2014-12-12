@@ -3,7 +3,6 @@ package cz.muni.fi.pa165.methanolmanager.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.anyChar;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -13,7 +12,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import cz.muni.fi.pa165.methanolmanager.service.dto.StoreWithBottlesDto;
 import cz.muni.fi.pa165.methanolmanager.service.exception.EntityNotFoundException;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,7 +24,6 @@ import cz.muni.fi.pa165.methanolmanager.dal.repository.MakeRepository;
 import cz.muni.fi.pa165.methanolmanager.dal.repository.StoreRepository;
 import cz.muni.fi.pa165.methanolmanager.service.dto.BottleDto;
 import cz.muni.fi.pa165.methanolmanager.service.dto.StoreDto;
-import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 
 /**

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozer.sourceforge.net
+          http://dozer.sourceforge.net/schema/beanmapping.xsd">
+
+  <mapping>
+    <class-a>cz.muni.fi.pa165.methanolmanager.dal.domain.Bottle</class-a>
+    <class-b>cz.muni.fi.pa165.methanolmanager.service.dto.BottleDto</class-b>
+    <field>
+      <a>make.name</a>
+      <b>makeName</b>
+    </field>
+  </mapping>
+
+  <mapping>
+    <class-a>cz.muni.fi.pa165.methanolmanager.dal.domain.Make</class-a>
+    <class-b>cz.muni.fi.pa165.methanolmanager.service.dto.MakeDto</class-b>
+    <field>
+      <a>producer.name</a>
+      <b>producerName</b>
+    </field>
+  </mapping>
+
+
+</mappings>

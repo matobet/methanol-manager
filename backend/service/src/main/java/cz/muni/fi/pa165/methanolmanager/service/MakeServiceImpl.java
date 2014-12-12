@@ -18,7 +18,7 @@ import javax.inject.Inject;
 
 @Service
 @Transactional(readOnly = true)
-public class MakeService {
+public class MakeServiceImpl implements MakeService {
 
     @Inject
     MakeRepository makeRepository;
@@ -29,12 +29,14 @@ public class MakeService {
     @Inject
     Mapper mapper;
 
+    @Override
     @Transactional
     public void createMake(MakeDto makeDto){
         Make make = mapper.map(makeDto, Make.class);
         makeRepository.save(make);
     }
 
+    @Override
     public boolean hasToxicBottles(int makeId){
         Make make = makeRepository.findOne(makeId);
         if (make == null) {
@@ -43,6 +45,7 @@ public class MakeService {
         return (bottleRepository.countToxicByMake(make) > 0);
     }
 
+    @Override
     @Transactional
     public void deleteMake(int makeId){
         try {

@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProducerDto {
+
     public Integer id;
+
     private String name;
 }

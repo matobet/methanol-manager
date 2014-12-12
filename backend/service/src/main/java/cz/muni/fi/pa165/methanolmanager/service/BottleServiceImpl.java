@@ -19,7 +19,7 @@ import javax.inject.Inject;
 
 @Service
 @Transactional(readOnly = true)
-public class BottleService {
+public class BottleServiceImpl implements BottleService {
 
     @Inject
     BottleRepository bottleRepository;
@@ -27,6 +27,7 @@ public class BottleService {
     @Inject
     Mapper mapper;
 
+    @Override
     public List<BottleDto> getBottles() {
         List<BottleDto> bottles = new ArrayList<>();
         for (Bottle bottle : bottleRepository.findAll()) {
@@ -35,6 +36,7 @@ public class BottleService {
         return bottles;
     }
 
+    @Override
     public BottleDto getBottle(int bottleId) {
         Bottle bottle = bottleRepository.findOne(bottleId);
         if (bottle == null) {
@@ -44,12 +46,14 @@ public class BottleService {
         return mapper.map(bottle, BottleDto.class);
     }
 
+    @Override
     @Transactional
     public void createBottle(BottleDto bottleDto) {
         Bottle bottle = mapper.map(bottleDto, Bottle.class);
         bottleRepository.save(bottle);
     }
 
+    @Override
     @Transactional
     public void deleteBottle(int bottleId) {
         try {
@@ -59,6 +63,7 @@ public class BottleService {
         }
     }
 
+    @Override
     @Transactional
     public void stampBottle(int bottleId) {
         Bottle bottle = bottleRepository.findOne(bottleId);
@@ -74,8 +79,9 @@ public class BottleService {
         bottleRepository.save(bottle);
     }
 
+    @Override
     @Transactional
-    public BottleDto updateStore(BottleDto storeDto) {
+    public BottleDto updateBottle(BottleDto storeDto) {
         try {
             Bottle store = bottleRepository.findOne(storeDto.getId());
             mapper.map(storeDto, store);

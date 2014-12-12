@@ -8,9 +8,7 @@
   </parent>
 
   <artifactId>dal</artifactId>
-  <groupId>cz.fi.muni.pa165.methanolmanager</groupId>
-  <packaging>jar</packaging>
-  <name>Methanol Manager - Data Access Layer Module</name>
+  <name>Methanol Manager :: Data Access Layer Module</name>
 
   <properties>
     <derby.version>10.11.1.1</derby.version>

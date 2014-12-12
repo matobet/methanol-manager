@@ -20,7 +20,7 @@ import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
-public class ProducerService {
+public class ProducerServiceImpl implements ProducerService {
 
     @Inject
     ProducerRepository producerRepository;
@@ -31,6 +31,7 @@ public class ProducerService {
     @Inject
     Mapper mapper;
 
+    @Override
     @Transactional
     public ProducerDto createProducer(ProducerDto producerDto) {
         Producer producer = mapper.map(producerDto, Producer.class);
@@ -40,6 +41,7 @@ public class ProducerService {
         return mapper.map(producer, ProducerDto.class);
     }
 
+    @Override
     public ProducerDto getProducer(int producerId) {
         Producer producer = producerRepository.findOne(producerId);
         if (producer == null) {
@@ -49,6 +51,7 @@ public class ProducerService {
         return mapper.map(producer, ProducerDto.class);
     }
 
+    @Override
     public List<ProducerDto> getProducers() {
         List<ProducerDto> producers = new ArrayList<>();
         for (Producer producer : producerRepository.findAll()) {
@@ -57,6 +60,7 @@ public class ProducerService {
         return producers;
     }
 
+    @Override
     public long countProducedToxicBottles(int producerId) {
         Producer producer = producerRepository.findOne(producerId);
 
@@ -67,6 +71,7 @@ public class ProducerService {
         return bottleRepository.countToxicByProducer(producer);
     }
 
+    @Override
     public long countProducedNonToxicBottles(int producerId) {
         Producer producer = producerRepository.findOne(producerId);
 
@@ -78,6 +83,7 @@ public class ProducerService {
     }
 
 
+    @Override
     @Transactional
     public void deleteProducer(int producerId) {
         try {

@@ -1,7 +1,6 @@
 package cz.muni.fi.pa165.methanolmanager.service.dto;
 
 import lombok.Data;
-import org.dozer.Mapping;
 
 import java.util.Date;
 
@@ -21,6 +20,5 @@ public class BottleDto {
 
     private Date stampDate;
 
-    @Mapping("make.name")
     private String makeName;
 }

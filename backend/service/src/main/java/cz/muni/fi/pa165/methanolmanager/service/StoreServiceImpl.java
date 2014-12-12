@@ -22,7 +22,7 @@ import cz.muni.fi.pa165.methanolmanager.dal.repository.StoreRepository;
  */
 @Service
 @Transactional(readOnly = true)
-public class StoreService {
+public class StoreServiceImpl implements StoreService {
 
     @Inject
     StoreRepository storeRepository;
@@ -30,6 +30,7 @@ public class StoreService {
     @Inject
     Mapper mapper;
 
+    @Override
     public List<StoreDto> getStores() {
         List<StoreDto> stores = new ArrayList<>();
         for (Store store : storeRepository.findAll()) {
@@ -38,6 +39,7 @@ public class StoreService {
         return stores;
     }
 
+    @Override
     public StoreDto getStore(int storeId) {
         Store store = storeRepository.findOne(storeId);
         if (store == null) {
@@ -47,6 +49,7 @@ public class StoreService {
         return mapper.map(store, StoreDto.class);
     }
 
+    @Override
     public StoreWithBottlesDto getStoreWithBottles(int storeId) {
         Store store = storeRepository.findOne(storeId);
         if (store == null) {
@@ -56,6 +59,7 @@ public class StoreService {
         return mapper.map(store, StoreWithBottlesDto.class);
     }
 
+    @Override
     @Transactional
     public StoreDto createStore(StoreDto storeDto) {
         Store store = mapper.map(storeDto, Store.class);
@@ -65,6 +69,7 @@ public class StoreService {
         return mapper.map(store, StoreDto.class);
     }
 
+    @Override
     @Transactional
     public void deleteStore(int storeId) {
         try {
@@ -74,6 +79,7 @@ public class StoreService {
         }
     }
 
+    @Override
     @Transactional
     public StoreDto updateStore(StoreDto storeDto) {
         try {

@@ -2,14 +2,19 @@ package cz.muni.fi.pa165.methanolmanager.api.producer;
 
 import cz.muni.fi.pa165.methanolmanager.service.ProducerService;
 import cz.muni.fi.pa165.methanolmanager.service.dto.ProducerDto;
-import org.dozer.Mapper;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
 import java.util.List;
 
-import static org.springframework.web.bind.annotation.RequestMethod.*;
+import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
 @RequestMapping("/api/producers")
@@ -17,9 +22,6 @@ public class ProducerController {
 
     @Inject
     ProducerService producerService;
-
-    @Inject
-    Mapper mapper;
 
     @RequestMapping("/{id}")
     public ProducerDto getProducer(@PathVariable int id) {

@@ -1,7 +1,6 @@
 package cz.muni.fi.pa165.methanolmanager.service.dto;
 
 import lombok.Data;
-import org.dozer.Mapping;
 
 /**
  * @author Zuzana Melsova
@@ -13,6 +12,5 @@ public class MakeDto {
 
     private String name;
 
-    @Mapping("producer.name")
     private String producerName;
 }
