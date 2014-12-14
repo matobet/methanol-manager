@@ -92,4 +92,18 @@ public class ProducerServiceImpl implements ProducerService {
             throw new EntityNotFoundException(producerId);
         }
     }
+
+    @Override
+    @Transactional
+    public ProducerDto updateProducer(ProducerDto producerDto) {
+        try {
+            Producer producer = producerRepository.findOne(producerDto.getId());
+            mapper.map(producerDto, producer);
+            producerRepository.save(producer);
+
+            return mapper.map(producer, ProducerDto.class);
+        } catch (EmptyResultDataAccessException e) {
+            throw new EntityNotFoundException(producerDto.getId());
+        }
+    }
 }

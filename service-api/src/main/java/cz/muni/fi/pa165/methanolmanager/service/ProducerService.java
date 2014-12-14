@@ -16,4 +16,6 @@ public interface ProducerService {
     long countProducedNonToxicBottles(int producerId);
 
     void deleteProducer(int producerId);
+
+    ProducerDto updateProducer(ProducerDto producerDto);
 }

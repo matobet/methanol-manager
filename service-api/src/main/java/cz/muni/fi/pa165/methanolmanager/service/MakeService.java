@@ -8,4 +8,6 @@ public interface MakeService {
     boolean hasToxicBottles(int makeId);
 
     void deleteMake(int makeId);
+
+    MakeDto updateMake(MakeDto makeDto);
 }

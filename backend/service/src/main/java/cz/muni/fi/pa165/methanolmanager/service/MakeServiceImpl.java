@@ -54,4 +54,18 @@ public class MakeServiceImpl implements MakeService {
             throw new EntityNotFoundException(makeId);
         }
     }
+
+    @Override
+    @Transactional
+    public MakeDto updateMake(MakeDto makeDto) {
+        try {
+            Make make = makeRepository.findOne(makeDto.getId());
+            mapper.map(makeDto, make);
+            makeRepository.save(make);
+
+            return mapper.map(make, MakeDto.class);
+        } catch (EmptyResultDataAccessException e) {
+            throw new EntityNotFoundException(makeDto.getId());
+        }
+    }
 }
