@@ -89,6 +89,12 @@
       <version>${project.version}</version>
       <classifier>sources</classifier>
     </dependency>
+
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>service</artifactId>
+      <version>${project.version}</version>
+    </dependency>
   </dependencies>
 
   <profiles>
