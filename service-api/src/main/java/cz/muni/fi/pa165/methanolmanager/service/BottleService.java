@@ -9,7 +9,7 @@ public interface BottleService {
 
     BottleDto getBottle(int bottleId);
 
-    void createBottle(BottleDto bottleDto);
+    BottleDto createBottle(BottleDto bottleDto);
 
     void deleteBottle(int bottleId);
 

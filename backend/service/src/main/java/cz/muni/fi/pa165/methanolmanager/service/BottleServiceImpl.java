@@ -48,9 +48,11 @@ public class BottleServiceImpl implements BottleService {
 
     @Override
     @Transactional
-    public void createBottle(BottleDto bottleDto) {
+    public BottleDto createBottle(BottleDto bottleDto) {
         Bottle bottle = mapper.map(bottleDto, Bottle.class);
         bottleRepository.save(bottle);
+
+        return mapper.map(bottle, BottleDto.class);
     }
 
     @Override
