@@ -20,7 +20,7 @@ public interface BottleService extends RestService {
     void getBottle(@PathParam("id") int id, MethodCallback<BottleDto> callback);
     
     @GET
-    void getBottles(MethodCallback<List<BottleDto>> bottles);
+    void getBottles(MethodCallback<List<BottleDto>> callback);
 
     @POST
     @Options(expect = 201)

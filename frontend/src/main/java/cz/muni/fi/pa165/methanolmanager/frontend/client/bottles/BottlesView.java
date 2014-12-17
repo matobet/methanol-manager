@@ -43,7 +43,7 @@ public class BottlesView extends ViewImpl implements BottlesPresenter.ViewDef {
     Button editButton;
 
     @UiField
-    Button deleteButton;;
+    Button deleteButton;
 
     @UiField
     CellTable<BottleDto> bottlesTable;

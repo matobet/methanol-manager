@@ -52,6 +52,9 @@ public interface ApplicationConstants extends Constants {
     @DefaultStringValue("Make")
     String makeName();
 
+    @DefaultStringValue("Producer")
+    String producerName();
+
     @DefaultStringValue("Production date")
     String productionDate();
 
