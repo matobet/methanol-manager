@@ -39,4 +39,51 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EntityScan(basePackages = "cz.muni.fi.pa165.methanolmanager.dal.domain")
 @ComponentScan
 public class DalConfig {
+    @Bean
+     InitializingBean seedData(final StoreRepository storeRepository,
+                                 final ProducerRepository producerRepository,
+                                 final MakeRepository makeRepository,
+                                 final BottleRepository bottleRepository) {
+         return new InitializingBean() {
+             @Override
+             public void afterPropertiesSet() throws Exception {
+                 Store s1 = new Store("Brnenka", "Lidicka 234");
+                 Store s2 = new Store("Tesco", "Kr. Pole");
+                 Store s3 = new Store("NonStop", "Arabska 15");
+
+                 storeRepository.save(s1);
+                 storeRepository.save(s2);
+                 storeRepository.save(s3);
+
+                 Producer p1 = new Producer("Bozkov Producer");
+                 Producer p2 = new Producer("Finlandia Producer");
+                 Producer p3 = new Producer("Bechcer Producer");
+
+                 producerRepository.save(p1);
+                 producerRepository.save(p2);
+                 producerRepository.save(p3);
+
+                 Make m1 = new Make("Bozkov", p1);
+                 Make m2 = new Make("Finlandia", p2);
+                 Make m3 = new Make("Bechcer", p3);
+
+                 makeRepository.save(m1);
+                 makeRepository.save(m2);
+                 makeRepository.save(m3);
+
+                 bottleRepository.save(new Bottle("Tuzemak", new Date(), new Date(), false, m1, s1));
+                 bottleRepository.save(new Bottle("Vodka", new Date(), new Date(), false, m2, s2));
+                 bottleRepository.save(new Bottle("Becherovka", new Date(), new Date(), false, m3, s3));
+                 bottleRepository.save(new Bottle("Tuzemak", new Date(), new Date(), false, m1, s1));
+                 bottleRepository.save(new Bottle("Vodka", new Date(), new Date(), false, m2, s2));
+                 bottleRepository.save(new Bottle("Becherovka", new Date(), new Date(), false, m3, s3));
+                 bottleRepository.save(new Bottle("Tuzemak", new Date(), new Date(), false, m1, s1));
+                 bottleRepository.save(new Bottle("Vodka", new Date(), new Date(), false, m2, s2));
+                 bottleRepository.save(new Bottle("Becherovka", new Date(), new Date(), false, m3, s3));
+                 bottleRepository.save(new Bottle("Tuzemak", new Date(), new Date(), false, m1, s1));
+                 bottleRepository.save(new Bottle("Vodka", new Date(), new Date(), false, m2, s2));
+                 bottleRepository.save(new Bottle("Becherovka", new Date(), new Date(), false, m3, s3));
+                 }
+             };
+         }
 }
