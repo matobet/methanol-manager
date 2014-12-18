@@ -16,6 +16,9 @@ Project for PA165: Liquor bottles registry during prohibition
 
 ## Running
 
+(Just the backend & REST api. For full gwt frontend see production build)
+
+    cd frontend/
     mvn spring-boot:run
     
 ## Production Build

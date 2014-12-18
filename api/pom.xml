@@ -19,6 +19,12 @@
     </dependency>
 
     <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>service</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
       <groupId>cz.fi.muni.pa165.methanolmanager</groupId>
       <artifactId>dal</artifactId>
       <version>${project.version}</version>
