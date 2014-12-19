@@ -35,7 +35,7 @@ public class Cli {
         try {
             commander.parse(args);
 
-            if (Boolean.TRUE.equals(mainCommand.getHelp())) {
+            if (Boolean.TRUE.equals(mainCommand.getHelp()) || commander.getParsedCommand() == null) {
                 commander.usage();
             } else if (commander.getParsedCommand().equals(STORE)) {
                 if (Boolean.TRUE.equals(storeCommand.getList())) {

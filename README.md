@@ -31,6 +31,17 @@ Project for PA165: Liquor bottles registry during prohibition
     
 or deploy frontend/target/frontend-1.0-SNAPSHOT.war.original to Tomcat.
 
+## Running Command Line Client
+
+    cd cli/
+    mvn compile
+    mvn exec:java -Dexec.args="<cli args>"
+
+### Example usage
+
+    mvn exec:java -Dexec.args="producer --create --name "Bozkov, s.r.o"
+    mvn exec:java -Dexec.args="store --update --id 2 --name "Tesco" --address "Kralovo Pole 42, Brno"
+
 ## Debugging GWT
 
 First run the application backend server (either as above or from IDE).
