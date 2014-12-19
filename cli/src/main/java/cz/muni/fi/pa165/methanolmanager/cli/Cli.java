@@ -4,6 +4,7 @@ import com.beust.jcommander.JCommander;
 import com.beust.jcommander.ParameterException;
 import cz.muni.fi.pa165.methanolmanager.service.dto.ProducerDto;
 import cz.muni.fi.pa165.methanolmanager.service.dto.StoreDto;
+import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 
 public class Cli {
@@ -163,8 +164,9 @@ public class Cli {
         } catch (ParameterException e) {
             System.err.println(e.getMessage());
             commander.usage();
+        } catch (ResourceAccessException e) {
+            System.err.println(e.getMessage());
         }
-
     }
 
     private void requireIdParam(Integer id) {
