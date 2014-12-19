@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.methanolmanager.cli;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.ParameterException;
+import cz.muni.fi.pa165.methanolmanager.service.dto.ProducerDto;
 import cz.muni.fi.pa165.methanolmanager.service.dto.StoreDto;
 import org.springframework.web.client.RestTemplate;
 
@@ -63,7 +64,28 @@ public class Cli {
                     restTemplate.delete(mainCommand.getUrl() + "/stores/" + storeCommand.getId());
                 }
             } else if (commander.getParsedCommand().equals(PRODUCER)) {
-                // handle producer
+                if (Boolean.TRUE.equals(producerCommand.getList())) {
+                    ProducerDto[] producers = restTemplate.getForObject(mainCommand.getUrl() + "/producers", ProducerDto[].class);
+                    for (ProducerDto producer : producers) {
+                        System.out.println(producer.getName());
+                    }
+                } else if (Boolean.TRUE.equals(producerCommand.getAdd())) {
+                    ProducerDto producer = new ProducerDto();
+                    producer.setName(producerCommand.getName());
+                    restTemplate.postForObject(mainCommand.getUrl() + "/producers", producer, ProducerDto.class);
+                } else if (Boolean.TRUE.equals(producerCommand.getUpdate())) {
+                    requireIdParam(producerCommand.getId());
+
+                    ProducerDto producer = new ProducerDto();
+                    producer.setId(producerCommand.getId());
+                    producer.setName(producerCommand.getName());
+
+                    restTemplate.put(mainCommand.getUrl() + "/producers/" + producerCommand.getId().toString(), producer);
+                } else if (Boolean.TRUE.equals(producerCommand.getDelete())) {
+                    requireIdParam(producerCommand.getId());
+
+                    restTemplate.delete(mainCommand.getUrl() + "/producers/" + producerCommand.getId());
+                }
             }
         } catch (ParameterException e) {
             System.err.println(e.getMessage());

@@ -19,6 +19,9 @@ public class ProducerCommand {
     @Parameter(names = {"-u", "--update"}, description = "Update producer")
     private Boolean update;
 
+    @Parameter(names = {"-i", "--id"}, description = "Producer id (used for update and delete)")
+    private Integer id;
+
     @Parameter(names = {"-n", "--name"}, description = "Producer name (used for update)")
     private String name;
 }
