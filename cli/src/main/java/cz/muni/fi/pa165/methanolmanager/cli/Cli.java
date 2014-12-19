@@ -17,6 +17,8 @@ public class Cli {
     private final StoreCommand storeCommand;
     private final ProducerCommand producerCommand;
 
+    private final String output_format = "| %-5d | %-20s | %-20s |%n";
+
     private final RestTemplate restTemplate = new RestTemplate();
 
     public Cli() {
@@ -31,6 +33,17 @@ public class Cli {
         commander.addCommand(PRODUCER, producerCommand);
     }
 
+    private void print_store_table(StoreDto[] stores){
+        System.out.format("+-------+----------------------+----------------------+%n");
+        System.out.printf("| ID    | Store name           | Address              |%n");
+        System.out.format("+-------+----------------------+----------------------+%n");
+
+        for (StoreDto store : stores) {
+            System.out.format(output_format, store.getId(), store.getName(), store.getAddress());
+        }
+        System.out.format("+-------+----------------------+----------------------+%n");
+    }
+
     public void doMain(String[] args) {
         try {
             commander.parse(args);
@@ -40,10 +53,11 @@ public class Cli {
             } else if (commander.getParsedCommand().equals(STORE)) {
                 if (Boolean.TRUE.equals(storeCommand.getList())) {
                     StoreDto[] stores = restTemplate.getForObject(mainCommand.getUrl() + "/stores", StoreDto[].class);
-                    for (StoreDto store : stores) {
-                        System.out.println(store.getName());
-                        System.out.println(store.getAddress());
-                    }
+                    print_store_table(stores);
+//                    for (StoreDto store : stores) {
+//                        System.out.println(store.getName());
+//                        System.out.println(store.getAddress());
+//                    }
                 } else if (Boolean.TRUE.equals(storeCommand.getAdd())) {
                     StoreDto store = new StoreDto();
                     store.setName(storeCommand.getName());
