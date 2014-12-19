@@ -17,8 +17,6 @@ public class Cli {
     private final StoreCommand storeCommand;
     private final ProducerCommand producerCommand;
 
-    private final String output_format = "| %-5d | %-20s | %-20s |%n";
-
     private final RestTemplate restTemplate = new RestTemplate();
 
     public Cli() {
@@ -33,15 +31,82 @@ public class Cli {
         commander.addCommand(PRODUCER, producerCommand);
     }
 
-    private void print_store_table(StoreDto[] stores){
-        System.out.format("+-------+----------------------+----------------------+%n");
-        System.out.printf("| ID    | Store name           | Address              |%n");
-        System.out.format("+-------+----------------------+----------------------+%n");
+    private static String getDashes(int len){
+        StringBuilder stringBuilder = new StringBuilder(len);
+        for (int i = 0; i < len; i++){
+            stringBuilder.append("-");
+        }
+        return stringBuilder.toString();
+    }
+
+    private static int[] getLongestStoreLengths(StoreDto[] stores){
+        // minimal length
+        int idLen = 5;
+        int nameLen = 20;
+        int addressLen = 20;
+
+        for (StoreDto store : stores){
+            if (String.valueOf(store.getId()).length() > idLen){
+                idLen = String.valueOf(store.getId()).length();
+            }
+            if (store.getName().length() > nameLen){
+                nameLen = store.getName().length();
+            }
+            if (store.getAddress().length() > addressLen){
+                addressLen = store.getAddress().length();
+            }
+        }
+        int[] lengths = {idLen, nameLen, addressLen};
+        return lengths;
+    }
+
+    private static void printStoreTable(StoreDto[] stores){
+        int[] lengths = getLongestStoreLengths(stores);
+
+        String storeBodyFormat = "| %-" + lengths[0] +"s | %-" + lengths[1] + "s | %-" + lengths[2] + "s |%n";
+        String storeDividerFormat = "+-%-" + lengths[0] + "s-+-%-" + lengths[1] + "s-+-%-" + lengths[2] + "s-+%n";
+
+        System.out.format(storeDividerFormat, getDashes(lengths[0]), getDashes(lengths[1]), getDashes(lengths[2]));
+        System.out.format(storeBodyFormat, "ID", "Store name", "Address");
+        System.out.format(storeDividerFormat, getDashes(lengths[0]), getDashes(lengths[1]), getDashes(lengths[2]));
 
         for (StoreDto store : stores) {
-            System.out.format(output_format, store.getId(), store.getName(), store.getAddress());
+            System.out.format(storeBodyFormat, store.getId(), store.getName(), store.getAddress());
         }
-        System.out.format("+-------+----------------------+----------------------+%n");
+        System.out.format(storeDividerFormat, getDashes(lengths[0]), getDashes(lengths[1]), getDashes(lengths[2]));
+    }
+
+    private static int[] getLongestProducerLengths(ProducerDto[] producers){
+        // minimal length
+        int idLen = 5;
+        int nameLen = 20;
+
+        for (ProducerDto producer : producers){
+            if (String.valueOf(producer.getId()).length() > idLen){
+                idLen = String.valueOf(producer.getId()).length();
+            }
+            if (producer.getName().length() > nameLen){
+                nameLen = producer.getName().length();
+            }
+        }
+        int[] lengths = {idLen, nameLen};
+        return lengths;
+    }
+
+    private static void printProducerTable(ProducerDto[] producers){
+        int[] lengths = getLongestProducerLengths(producers);
+
+        String storeBodyFormat = "| %-" + lengths[0] +"s | %-" + lengths[1] + "s |%n";
+        String storeDividerFormat = "+-%-" + lengths[0] + "s-+-%-" + lengths[1] + "s-+%n";
+
+        System.out.format(storeDividerFormat, getDashes(lengths[0]), getDashes(lengths[1]));
+        System.out.format(storeBodyFormat, "ID", "Producer name");
+        System.out.format(storeDividerFormat, getDashes(lengths[0]), getDashes(lengths[1]));
+
+        for (ProducerDto producer : producers) {
+            System.out.format(storeBodyFormat, producer.getId(), producer.getName());
+        }
+        System.out.format(storeDividerFormat, getDashes(lengths[0]), getDashes(lengths[1]));
     }
 
     public void doMain(String[] args) {
@@ -53,11 +118,7 @@ public class Cli {
             } else if (commander.getParsedCommand().equals(STORE)) {
                 if (Boolean.TRUE.equals(storeCommand.getList())) {
                     StoreDto[] stores = restTemplate.getForObject(mainCommand.getUrl() + "/stores", StoreDto[].class);
-                    print_store_table(stores);
-//                    for (StoreDto store : stores) {
-//                        System.out.println(store.getName());
-//                        System.out.println(store.getAddress());
-//                    }
+                    printStoreTable(stores);
                 } else if (Boolean.TRUE.equals(storeCommand.getAdd())) {
                     StoreDto store = new StoreDto();
                     store.setName(storeCommand.getName());
@@ -80,9 +141,7 @@ public class Cli {
             } else if (commander.getParsedCommand().equals(PRODUCER)) {
                 if (Boolean.TRUE.equals(producerCommand.getList())) {
                     ProducerDto[] producers = restTemplate.getForObject(mainCommand.getUrl() + "/producers", ProducerDto[].class);
-                    for (ProducerDto producer : producers) {
-                        System.out.println(producer.getName());
-                    }
+                    printProducerTable(producers);
                 } else if (Boolean.TRUE.equals(producerCommand.getAdd())) {
                     ProducerDto producer = new ProducerDto();
                     producer.setName(producerCommand.getName());
