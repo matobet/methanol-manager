@@ -19,11 +19,11 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 public class Role extends AbstractPersistable<Integer> {
-    public enum UserRole{
+    /*public enum UserRole{
         ADMIN, POLICE
-    }
+    }*/
 
-    private UserRole name;
+    private String name;
 
     @ManyToMany(targetEntity = User.class, mappedBy = "roles")
     private List<User> users;

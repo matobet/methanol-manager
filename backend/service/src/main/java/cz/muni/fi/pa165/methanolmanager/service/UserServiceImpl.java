@@ -1,22 +1,29 @@
 package cz.muni.fi.pa165.methanolmanager.service;
 
+import cz.muni.fi.pa165.methanolmanager.dal.domain.Role;
 import cz.muni.fi.pa165.methanolmanager.dal.domain.User;
 import cz.muni.fi.pa165.methanolmanager.dal.repository.UserRepository;
 import cz.muni.fi.pa165.methanolmanager.service.dto.UserDto;
 import cz.muni.fi.pa165.methanolmanager.service.exception.EntityNotFoundException;
 import org.dozer.Mapper;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by zuzana on 1/23/2015.
  */
 @Service
 @Transactional(readOnly = true)
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Inject
     UserRepository userRepository;
@@ -68,4 +75,29 @@ public class UserServiceImpl implements UserService {
             throw new EntityNotFoundException(userDto.getId());
         }
     }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
+            User user = userRepository.findByUsername(username);
+
+            if(user == null){
+                throw new UsernameNotFoundException(username);
+            }
+
+        List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+        for(final Role role: user.getRoles()){
+            authorities.add(new GrantedAuthority() {
+
+                @Override
+                public String getAuthority() {
+                    return role.getName();
+                }
+            });
+        }
+
+        UserDetails userDetails = new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
+            return userDetails;
+        }
+
 }
