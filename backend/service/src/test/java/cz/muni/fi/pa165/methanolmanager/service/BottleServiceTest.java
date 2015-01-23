@@ -9,6 +9,11 @@ import static org.mockito.Mockito.when;
 
 import javax.inject.Inject;
 
+import cz.muni.fi.pa165.methanolmanager.dal.domain.Make;
+import cz.muni.fi.pa165.methanolmanager.dal.domain.Producer;
+import cz.muni.fi.pa165.methanolmanager.dal.domain.Store;
+import cz.muni.fi.pa165.methanolmanager.dal.repository.MakeRepository;
+import cz.muni.fi.pa165.methanolmanager.dal.repository.StoreRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -26,22 +31,40 @@ public class BottleServiceTest extends ServiceTest {
     public static final int BOTTLE_ID = 1;
     public static final int INVALID_BOTTLE_ID = 0;
     public static final String BOTTLE_NAME = "Tuzemsky";
+    public static final String MAKE_NAME = "Bozkov";
+    public static final String STORE_NAME = "Tesco";
 
     @Inject
     BottleRepository bottleRepository;
+
+    @Inject
+    MakeRepository makeRepository;
+
+    @Inject
+    StoreRepository storeRepository;
 
     @Inject
     BottleService bottleService;
 
     @Before
     public void setup() {
+        Make make = new Make();
+        make.setName(MAKE_NAME);
+
+        Store store = new Store();
+        store.setName(STORE_NAME);
+
         Bottle bottle = new Bottle();
         bottle.setName(BOTTLE_NAME);
+        bottle.setMake(make);
+        bottle.setStore(store);
 
         // reset bottle repository mock before each test
         // in order to reset the argument captor call count
         reset(bottleRepository);
         when(bottleRepository.findOne(BOTTLE_ID)).thenReturn(bottle);
+        when(makeRepository.findByName(MAKE_NAME)).thenReturn(make);
+        when(storeRepository.findByName(STORE_NAME)).thenReturn(store);
         doThrow(EmptyResultDataAccessException.class).when(bottleRepository).delete(INVALID_BOTTLE_ID);
     }
 
@@ -49,6 +72,8 @@ public class BottleServiceTest extends ServiceTest {
     public void testCreateBottle() {
         BottleDto bottleDto = new BottleDto();
         bottleDto.setName(BOTTLE_NAME);
+        bottleDto.setMakeName(MAKE_NAME);
+        bottleDto.setStoreName(STORE_NAME);
 
         bottleService.createBottle(bottleDto);
 
@@ -56,6 +81,8 @@ public class BottleServiceTest extends ServiceTest {
         verify(bottleRepository).save(captor.capture());
 
         assertEquals(captor.getValue().getName(), BOTTLE_NAME);
+        assertEquals(captor.getValue().getMake().getName(), MAKE_NAME);
+        assertEquals(captor.getValue().getStore().getName(), STORE_NAME);
     }
 
     @Test

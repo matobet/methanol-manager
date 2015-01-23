@@ -4,4 +4,7 @@ public class EntityNotFoundException extends RuntimeException {
     public EntityNotFoundException(int id) {
         super("Failed to find entity with id: " + id);
     }
+    public EntityNotFoundException(String name) {
+        super("Failed to find entity with name: " + name);
+    }
 }

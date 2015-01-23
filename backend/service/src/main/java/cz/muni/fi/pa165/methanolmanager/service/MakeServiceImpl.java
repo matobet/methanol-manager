@@ -1,8 +1,10 @@
 package cz.muni.fi.pa165.methanolmanager.service;
 
 import cz.muni.fi.pa165.methanolmanager.dal.domain.Make;
+import cz.muni.fi.pa165.methanolmanager.dal.domain.Producer;
 import cz.muni.fi.pa165.methanolmanager.dal.repository.BottleRepository;
 import cz.muni.fi.pa165.methanolmanager.dal.repository.MakeRepository;
+import cz.muni.fi.pa165.methanolmanager.dal.repository.ProducerRepository;
 import cz.muni.fi.pa165.methanolmanager.service.dto.MakeDto;
 import cz.muni.fi.pa165.methanolmanager.service.exception.EntityNotFoundException;
 import org.dozer.Mapper;
@@ -29,12 +31,20 @@ public class MakeServiceImpl implements MakeService {
     BottleRepository bottleRepository;
 
     @Inject
+    ProducerRepository producerRepository;
+
+    @Inject
     Mapper mapper;
 
     @Override
     @Transactional
     public MakeDto createMake(MakeDto makeDto){
         Make make = mapper.map(makeDto, Make.class);
+        Producer producer = producerRepository.findByName(makeDto.getProducerName());
+        if (producer == null) {
+            throw new EntityNotFoundException(makeDto.getProducerName());
+        }
+        make.setProducer(producer);
 
         makeRepository.save(make);
 

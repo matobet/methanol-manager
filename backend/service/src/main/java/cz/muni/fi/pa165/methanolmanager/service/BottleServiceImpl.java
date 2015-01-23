@@ -1,7 +1,11 @@
 package cz.muni.fi.pa165.methanolmanager.service;
 
 import cz.muni.fi.pa165.methanolmanager.dal.domain.Bottle;
+import cz.muni.fi.pa165.methanolmanager.dal.domain.Make;
+import cz.muni.fi.pa165.methanolmanager.dal.domain.Store;
 import cz.muni.fi.pa165.methanolmanager.dal.repository.BottleRepository;
+import cz.muni.fi.pa165.methanolmanager.dal.repository.MakeRepository;
+import cz.muni.fi.pa165.methanolmanager.dal.repository.StoreRepository;
 import cz.muni.fi.pa165.methanolmanager.service.dto.BottleDto;
 import cz.muni.fi.pa165.methanolmanager.service.exception.EntityNotFoundException;
 import java.util.ArrayList;
@@ -27,6 +31,12 @@ public class BottleServiceImpl implements BottleService {
     @Inject
     Mapper mapper;
 
+    @Inject
+    MakeRepository makeRepository;
+
+    @Inject
+    StoreRepository storeRepository;
+
     @Override
     public List<BottleDto> getBottles() {
         List<BottleDto> bottles = new ArrayList<>();
@@ -50,6 +60,19 @@ public class BottleServiceImpl implements BottleService {
     @Transactional
     public BottleDto createBottle(BottleDto bottleDto) {
         Bottle bottle = mapper.map(bottleDto, Bottle.class);
+
+        Make make = makeRepository.findByName(bottleDto.getMakeName());
+        if (make == null) {
+            throw new EntityNotFoundException(bottleDto.getMakeName());
+        }
+        bottle.setMake(make);
+
+        Store store = storeRepository.findByName(bottleDto.getStoreName());
+        if (store == null) {
+            throw new EntityNotFoundException(bottleDto.getStoreName());
+        }
+        bottle.setStore(store);
+
         bottleRepository.save(bottle);
 
         return mapper.map(bottle, BottleDto.class);
