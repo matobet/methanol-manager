@@ -2,12 +2,12 @@ package cz.muni.fi.pa165.methanolmanager.dal.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import java.util.Date;
-import lombok.NoArgsConstructor;
 
 /*
  * @author Pavel Vomacka
