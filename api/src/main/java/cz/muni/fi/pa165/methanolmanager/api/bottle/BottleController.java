@@ -6,8 +6,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
-import java.util.Arrays;
 import java.util.List;
+
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
 @RequestMapping("/api/bottles")
@@ -16,23 +17,28 @@ public class BottleController {
     BottleService bottleService;
 
     @RequestMapping("/{id}")
-    public BottleDto getBottle(@PathVariable int id){
+    public BottleDto getBottle(@PathVariable int id) {
         return bottleService.getBottle(id);
     }
 
-    @RequestMapping(method = RequestMethod.GET)
-    public List<BottleDto> getBottles(){
+    @RequestMapping(method = GET)
+    public List<BottleDto> getBottles() {
         return bottleService.getBottles();
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(method = POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public BottleDto createBottle(@RequestBody BottleDto bottleDto){
-        return bottleService.createBottle(bottleDto);
+    public BottleDto createBottle(@RequestBody BottleDto bottle) {
+        return bottleService.createBottle(bottle);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{id}", method = DELETE)
     public void deleteBottle(@PathVariable int id) {
         bottleService.deleteBottle(id);
+    }
+
+    @RequestMapping(value = "/{id}", method = PUT)
+    public BottleDto updateBottle(@PathVariable("id") int id, @RequestBody BottleDto bottle) {
+        return bottleService.updateBottle(bottle);
     }
 }

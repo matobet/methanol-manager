@@ -4,27 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
-
 /**
- * @author Martin Betak
+ * Created by zuzana on 1/23/2015.
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class BottleDto {
-
+public class UserDto {
     private Integer id;
 
     private String name;
 
-    private boolean toxic;
-
-    private Date productionDate;
-
-    private Date stampDate;
-
-    private String makeName;
-
-    private String storeName;
+    private String password;
 }

@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Zuzana Melsova
@@ -31,9 +33,31 @@ public class MakeServiceImpl implements MakeService {
 
     @Override
     @Transactional
-    public void createMake(MakeDto makeDto){
+    public MakeDto createMake(MakeDto makeDto){
         Make make = mapper.map(makeDto, Make.class);
+
         makeRepository.save(make);
+
+        return mapper.map(make, MakeDto.class);
+    }
+
+    @Override
+    public MakeDto getMake(int makeId) {
+        Make make = makeRepository.findOne(makeId);
+        if (make == null) {
+            throw new EntityNotFoundException(makeId);
+        }
+
+        return mapper.map(make, MakeDto.class);
+    }
+
+    @Override
+    public List<MakeDto> getMakes() {
+        List<MakeDto> makes = new ArrayList<>();
+        for (Make make : makeRepository.findAll()) {
+            makes.add(mapper.map(make, MakeDto.class));
+        }
+        return makes;
     }
 
     @Override
