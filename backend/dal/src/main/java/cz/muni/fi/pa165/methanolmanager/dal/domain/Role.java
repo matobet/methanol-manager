@@ -14,8 +14,8 @@ import java.util.List;
  * Created by zuzana on 1/23/2015.
  */
 @Data
-@EqualsAndHashCode
-@ToString
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
 @NoArgsConstructor
 @Entity
 public class Role extends AbstractPersistable<Integer> {
