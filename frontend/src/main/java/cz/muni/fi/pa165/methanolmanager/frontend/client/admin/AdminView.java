@@ -30,6 +30,9 @@ public class AdminView extends ViewImpl implements AdminPresenter.ViewDef {
     }
 
     @UiField
+    TabListItem users;
+
+    @UiField
     Button createButton;
 
     @UiField
@@ -90,12 +93,20 @@ public class AdminView extends ViewImpl implements AdminPresenter.ViewDef {
                 return user.getId().toString();
             }
         }, new TextHeader("Id"));
+
         usersTable.addColumn(new TextColumn<UserDto>() {
             @Override
             public String getValue(UserDto user) {
                 return user.getName();
             }
         }, new TextHeader("Name"));
+
+        usersTable.addColumn(new TextColumn<UserDto>() {
+            @Override
+            public String getValue(UserDto user) {
+                return user.getName();
+            }
+        }, new TextHeader("Role"));
 
         selectionModel = new MultiSelectionModel<>();
         usersTable.setSelectionModel(selectionModel);

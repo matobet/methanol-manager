@@ -15,7 +15,7 @@
         <b:Column size="XS_12">
             <b:TabPanel tabPosition="LEFT">
                 <b:NavTabs>
-                    <b:TabListItem dataTarget="#producersTab" text="{constants.users}" />
+                    <b:TabListItem ui:field="users" dataTarget="#producersTab" text="{constants.users}" />
                 </b:NavTabs>
                 <b:TabContent width="80%" >
                     <b:TabPane b:id="producersTab">
@@ -26,21 +26,16 @@
                                 </b:Row>
                             </b:Panel>
                             <b:Panel>
-                                <b:Row>
-                                    <b:Panel>
-                                        <b:PanelHeader>
-                                            <b:Button ui:field="createButton" text="{constants.create}" icon="PLUS" type="SUCCESS" addStyleNames="{style.actionButton}" />
-                                            <b:Button ui:field="editButton" text="{constants.edit}" icon="EDIT" type="INFO" addStyleNames="{style.actionButton}" />
-                                            <b:Button ui:field="deleteButton" text="{constants.delete}" icon="TRASH_O" type="DANGER" addStyleNames="{style.actionButton}" pull="RIGHT" />
-                                        </b:PanelHeader>
-                                        <b:PanelBody>
-                                            <b.gwt:CellTable ui:field="usersTable" hover="true" bordered="true" height="100%" />
-                                            <b:Pagination ui:field="usersPagination" />
-                                        </b:PanelBody>
-                                    </b:Panel>
-                                </b:Row>
+                                <b:PanelHeader>
+                                    <b:Button ui:field="createButton" text="{constants.create}" icon="PLUS" type="SUCCESS" addStyleNames="{style.actionButton}" />
+                                    <b:Button ui:field="editButton" text="{constants.edit}" icon="EDIT" type="INFO" addStyleNames="{style.actionButton}" />
+                                    <b:Button ui:field="deleteButton" text="{constants.delete}" icon="TRASH_O" type="DANGER" addStyleNames="{style.actionButton}" pull="RIGHT" />
+                                </b:PanelHeader>
+                                <b:PanelBody>
+                                    <b.gwt:CellTable ui:field="usersTable" hover="true" bordered="true" height="100%" />
+                                    <b:Pagination ui:field="usersPagination" />
+                                </b:PanelBody>
                             </b:Panel>
-
                         </b:Row>
                     </b:TabPane>
                 </b:TabContent>

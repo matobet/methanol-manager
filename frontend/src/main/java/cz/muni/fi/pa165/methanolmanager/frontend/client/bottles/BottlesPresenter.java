@@ -104,6 +104,7 @@ public class BottlesPresenter extends Presenter<BottlesPresenter.ViewDef, Bottle
                     }
                 });
                 editedItem = getView().getBottleTableSelection().getSelectedSet().iterator().next();
+                getView().getBottleTableSelection().clear();
                 bottlePopup.edit(editedItem);
                 bottlePopup.show();
             }
@@ -113,7 +114,7 @@ public class BottlesPresenter extends Presenter<BottlesPresenter.ViewDef, Bottle
             @Override
             public void onClick(ClickEvent event) {
                 Set<BottleDto> bottlesToStamp = getView().getBottleTableSelection().getSelectedSet();
-
+                getView().getBottleTableSelection().clear();
                 for (BottleDto bottle : bottlesToStamp){
                     if (bottle.getStampDate() == null) {
                         bottle.setStampDate(new Date());
@@ -128,6 +129,7 @@ public class BottlesPresenter extends Presenter<BottlesPresenter.ViewDef, Bottle
             public void onClick(final ClickEvent event) {
                 Set<BottleDto> bottlesToDelete = getView().getBottleTableSelection().getSelectedSet();
                 bottlesData.getList().removeAll(bottlesToDelete);
+                getView().getBottleTableSelection().clear();
                 for (BottleDto bottle : bottlesToDelete) {
                     deleteBottle(bottle);
                 }
@@ -146,7 +148,6 @@ public class BottlesPresenter extends Presenter<BottlesPresenter.ViewDef, Bottle
         super.onReveal();
 
         fetchData();
-        onSelectionChange(null);
     }
 
     @Override
