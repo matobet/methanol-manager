@@ -92,6 +92,7 @@ public class MakesPresenter extends Presenter<MakesPresenter.ViewDef, MakesPrese
                     }
                 });
                 editedItem = getView().getMakeTableSelection().getSelectedSet().iterator().next();
+                getView().getMakeTableSelection().clear();
                 makePopup.edit(editedItem);
                 makePopup.show();
             }
@@ -101,6 +102,7 @@ public class MakesPresenter extends Presenter<MakesPresenter.ViewDef, MakesPrese
             @Override
             public void onClick(final ClickEvent event) {
                 Set<MakeDto> makesToDelete = getView().getMakeTableSelection().getSelectedSet();
+                getView().getMakeTableSelection().clear();
                 makesData.getList().removeAll(makesToDelete);
                 for (MakeDto make : makesToDelete) {
                     deleteMake(make);
@@ -120,7 +122,6 @@ public class MakesPresenter extends Presenter<MakesPresenter.ViewDef, MakesPrese
         super.onReveal();
 
         fetchData();
-        onSelectionChange(null);
     }
 
     @Override

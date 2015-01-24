@@ -97,6 +97,7 @@ public class AdminPresenter extends Presenter<AdminPresenter.ViewDef, AdminPrese
                     }
                 });
                 editedItem = getView().getUserTableSelection().getSelectedSet().iterator().next();
+                getView().getUserTableSelection().clear();
                 userPopup.edit(editedItem);
                 userPopup.show();
             }
@@ -106,6 +107,7 @@ public class AdminPresenter extends Presenter<AdminPresenter.ViewDef, AdminPrese
             @Override
             public void onClick(final ClickEvent event) {
                 Set<UserDto> usersToDelete = getView().getUserTableSelection().getSelectedSet();
+                getView().getUserTableSelection().clear();
                 usersData.getList().removeAll(usersToDelete);
                 for (UserDto user : usersToDelete) {
                     deleteUser(user);
@@ -125,7 +127,6 @@ public class AdminPresenter extends Presenter<AdminPresenter.ViewDef, AdminPrese
         super.onReveal();
 
         fetchData();
-        onSelectionChange(null);
     }
 
     @Override

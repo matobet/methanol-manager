@@ -91,6 +91,7 @@ public class ProducersPresenter extends Presenter<ProducersPresenter.ViewDef, Pr
                     }
                 });
                 editedItem = getView().getProducerTableSelection().getSelectedSet().iterator().next();
+                getView().getProducerTableSelection().clear();
                 producerPopup.edit(editedItem);
                 producerPopup.show();
             }
@@ -100,6 +101,7 @@ public class ProducersPresenter extends Presenter<ProducersPresenter.ViewDef, Pr
             @Override
             public void onClick(final ClickEvent event) {
                 Set<ProducerDto> producersToDelete = getView().getProducerTableSelection().getSelectedSet();
+                getView().getProducerTableSelection().clear();
                 producersData.getList().removeAll(producersToDelete);
                 for (ProducerDto producer : producersToDelete) {
                     deleteProducer(producer);
@@ -119,7 +121,6 @@ public class ProducersPresenter extends Presenter<ProducersPresenter.ViewDef, Pr
         super.onReveal();
 
         fetchData();
-        onSelectionChange(null);
     }
 
     @Override
