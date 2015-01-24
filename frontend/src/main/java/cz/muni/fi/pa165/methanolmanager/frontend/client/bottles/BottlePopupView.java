@@ -63,15 +63,11 @@ public class BottlePopupView extends PopupViewImpl implements Editor<BottleDto> 
     @Path("productionDate")
     DatePicker productionDateEditor;
 
-    @UiField
-    @Path("stampDate")
-    DatePicker stampDateEditor;
-
     private final Driver driver;
 
     private final MakeService makeService;
     private final StoreService storeService;
-    private final ApplicationConstants constants;
+    private final ApplicationConstants applicationConstants;
     private SubmitHandler submitHandler;
 
     @Inject
@@ -82,15 +78,15 @@ public class BottlePopupView extends PopupViewImpl implements Editor<BottleDto> 
         this.driver = driver;
         this.makeService = makeService;
         this.storeService = storeService;
-        this.constants = constants;
+        this.applicationConstants = constants;
         initializeListBoxEditors();
         initWidget(binder.createAndBindUi(this));
         driver.initialize(this);
     }
 
     private void initializeListBoxEditors() {
-        makeEditor = new ValueListBox<>(new DefaultStringValueRenderer(constants.selectMake()));
-        storeEditor = new ValueListBox<>(new DefaultStringValueRenderer(constants.selectStore()));
+        makeEditor = new ValueListBox<>(new DefaultStringValueRenderer(applicationConstants.selectMake()));
+        storeEditor = new ValueListBox<>(new DefaultStringValueRenderer(applicationConstants.selectStore()));
     }
 
     public void show() {
@@ -101,7 +97,7 @@ public class BottlePopupView extends PopupViewImpl implements Editor<BottleDto> 
         makeService.getMakes(new MethodCallback<List<MakeDto>>() {
             @Override
             public void onFailure(Method method, Throwable exception) {
-                NotificationUtils.error(constants.errorLoadingMakes());
+                NotificationUtils.error(applicationConstants.errorLoadingMakes());
             }
 
             @Override
@@ -117,7 +113,7 @@ public class BottlePopupView extends PopupViewImpl implements Editor<BottleDto> 
                 storeService.getStores(new MethodCallback<List<StoreDto>>() {
                     @Override
                     public void onFailure(Method method, Throwable exception) {
-                        NotificationUtils.error(constants.errorLoadingStores());
+                        NotificationUtils.error(applicationConstants.errorLoadingStores());
                     }
 
                     @Override

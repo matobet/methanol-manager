@@ -25,12 +25,15 @@ import com.gwtplatform.mvp.client.View;
 import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
+import cz.muni.fi.pa165.methanolmanager.dal.domain.Bottle;
 import cz.muni.fi.pa165.methanolmanager.frontend.client.application.ApplicationPresenter;
 import cz.muni.fi.pa165.methanolmanager.frontend.client.i18n.ApplicationMessages;
 import cz.muni.fi.pa165.methanolmanager.frontend.client.place.NameTokens;
 import cz.muni.fi.pa165.methanolmanager.frontend.client.rest.BottleService;
 import cz.muni.fi.pa165.methanolmanager.frontend.client.utils.NotificationUtils;
 import cz.muni.fi.pa165.methanolmanager.service.dto.BottleDto;
+
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -45,6 +48,7 @@ public class BottlesPresenter extends Presenter<BottlesPresenter.ViewDef, Bottle
     public interface ViewDef extends View {
         AbstractButton getCreateButton();
         AbstractButton getEditButton();
+        AbstractButton getStampButton();
         AbstractButton getDeleteButton();
         HasData<BottleDto> getBottlesTable();
         SetSelectionModel<BottleDto> getBottleTableSelection();
@@ -105,6 +109,20 @@ public class BottlesPresenter extends Presenter<BottlesPresenter.ViewDef, Bottle
             }
         }));
 
+        registerHandler(getView().getStampButton().addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent event) {
+                Set<BottleDto> bottlesToStamp = getView().getBottleTableSelection().getSelectedSet();
+
+                for (BottleDto bottle : bottlesToStamp){
+                    if (bottle.getStampDate() == null) {
+                        bottle.setStampDate(new Date());
+                        updateBottle(bottle);
+                    }
+                }
+            }
+        }));
+
         registerHandler(getView().getDeleteButton().addClickHandler(new ClickHandler() {
             @Override
             public void onClick(final ClickEvent event) {
@@ -136,6 +154,16 @@ public class BottlesPresenter extends Presenter<BottlesPresenter.ViewDef, Bottle
         Set<BottleDto> selectedItems = getView().getBottleTableSelection().getSelectedSet();
         getView().getEditButton().setEnabled(selectedItems.size() == 1);
         getView().getDeleteButton().setEnabled(selectedItems.size() > 0);
+        getView().getStampButton().setEnabled(getNumberOfSelectedNotStampedBottles(selectedItems) > 0);
+    }
+
+    private int getNumberOfSelectedNotStampedBottles(Set<BottleDto> selectedBottles){
+        int notStampedBottles = 0;
+        for (BottleDto bottleDto : selectedBottles){
+            if (bottleDto.getStampDate() == null)
+                notStampedBottles += 1;
+        }
+        return notStampedBottles;
     }
 
     private void fetchData() {
@@ -200,5 +228,4 @@ public class BottlesPresenter extends Presenter<BottlesPresenter.ViewDef, Bottle
             }
         });
     }
-
 }

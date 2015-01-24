@@ -31,6 +31,9 @@ public interface ApplicationConstants extends Constants {
     @DefaultStringValue("Edit")
     String edit();
 
+    @DefaultStringValue("Stamp")
+    String stamp();
+
     @DefaultStringValue("Delete")
     String delete();
 

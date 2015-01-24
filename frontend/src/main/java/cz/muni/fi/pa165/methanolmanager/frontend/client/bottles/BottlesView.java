@@ -10,9 +10,12 @@ package cz.muni.fi.pa165.methanolmanager.frontend.client.bottles;
  * @author petr
  */
 
+import com.google.gwt.cell.client.ButtonCell;
+import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.SimplePager;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.cellview.client.TextHeader;
@@ -24,7 +27,6 @@ import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewImpl;
 import cz.muni.fi.pa165.methanolmanager.frontend.client.i18n.ApplicationConstants;
 import cz.muni.fi.pa165.methanolmanager.service.dto.BottleDto;
-import cz.muni.fi.pa165.methanolmanager.service.dto.StoreDto;
 import org.gwtbootstrap3.client.ui.Button;
 import org.gwtbootstrap3.client.ui.Label;
 import org.gwtbootstrap3.client.ui.Pagination;
@@ -32,9 +34,10 @@ import org.gwtbootstrap3.client.ui.ProgressBar;
 import org.gwtbootstrap3.client.ui.Row;
 import org.gwtbootstrap3.client.ui.base.button.AbstractButton;
 import org.gwtbootstrap3.client.ui.gwt.CellTable;
+import org.gwtbootstrap3.client.ui.Alert;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.awt.*;
+import java.util.Date;
 
 public class BottlesView extends ViewImpl implements BottlesPresenter.ViewDef {
 
@@ -46,6 +49,9 @@ public class BottlesView extends ViewImpl implements BottlesPresenter.ViewDef {
 
     @UiField
     Button editButton;
+
+    @UiField
+    Button stampButton;
 
     @UiField
     Button deleteButton;
@@ -76,6 +82,11 @@ public class BottlesView extends ViewImpl implements BottlesPresenter.ViewDef {
     @Override
     public AbstractButton getEditButton() {
         return editButton;
+    }
+
+    @Override
+    public AbstractButton getStampButton() {
+        return stampButton;
     }
 
     @Override
@@ -128,8 +139,14 @@ public class BottlesView extends ViewImpl implements BottlesPresenter.ViewDef {
         bottlesTable.addColumn(new TextColumn<BottleDto>() {
             @Override
             public String getValue(BottleDto bottle) {
+                Date stampDate = bottle.getStampDate();
+
+                if (stampDate == null){
+                    return "Not stamped!"; // localizovat
+                }
+
                 return DateTimeFormat.getFormat(DateTimeFormat.PredefinedFormat.DATE_MEDIUM)
-                        .format(bottle.getStampDate());
+                        .format(stampDate);
             }
         }, new TextHeader("Stamp date"));
 

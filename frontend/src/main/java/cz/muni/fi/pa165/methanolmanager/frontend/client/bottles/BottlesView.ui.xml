@@ -21,6 +21,7 @@
         <b:PanelHeader>
           <b:Button ui:field="createButton" text="{constants.create}" icon="PLUS" type="SUCCESS" addStyleNames="{style.actionButton}" />
           <b:Button ui:field="editButton" text="{constants.edit}" icon="EDIT" type="INFO" addStyleNames="{style.actionButton}" />
+          <b:Button ui:field="stampButton" text="{constants.stamp}" icon="EDIT" type="INFO" addStyleNames="{style.actionButton}" />
           <b:Button ui:field="deleteButton" text="{constants.delete}" icon="TRASH_O" type="DANGER" addStyleNames="{style.actionButton}" pull="RIGHT" />
         </b:PanelHeader>
         <b:PanelBody>

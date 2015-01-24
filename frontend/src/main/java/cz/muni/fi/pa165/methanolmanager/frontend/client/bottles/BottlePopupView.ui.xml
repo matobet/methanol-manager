@@ -31,10 +31,6 @@
             <b:FormLabel for="productionDateEditor" text="{constants.productionDate}" />
             <dp:DatePicker ui:field="productionDateEditor" />
           </b:FormGroup>
-          <b:FormGroup>
-            <b:FormLabel for="productionDateEditor" text="{constants.stampDate}" />
-            <dp:DatePicker ui:field="stampDateEditor" />
-          </b:FormGroup>
         </b:FieldSet>
       </b:Form>
     </b:ModalBody>
