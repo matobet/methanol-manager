@@ -7,6 +7,7 @@
   <inherits name="com.gwtplatform.mvp.MvpWithEntryPoint" />
   <inherits name="com.google.gwt.uibinder.GinUiBinder" />
   <inherits name="org.fusesource.restygwt.RestyGWT" />
+  <inherits name="com.googlecode.gwt.crypto.Crypto"/>
   <inherits name="org.gwtbootstrap3.GwtBootstrap3" />
   <inherits name="org.gwtbootstrap3.extras.growl.Growl"/>
   <inherits name="org.gwtbootstrap3.extras.positionedtabs.PositionedTabs"/>

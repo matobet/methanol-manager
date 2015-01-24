@@ -115,6 +115,15 @@ public interface ApplicationConstants extends Constants {
     @DefaultStringValue("No users")
     String noUsersYet();
 
+    @DefaultStringValue("Password")
+    String password();
 
+    @DefaultStringValue("Log in successful!")
+    String logInSuccessful();
 
+    @DefaultStringValue("Log in")
+    String login();
+
+    @DefaultStringValue("Log in required")
+    String loginRequired();
 }

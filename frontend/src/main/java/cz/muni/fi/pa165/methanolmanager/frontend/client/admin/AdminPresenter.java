@@ -2,7 +2,6 @@ package cz.muni.fi.pa165.methanolmanager.frontend.client.admin;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.cellview.client.LoadingStateChangeEvent;
 import com.google.gwt.view.client.HasData;
 import com.google.gwt.view.client.ListDataProvider;
@@ -13,22 +12,20 @@ import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
 import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyCodeSplit;
+import com.gwtplatform.mvp.client.annotations.UseGatekeeper;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
-import cz.muni.fi.pa165.methanolmanager.dal.domain.User;
 import cz.muni.fi.pa165.methanolmanager.frontend.client.application.ApplicationPresenter;
+import cz.muni.fi.pa165.methanolmanager.frontend.client.auth.AdminGatekeeper;
 import cz.muni.fi.pa165.methanolmanager.frontend.client.i18n.ApplicationMessages;
 import cz.muni.fi.pa165.methanolmanager.frontend.client.place.NameTokens;
-import cz.muni.fi.pa165.methanolmanager.frontend.client.utils.NotificationUtils;
 import cz.muni.fi.pa165.methanolmanager.frontend.client.rest.UserService;
-
-import javax.inject.Inject;
-import javax.swing.*;
-
+import cz.muni.fi.pa165.methanolmanager.frontend.client.utils.NotificationUtils;
 import cz.muni.fi.pa165.methanolmanager.service.dto.UserDto;
 import org.fusesource.restygwt.client.Method;
 import org.fusesource.restygwt.client.MethodCallback;
 import org.gwtbootstrap3.client.ui.base.button.AbstractButton;
 
+import javax.inject.Inject;
 import java.util.List;
 import java.util.Set;
 
@@ -51,6 +48,7 @@ public class AdminPresenter extends Presenter<AdminPresenter.ViewDef, AdminPrese
 
     @ProxyCodeSplit
     @NameToken(NameTokens.ADMIN)
+    @UseGatekeeper(AdminGatekeeper.class)
     public interface Proxy extends ProxyPlace<AdminPresenter> {
     }
 

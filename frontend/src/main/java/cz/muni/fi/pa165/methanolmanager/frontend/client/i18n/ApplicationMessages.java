@@ -108,4 +108,7 @@ public interface ApplicationMessages extends Messages {
 
     @DefaultMessage("Make {0} successfully deleted!")
     String makeDeleted(String name);
+
+    @DefaultMessage("Error logging in: {0}")
+    String logInError(String error);
 }
