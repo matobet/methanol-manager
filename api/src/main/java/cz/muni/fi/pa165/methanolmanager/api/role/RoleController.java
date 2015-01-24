@@ -21,7 +21,7 @@ public class RoleController {
     RoleService roleService;
 
     @RequestMapping(method = GET)
-    public List<RoleDto> getProducers() {
+    public List<RoleDto> getRoles() {
         return roleService.getRoles();
     }
 }
