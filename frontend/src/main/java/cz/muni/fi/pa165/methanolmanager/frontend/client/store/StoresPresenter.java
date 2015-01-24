@@ -94,6 +94,7 @@ public class StoresPresenter extends Presenter<StoresPresenter.ViewDef, StoresPr
                     }
                 });
                 editedItem = getView().getStoreTableSelection().getSelectedSet().iterator().next();
+                getView().getStoreTableSelection().clear();
                 storePopup.edit(editedItem);
                 storePopup.show();
             }
@@ -103,6 +104,7 @@ public class StoresPresenter extends Presenter<StoresPresenter.ViewDef, StoresPr
             @Override
             public void onClick(final ClickEvent event) {
                 Set<StoreDto> storesToDelete = getView().getStoreTableSelection().getSelectedSet();
+                getView().getStoreTableSelection().clear();
                 storesData.getList().removeAll(storesToDelete);
                 for (StoreDto store : storesToDelete) {
                     deleteStore(store);
@@ -122,7 +124,6 @@ public class StoresPresenter extends Presenter<StoresPresenter.ViewDef, StoresPr
         super.onReveal();
 
         fetchData();
-        onSelectionChange(null);
     }
 
     @Override
