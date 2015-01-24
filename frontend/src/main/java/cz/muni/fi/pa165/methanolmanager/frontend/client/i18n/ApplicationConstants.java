@@ -19,6 +19,12 @@ public interface ApplicationConstants extends Constants {
     @DefaultStringValue("Bottles")
     String bottles();
 
+    @DefaultStringValue("Here you can add and remove users.")
+    String adminUsersHeader();
+
+    @DefaultStringValue("Users")
+    String users();
+
     @DefaultStringValue("Create")
     String create();
 
@@ -60,4 +66,16 @@ public interface ApplicationConstants extends Constants {
 
     @DefaultStringValue("Stamp date")
     String stampDate();
+
+    @DefaultStringValue("Add user:")
+    String addUser();
+
+    @DefaultStringValue("Password")
+    String passwd();
+
+    @DefaultStringValue("Repeat password")
+    String passwdRep();
+
+    @DefaultStringValue("Remove user:")
+    String removeUser();
 }
