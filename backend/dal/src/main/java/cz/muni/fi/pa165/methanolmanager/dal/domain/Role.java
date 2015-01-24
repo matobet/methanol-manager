@@ -8,6 +8,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -23,6 +24,7 @@ public class Role extends AbstractPersistable<Integer> {
         ADMIN, POLICE
     }*/
 
+    @NotNull
     private String name;
 
     @ManyToMany(targetEntity = User.class, mappedBy = "roles")
