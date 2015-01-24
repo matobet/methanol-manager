@@ -1,6 +1,5 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
-             xmlns:dp="urn:import:com.google.gwt.user.datepicker.client"
              xmlns:b="urn:import:org.gwtbootstrap3.client.ui"
              xmlns:b.gwt="urn:import:org.gwtbootstrap3.client.ui.gwt">
   <ui:with field="constants" type="cz.muni.fi.pa165.methanolmanager.frontend.client.i18n.ApplicationConstants" />
@@ -11,29 +10,17 @@
     }
   </ui:style>
 
-  <b:Modal ui:field="dialogBox" title="Bottle">
+  <b:Modal ui:field="dialogBox" title="Make">
     <b:ModalBody>
       <b:Form type="HORIZONTAL">
         <b:FieldSet>
           <b:FormGroup>
             <b:FormLabel for="nameEditor" text="{constants.name}" />
-            <b:TextBox ui:field="nameEditor" b:id="nameEditor" focus="true" />
+            <b:TextBox ui:field="nameEditor" b:id="nameEditor" />
           </b:FormGroup>
           <b:FormGroup>
-            <b:FormLabel for="makeEditor" text="{constants.makeName}" />
-            <b:ValueListBox ui:field="makeEditor" />
-          </b:FormGroup>
-          <b:FormGroup>
-            <b:FormLabel for="storeEditor" text="{constants.storeName}" />
-            <b:ValueListBox ui:field="storeEditor" />
-          </b:FormGroup>
-          <b:FormGroup>
-            <b:FormLabel for="productionDateEditor" text="{constants.productionDate}" />
-            <dp:DatePicker ui:field="productionDateEditor" />
-          </b:FormGroup>
-          <b:FormGroup>
-            <b:FormLabel for="productionDateEditor" text="{constants.stampDate}" />
-            <dp:DatePicker ui:field="stampDateEditor" />
+            <b:FormLabel for="producerEditor" text="{constants.producerName}" />
+            <b:ValueListBox ui:field="producerEditor" />
           </b:FormGroup>
         </b:FieldSet>
       </b:Form>

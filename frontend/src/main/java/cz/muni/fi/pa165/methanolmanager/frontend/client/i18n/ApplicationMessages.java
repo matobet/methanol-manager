@@ -65,4 +65,25 @@ public interface ApplicationMessages extends Messages {
 
     @DefaultMessage("Bottle {0} successfully updated!")
     String bottleUpdated(String name);
+
+    @DefaultMessage("Error updating make: {0}")
+    String updateMakeError(String error);
+
+    @DefaultMessage("Make {0} sucessfully created!")
+    String makeCreated(String name);
+
+    @DefaultMessage("Make {0} successfully updated!")
+    String makeUpdated(String name);
+
+    @DefaultMessage("Error creating make: {0}")
+    String createMakeError(String error);
+
+    @DefaultMessage("Error loading makes: {0}")
+    String loadMakeError(String error);
+
+    @DefaultMessage("Error deleting make {0}: {1}")
+    String deleteMakeError(String name, String error);
+
+    @DefaultMessage("Make {0} sucessfully deleted!")
+    String makeDeleted(String name);
 }
