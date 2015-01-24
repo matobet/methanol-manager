@@ -4,6 +4,9 @@ import com.google.gwt.i18n.client.Constants;
 
 public interface ApplicationConstants extends Constants {
 
+    @DefaultStringValue("ID")
+    String id();
+
     @DefaultStringValue("Methanol Manager")
     String applicationName();
 
@@ -79,7 +82,7 @@ public interface ApplicationConstants extends Constants {
     @DefaultStringValue("Remove user:")
     String removeUser();
 
-    @DefaultStringValue("Here you can add and remove users.")
+    @DefaultStringValue("Here you can add, edit and remove users.")
     String adminUsersHeader();
 
     @DefaultStringValue("Users")
@@ -105,5 +108,10 @@ public interface ApplicationConstants extends Constants {
 
     @DefaultStringValue("Error loading list of producers")
     String errorLoadingProducers();
+
+    @DefaultStringValue("No users")
+    String noUsersYet();
+
+
 
 }

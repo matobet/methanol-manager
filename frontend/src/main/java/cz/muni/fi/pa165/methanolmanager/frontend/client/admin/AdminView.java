@@ -11,14 +11,15 @@ import com.google.gwt.user.cellview.client.SimplePager;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.cellview.client.TextHeader;
 import com.google.gwt.user.client.ui.ListBox;
-import com.google.gwt.view.client.ListDataProvider;
-import com.google.gwt.view.client.RangeChangeEvent;
+import com.google.gwt.user.client.ui.ValueListBox;
+import com.google.gwt.view.client.*;
 import com.gwtplatform.mvp.client.ViewImpl;
-import cz.muni.fi.pa165.methanolmanager.service.dto.StoreDto;
-import org.gwtbootstrap3.client.ui.Button;
-import org.gwtbootstrap3.client.ui.Pagination;
-import org.gwtbootstrap3.client.ui.Row;
-import org.gwtbootstrap3.client.ui.TextBox;
+import cz.muni.fi.pa165.methanolmanager.frontend.client.i18n.ApplicationConstants;
+import cz.muni.fi.pa165.methanolmanager.frontend.client.i18n.ApplicationMessages;
+import cz.muni.fi.pa165.methanolmanager.frontend.client.utils.DefaultStringValueRenderer;
+import cz.muni.fi.pa165.methanolmanager.service.dto.UserDto;
+import org.gwtbootstrap3.client.ui.*;
+import org.gwtbootstrap3.client.ui.base.button.AbstractButton;
 import org.gwtbootstrap3.client.ui.gwt.CellTable;
 
 import javax.inject.Inject;
@@ -32,19 +33,87 @@ public class AdminView extends ViewImpl implements AdminPresenter.ViewDef {
     Button createButton;
 
     @UiField
-    TextBox nameAdd;
+    Button editButton;
 
     @UiField
-    TextBox passwdAdd;
+    Button deleteButton;
 
     @UiField
-    TextBox passwdRepAdd;
+    CellTable<UserDto> usersTable;
 
     @UiField
-    ListBox userRemove;
+    Pagination usersPagination;
+
+    MultiSelectionModel<UserDto> selectionModel;
+
+    private final ApplicationConstants constants;
 
     @Inject
-    public AdminView(Binder binder) {
+    public AdminView(Binder binder, ApplicationConstants constants) {
+
+        this.constants = constants;
+
         initWidget(binder.createAndBindUi(this));
+        initUsersTable();
+    }
+
+
+    @Override
+    public AbstractButton getCreateButton() {
+        return createButton;
+    }
+
+    @Override
+    public AbstractButton getEditButton() {
+        return editButton;
+    }
+
+    @Override
+    public AbstractButton getDeleteButton() {
+        return deleteButton;
+    }
+
+    @Override
+    public HasData<UserDto> getUsersTable() {
+        return usersTable;
+    }
+
+    @Override
+    public SetSelectionModel<UserDto> getUserTableSelection() {
+        return selectionModel;
+    }
+
+    private void initUsersTable() {
+        usersTable.addColumn(new TextColumn<UserDto>() {
+            @Override
+            public String getValue(UserDto user) {
+                return user.getId().toString();
+            }
+        }, new TextHeader("Id"));
+        usersTable.addColumn(new TextColumn<UserDto>() {
+            @Override
+            public String getValue(UserDto user) {
+                return user.getName();
+            }
+        }, new TextHeader("Name"));
+
+        selectionModel = new MultiSelectionModel<>();
+        usersTable.setSelectionModel(selectionModel);
+
+        final SimplePager pager = new SimplePager();
+
+        usersTable.addRangeChangeHandler(new RangeChangeEvent.Handler() {
+            @Override
+            public void onRangeChange(RangeChangeEvent event) {
+                usersPagination.rebuild(pager);
+            }
+        });
+
+        usersTable.setLoadingIndicator(new ProgressBar());
+        usersTable.setEmptyTableWidget(new Label(constants.noUsersYet()));
+
+        pager.setDisplay(usersTable);
+        usersPagination.clear();
+        usersPagination.rebuild(pager);
     }
 }
