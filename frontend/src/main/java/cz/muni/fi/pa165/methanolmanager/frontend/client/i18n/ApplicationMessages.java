@@ -111,4 +111,10 @@ public interface ApplicationMessages extends Messages {
 
     @DefaultMessage("Error logging in: {0}")
     String logInError(String error);
+
+    @DefaultMessage("Bottle {0} successfully stamped!")
+    String bottleStamped(String name);
+
+    @DefaultMessage("Error stamping bottle {0}: {1}")
+    String stampBottleError(String name, String error);
 }

@@ -48,6 +48,13 @@
     </dependency>
 
     <dependency>
+      <groupId>com.gwtplatform</groupId>
+      <artifactId>gwtp-processors</artifactId>
+      <version>${gwtp.version}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
       <groupId>com.google.gwt</groupId>
       <artifactId>gwt-user</artifactId>
       <version>${gwt.version}</version>
@@ -165,6 +172,24 @@
         <configuration>
           <webappDirectory>${outputFolder}</webappDirectory>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>add-source</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>add-source</goal>
+            </goals>
+            <configuration>
+              <sources>
+                <source>${project.build.directory}/generated-sources/annotations</source>
+              </sources>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>

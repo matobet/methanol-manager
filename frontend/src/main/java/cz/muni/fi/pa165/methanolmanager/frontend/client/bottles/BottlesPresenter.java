@@ -13,8 +13,6 @@ package cz.muni.fi.pa165.methanolmanager.frontend.client.bottles;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.cellview.client.LoadingStateChangeEvent;
-import static com.google.gwt.user.cellview.client.LoadingStateChangeEvent.LoadingState.LOADED;
-import static com.google.gwt.user.cellview.client.LoadingStateChangeEvent.LoadingState.LOADING;
 import com.google.gwt.view.client.HasData;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.SelectionChangeEvent;
@@ -25,25 +23,24 @@ import com.gwtplatform.mvp.client.View;
 import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
-import cz.muni.fi.pa165.methanolmanager.dal.domain.Bottle;
 import cz.muni.fi.pa165.methanolmanager.frontend.client.application.ApplicationPresenter;
 import cz.muni.fi.pa165.methanolmanager.frontend.client.i18n.ApplicationMessages;
 import cz.muni.fi.pa165.methanolmanager.frontend.client.place.NameTokens;
 import cz.muni.fi.pa165.methanolmanager.frontend.client.rest.BottleService;
 import cz.muni.fi.pa165.methanolmanager.frontend.client.utils.NotificationUtils;
 import cz.muni.fi.pa165.methanolmanager.service.dto.BottleDto;
-
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
-
-import javax.inject.Inject;
 import org.fusesource.restygwt.client.Method;
 import org.fusesource.restygwt.client.MethodCallback;
 import org.gwtbootstrap3.client.ui.base.button.AbstractButton;
-import static org.gwtbootstrap3.extras.growl.client.ui.Growl.growl;
 
-public class BottlesPresenter extends Presenter<BottlesPresenter.ViewDef, BottlesPresenter.Proxy> implements SelectionChangeEvent.Handler {
+import javax.inject.Inject;
+import java.util.List;
+import java.util.Set;
+
+import static com.google.gwt.user.cellview.client.LoadingStateChangeEvent.LoadingState.LOADED;
+import static com.google.gwt.user.cellview.client.LoadingStateChangeEvent.LoadingState.LOADING;
+
+public class BottlesPresenter extends Presenter<BottlesPresenter.ViewDef, BottlesPresenter.Proxy> implements SelectionChangeEvent.Handler, AllBottlesStampedEvent.AllBottlesStampedHandler {
 
     public interface ViewDef extends View {
         AbstractButton getCreateButton();
@@ -63,17 +60,19 @@ public class BottlesPresenter extends Presenter<BottlesPresenter.ViewDef, Bottle
     private final BottleService bottleService;
     private final ApplicationMessages messages;
     private final BottlePopupView bottlePopup;
+    private final BottleStamper bottleStamper;
     private BottleDto editedItem;
 
     @Inject
     public BottlesPresenter(EventBus eventBus, ViewDef view, Proxy proxy, 
             BottleService bottleService, ApplicationMessages applicationMessages,
-            BottlePopupView bottlePopupView) {
+            BottlePopupView bottlePopupView, BottleStamper bottleStamper) {
         super(eventBus, view, proxy, ApplicationPresenter.MAIN_CONTENT);
         
         this.bottleService = bottleService;
         this.messages = applicationMessages;
         this.bottlePopup = bottlePopupView;
+        this.bottleStamper = bottleStamper;
     }
     
     @Override
@@ -115,12 +114,7 @@ public class BottlesPresenter extends Presenter<BottlesPresenter.ViewDef, Bottle
             public void onClick(ClickEvent event) {
                 Set<BottleDto> bottlesToStamp = getView().getBottleTableSelection().getSelectedSet();
                 getView().getBottleTableSelection().clear();
-                for (BottleDto bottle : bottlesToStamp){
-                    if (bottle.getStampDate() == null) {
-                        bottle.setStampDate(new Date());
-                        updateBottle(bottle);
-                    }
-                }
+                bottleStamper.stampBottles(bottlesToStamp);
             }
         }));
 
@@ -138,6 +132,7 @@ public class BottlesPresenter extends Presenter<BottlesPresenter.ViewDef, Bottle
         }));
 
         registerHandler(getView().getBottleTableSelection().addSelectionChangeHandler(this));
+        registerHandler(getEventBus().addHandler(AllBottlesStampedEvent.getType(), this));
 
         bottlesData = new ListDataProvider<>();
         bottlesData.addDataDisplay(getView().getBottlesTable());
@@ -228,5 +223,10 @@ public class BottlesPresenter extends Presenter<BottlesPresenter.ViewDef, Bottle
                 NotificationUtils.info(messages.bottleDeleted(bottle.getName()));
             }
         });
+    }
+
+    @Override
+    public void onAllBottlesStamped(AllBottlesStampedEvent event) {
+        fetchData();
     }
 }
