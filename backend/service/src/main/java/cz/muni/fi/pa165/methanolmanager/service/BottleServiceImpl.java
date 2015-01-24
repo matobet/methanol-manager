@@ -105,6 +105,12 @@ public class BottleServiceImpl implements BottleService {
         try {
             Bottle bottle = bottleRepository.findOne(bottleDto.getId());
             mapper.map(bottleDto, bottle);
+            if (!bottle.getMake().getName().equals(bottleDto.getMakeName())) {
+                bottle.setMake(resolveMakeByName(bottleDto.getMakeName()));
+            }
+            if (!bottle.getStore().getName().equals(bottleDto.getStoreName())) {
+                bottle.setStore(resolveStoreByName(bottleDto.getStoreName()));
+            }
             bottleRepository.save(bottle);
 
             return mapper.map(bottle, BottleDto.class);
