@@ -60,4 +60,19 @@ public interface ApplicationConstants extends Constants {
 
     @DefaultStringValue("Stamp date")
     String stampDate();
+
+    @DefaultStringValue("Error loading list of makes")
+    String errorLoadingMakes();
+
+    @DefaultStringValue("(Select make)")
+    String selectMake();
+
+    @DefaultStringValue("Store")
+    String storeName();
+
+    @DefaultStringValue("(Select store)")
+    String selectStore();
+
+    @DefaultStringValue("Error loading list of stores")
+    String errorLoadingStores();
 }

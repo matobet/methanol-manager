@@ -21,7 +21,11 @@
           </b:FormGroup>
           <b:FormGroup>
             <b:FormLabel for="makeEditor" text="{constants.makeName}" />
-            <b:ListBox ui:field="makeEditor" b:id="makeEditor" />
+            <b:ValueListBox ui:field="makeEditor" />
+          </b:FormGroup>
+          <b:FormGroup>
+            <b:FormLabel for="storeEditor" text="{constants.storeName}" />
+            <b:ValueListBox ui:field="storeEditor" />
           </b:FormGroup>
           <b:FormGroup>
             <b:FormLabel for="productionDateEditor" text="{constants.productionDate}" />

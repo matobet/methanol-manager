@@ -9,3 +9,6 @@ spring:
       dialect: org.hibernate.dialect.DerbyTenElevenDialect
       default_schema: APP
     show-sql: false
+  jackson:
+    serialization:
+      write_dates_as_timestamps: false
