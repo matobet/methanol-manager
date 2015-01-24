@@ -15,4 +15,5 @@ public class RoleDto {
     public Integer id;
 
     private String name;
+
 }
