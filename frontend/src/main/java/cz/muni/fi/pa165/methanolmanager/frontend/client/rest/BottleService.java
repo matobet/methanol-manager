@@ -30,6 +30,10 @@ public interface BottleService extends RestService {
     @Path("/{id}")
     void updateBottle(@PathParam("id") int id, BottleDto bottleDto, MethodCallback<BottleDto> callback);
 
+    @POST
+    @Path("/{id}/stamp")
+    void stampBottle(@PathParam("id") int id, MethodCallback<Void> callback);
+
     @DELETE
     @Path("/{id}")
     void deleteBottle(@PathParam("id") int id, MethodCallback<Void> callback);

@@ -41,4 +41,9 @@ public class BottleController {
     public BottleDto updateBottle(@PathVariable("id") int id, @RequestBody BottleDto bottle) {
         return bottleService.updateBottle(bottle);
     }
+
+    @RequestMapping(value = "/{id}/stamp", method = POST)
+    public void stampBottle(@PathVariable("id") int id) {
+        bottleService.stampBottle(id);
+    }
 }

@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.methanolmanager.frontend.client.gin;
 
+import com.google.inject.Singleton;
 import com.gwtplatform.mvp.client.annotations.DefaultPlace;
 import com.gwtplatform.mvp.client.annotations.ErrorPlace;
 import com.gwtplatform.mvp.client.annotations.UnauthorizedPlace;
@@ -8,6 +9,7 @@ import com.gwtplatform.mvp.client.gin.DefaultModule;
 import com.gwtplatform.mvp.client.proxy.DefaultPlaceManager;
 import cz.muni.fi.pa165.methanolmanager.frontend.client.application.ApplicationPresenter;
 import cz.muni.fi.pa165.methanolmanager.frontend.client.application.ApplicationView;
+import cz.muni.fi.pa165.methanolmanager.frontend.client.bottles.BottleStamper;
 import cz.muni.fi.pa165.methanolmanager.frontend.client.place.NameTokens;
 
 public class MainModule extends AbstractPresenterModule {
@@ -20,5 +22,7 @@ public class MainModule extends AbstractPresenterModule {
         bindConstant().annotatedWith(DefaultPlace.class).to(NameTokens.STORES);
         bindConstant().annotatedWith(ErrorPlace.class).to(NameTokens.STORES);
         bindConstant().annotatedWith(UnauthorizedPlace.class).to(NameTokens.LOGIN);
+
+        bind(BottleStamper.class).in(Singleton.class);
     }
 }
