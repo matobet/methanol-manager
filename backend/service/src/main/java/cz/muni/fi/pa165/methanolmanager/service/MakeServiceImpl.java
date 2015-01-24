@@ -40,11 +40,7 @@ public class MakeServiceImpl implements MakeService {
     @Transactional
     public MakeDto createMake(MakeDto makeDto){
         Make make = mapper.map(makeDto, Make.class);
-        Producer producer = producerRepository.findByName(makeDto.getProducerName());
-        if (producer == null) {
-            throw new EntityNotFoundException(makeDto.getProducerName());
-        }
-        make.setProducer(producer);
+        make.setProducer(resolveProducerByName(makeDto.getProducerName()));
 
         makeRepository.save(make);
 
@@ -95,11 +91,22 @@ public class MakeServiceImpl implements MakeService {
         try {
             Make make = makeRepository.findOne(makeDto.getId());
             mapper.map(makeDto, make);
+            if (!make.getProducer().getName().equals(makeDto.getProducerName())) {
+                make.setProducer(resolveProducerByName(makeDto.getProducerName()));
+            }
             makeRepository.save(make);
 
             return mapper.map(make, MakeDto.class);
         } catch (EmptyResultDataAccessException e) {
             throw new EntityNotFoundException(makeDto.getId());
         }
+    }
+
+    private Producer resolveProducerByName(String producerName) {
+        Producer producer = producerRepository.findByName(producerName);
+        if (producer == null) {
+            throw new EntityNotFoundException(producerName);
+        }
+        return producer;
     }
 }

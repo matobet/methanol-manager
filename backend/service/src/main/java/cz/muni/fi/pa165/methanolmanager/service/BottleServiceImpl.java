@@ -60,18 +60,8 @@ public class BottleServiceImpl implements BottleService {
     @Transactional
     public BottleDto createBottle(BottleDto bottleDto) {
         Bottle bottle = mapper.map(bottleDto, Bottle.class);
-
-        Make make = makeRepository.findByName(bottleDto.getMakeName());
-        if (make == null) {
-            throw new EntityNotFoundException(bottleDto.getMakeName());
-        }
-        bottle.setMake(make);
-
-        Store store = storeRepository.findByName(bottleDto.getStoreName());
-        if (store == null) {
-            throw new EntityNotFoundException(bottleDto.getStoreName());
-        }
-        bottle.setStore(store);
+        bottle.setMake(resolveMakeByName(bottleDto.getMakeName()));
+        bottle.setStore(resolveStoreByName(bottleDto.getStoreName()));
 
         bottleRepository.save(bottle);
 
@@ -116,5 +106,21 @@ public class BottleServiceImpl implements BottleService {
         } catch (EmptyResultDataAccessException e) {
             throw new EntityNotFoundException(bottleDto.getId());
         }
+    }
+
+    private Make resolveMakeByName(String makeName) {
+        Make make = makeRepository.findByName(makeName);
+        if (make == null) {
+            throw new EntityNotFoundException(makeName);
+        }
+        return make;
+    }
+
+    private Store resolveStoreByName(String storeName) {
+        Store store = storeRepository.findByName(storeName);
+        if (store == null) {
+            throw new EntityNotFoundException(storeName);
+        }
+        return store;
     }
 }
