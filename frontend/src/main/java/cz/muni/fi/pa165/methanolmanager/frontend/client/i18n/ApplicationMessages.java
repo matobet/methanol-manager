@@ -3,13 +3,35 @@ package cz.muni.fi.pa165.methanolmanager.frontend.client.i18n;
 import com.google.gwt.i18n.client.Messages;
 
 public interface ApplicationMessages extends Messages {
+
+    @DefaultMessage("Error creating user: {0}")
+    String createUserError(String error);
+
+    @DefaultMessage("User {0} successfully created!")
+    String userCreated(String name);
+
+    @DefaultMessage("Error updating user: {0}")
+    String updateUserError(String error);
+
+    @DefaultMessage("User {0} successfully updated!")
+    String userUpdated(String name);
+
+    @DefaultMessage("Error loading user: {0}")
+    String loadUserError(String error);
+
+    @DefaultMessage("Error deleting user {0}: {1}")
+    String deleteUserError(String name, String error);
+
+    @DefaultMessage("User {0} successfully deleted!")
+    String userDeleted(String name);
+
     @DefaultMessage("Error loading stores: {0}")
     String loadStoreError(String error);
 
     @DefaultMessage("Error deleting store {0}: {1}")
     String deleteStoreError(String name, String error);
 
-    @DefaultMessage("Store {0} sucessfully deleted!")
+    @DefaultMessage("Store {0} successfully deleted!")
     String storeDeleted(String name);
     
     @DefaultMessage("Error loading bottle: {0}")
@@ -18,13 +40,13 @@ public interface ApplicationMessages extends Messages {
     @DefaultMessage("Error deleting bottle {0}: {1}")
     String deleteBottleError(String name, String error);
 
-    @DefaultMessage("Bottle {0} sucessfully deleted!")
+    @DefaultMessage("Bottle {0} successfully deleted!")
     String bottleDeleted(String name);
 
     @DefaultMessage("Error creating store: {0}")
     String createStoreError(String error);
 
-    @DefaultMessage("Store {0} sucessfully created!")
+    @DefaultMessage("Store {0} successfully created!")
     String storeCreated(String name);
 
     @DefaultMessage("Error updating store: {0}")
@@ -42,13 +64,13 @@ public interface ApplicationMessages extends Messages {
     @DefaultMessage("Error deleting producer {0}: {1}")
     String deleteProducerError(String name, String error);
 
-    @DefaultMessage("Producer {0} sucessfully deleted!")
+    @DefaultMessage("Producer {0} successfully deleted!")
     String producerDeleted(String name);
 
     @DefaultMessage("Error creating producer: {0}")
     String createProducerError(String error);
 
-    @DefaultMessage("Producer {0} sucessfully created!")
+    @DefaultMessage("Producer {0} successfully created!")
     String producerCreated(String name);
 
     @DefaultMessage("Producer {0} successfully updated!")
@@ -57,7 +79,7 @@ public interface ApplicationMessages extends Messages {
     @DefaultMessage("Error creating bottle: {0}")
     String createBottleError(String error);
 
-    @DefaultMessage("Bottle {0} sucessfully created!")
+    @DefaultMessage("Bottle {0} successfully created!")
     String bottleCreated(String name);
 
     @DefaultMessage("Error updating bottle: {0}")
@@ -69,7 +91,7 @@ public interface ApplicationMessages extends Messages {
     @DefaultMessage("Error updating make: {0}")
     String updateMakeError(String error);
 
-    @DefaultMessage("Make {0} sucessfully created!")
+    @DefaultMessage("Make {0} successfully created!")
     String makeCreated(String name);
 
     @DefaultMessage("Make {0} successfully updated!")
@@ -84,6 +106,6 @@ public interface ApplicationMessages extends Messages {
     @DefaultMessage("Error deleting make {0}: {1}")
     String deleteMakeError(String name, String error);
 
-    @DefaultMessage("Make {0} sucessfully deleted!")
+    @DefaultMessage("Make {0} successfully deleted!")
     String makeDeleted(String name);
 }
