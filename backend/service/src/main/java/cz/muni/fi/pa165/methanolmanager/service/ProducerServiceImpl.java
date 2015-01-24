@@ -50,14 +50,20 @@ public class ProducerServiceImpl implements ProducerService {
             throw new EntityNotFoundException(producerId);
         }
 
-        return mapper.map(producer, ProducerDto.class);
+        ProducerDto producerDto = mapper.map(producer, ProducerDto.class);
+        producerDto.setProducedToxicBottles(bottleRepository.countToxicByProducer(producer));
+
+        return producerDto;
     }
 
     @Override
     public List<ProducerDto> getProducers() {
         List<ProducerDto> producers = new ArrayList<>();
         for (Producer producer : producerRepository.findAll()) {
-            producers.add(mapper.map(producer, ProducerDto.class));
+            ProducerDto producerDto = mapper.map(producer, ProducerDto.class);
+            producerDto.setProducedToxicBottles(bottleRepository.countToxicByProducer(producer));
+
+            producers.add(producerDto);
         }
         return producers;
     }

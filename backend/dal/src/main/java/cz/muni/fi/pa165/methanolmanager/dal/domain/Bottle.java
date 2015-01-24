@@ -36,7 +36,15 @@ public class Bottle extends AbstractNamedEntity {
     }
 
     public void stamp() {
-        stampDate = new Date();
+        toxic = checkToxicity();
+
+        if (!toxic)
+            stampDate = new Date();
+    }
+
+    private boolean checkToxicity(){
+        // huge number of chemical tests and tasting by volunteers to find out whether content of this bottle is toxic
+        return Math.random() > 0.5;
     }
 
     public Bottle(String name, Date productionDate, Date stampDate, boolean toxic, Make make, Store store) {

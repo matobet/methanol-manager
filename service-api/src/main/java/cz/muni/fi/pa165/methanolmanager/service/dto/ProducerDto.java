@@ -15,4 +15,6 @@ public class ProducerDto {
     public Integer id;
 
     private String name;
+
+    private long producedToxicBottles;
 }

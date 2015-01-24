@@ -133,4 +133,7 @@ public interface ApplicationConstants extends Constants {
 
     @DefaultStringValue("Not stamped!")
     String notStamped();
+
+    @DefaultStringValue("Toxic totally")
+    String numberOfToxic();
 }
