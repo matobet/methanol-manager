@@ -9,11 +9,21 @@ import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gwtplatform.mvp.client.PopupViewImpl;
+import cz.muni.fi.pa165.methanolmanager.frontend.client.i18n.ApplicationConstants;
+import cz.muni.fi.pa165.methanolmanager.frontend.client.rest.ProducerService;
+import cz.muni.fi.pa165.methanolmanager.frontend.client.utils.DefaultStringValueRenderer;
+import cz.muni.fi.pa165.methanolmanager.frontend.client.utils.NotificationUtils;
 import cz.muni.fi.pa165.methanolmanager.service.dto.MakeDto;
+import cz.muni.fi.pa165.methanolmanager.service.dto.ProducerDto;
+import org.fusesource.restygwt.client.Method;
+import org.fusesource.restygwt.client.MethodCallback;
 import org.gwtbootstrap3.client.ui.Modal;
 import org.gwtbootstrap3.client.ui.TextBox;
+import org.gwtbootstrap3.client.ui.ValueListBox;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MakePopupView extends PopupViewImpl implements Editor<MakeDto> {
 
@@ -34,17 +44,25 @@ public class MakePopupView extends PopupViewImpl implements Editor<MakeDto> {
     @Path("name")
     TextBox nameEditor;
 
-    @UiField
+    @UiField(provided = true)
     @Path("producerName")
-    TextBox producerNameEditor;
+    ValueListBox<String> producerEditor;
 
     private final Driver driver;
     private SubmitHandler submitHandler;
 
+    private final ProducerService producerService;
+    private final ApplicationConstants applicationConstants;
+
     @Inject
-    public MakePopupView(Binder binder, Driver driver, EventBus eventBus) {
+    public MakePopupView(Binder binder, Driver driver, EventBus eventBus, ProducerService producerService,
+                         final ApplicationConstants applicationConstants) {
         super(eventBus);
         this.driver = driver;
+        this.producerService = producerService;
+
+        this.applicationConstants = applicationConstants;
+        producerEditor = new ValueListBox<>(new DefaultStringValueRenderer(applicationConstants.selectProducer()));
         initWidget(binder.createAndBindUi(this));
         driver.initialize(this);
     }
@@ -53,8 +71,26 @@ public class MakePopupView extends PopupViewImpl implements Editor<MakeDto> {
         dialogBox.show();
     }
 
-    public void edit(MakeDto make) {
-        driver.edit(make);
+    public void edit(final MakeDto make) {
+        producerService.getProducers(new MethodCallback<List<ProducerDto>>() {
+            @Override
+            public void onFailure(Method method, Throwable exception) {
+                NotificationUtils.error(applicationConstants.errorLoadingProducers());
+            }
+
+            @Override
+            public void onSuccess(Method method, List<ProducerDto> response) {
+
+                List<String> producerNames = new ArrayList<>();
+                producerNames.add(null);
+                for (ProducerDto producer : response) {
+                    producerNames.add(producer.getName());
+                }
+                producerEditor.setAcceptableValues(producerNames);
+
+                driver.edit(make);
+            }
+        });
     }
 
     public MakeDto flush() {

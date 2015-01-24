@@ -106,15 +106,15 @@ public class BottleServiceImpl implements BottleService {
 
     @Override
     @Transactional
-    public BottleDto updateBottle(BottleDto storeDto) {
+    public BottleDto updateBottle(BottleDto bottleDto) {
         try {
-            Bottle store = bottleRepository.findOne(storeDto.getId());
-            mapper.map(storeDto, store);
-            bottleRepository.save(store);
+            Bottle bottle = bottleRepository.findOne(bottleDto.getId());
+            mapper.map(bottleDto, bottle);
+            bottleRepository.save(bottle);
 
-            return mapper.map(store, BottleDto.class);
+            return mapper.map(bottle, BottleDto.class);
         } catch (EmptyResultDataAccessException e) {
-            throw new EntityNotFoundException(storeDto.getId());
+            throw new EntityNotFoundException(bottleDto.getId());
         }
     }
 }

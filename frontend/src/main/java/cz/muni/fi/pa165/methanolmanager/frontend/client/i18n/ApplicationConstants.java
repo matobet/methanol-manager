@@ -100,4 +100,10 @@ public interface ApplicationConstants extends Constants {
     @DefaultStringValue("Error loading list of stores")
     String errorLoadingStores();
 
+    @DefaultStringValue("(Select producer)")
+    String selectProducer();
+
+    @DefaultStringValue("Error loading list of producers")
+    String errorLoadingProducers();
+
 }

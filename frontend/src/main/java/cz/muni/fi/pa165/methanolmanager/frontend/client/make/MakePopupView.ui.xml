@@ -19,8 +19,8 @@
             <b:TextBox ui:field="nameEditor" b:id="nameEditor" />
           </b:FormGroup>
           <b:FormGroup>
-            <b:FormLabel for="producerNameEditor" text="{constants.producerName}" />
-            <b:TextBox ui:field="producerNameEditor" b:id="producerNameEditor" />
+            <b:FormLabel for="producerEditor" text="{constants.producerName}" />
+            <b:ValueListBox ui:field="producerEditor" />
           </b:FormGroup>
         </b:FieldSet>
       </b:Form>

@@ -23,6 +23,7 @@ import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewImpl;
 import cz.muni.fi.pa165.methanolmanager.frontend.client.i18n.ApplicationConstants;
 import cz.muni.fi.pa165.methanolmanager.service.dto.BottleDto;
+import cz.muni.fi.pa165.methanolmanager.service.dto.StoreDto;
 import org.gwtbootstrap3.client.ui.Button;
 import org.gwtbootstrap3.client.ui.Label;
 import org.gwtbootstrap3.client.ui.Pagination;
@@ -101,6 +102,12 @@ public class BottlesView extends ViewImpl implements BottlesPresenter.ViewDef {
                 return bottle.getName();
             }
         }, new TextHeader("Name"));
+        bottlesTable.addColumn(new TextColumn<BottleDto>() {
+            @Override
+            public String getValue(BottleDto bottle) {
+                return bottle.getStoreName();
+            }
+        }, new TextHeader("Store"));
         bottlesTable.addColumn(new TextColumn<BottleDto>() {
             @Override
             public String getValue(BottleDto bottle) {
