@@ -19,6 +19,9 @@ public interface ApplicationConstants extends Constants {
     @DefaultStringValue("Bottles")
     String bottles();
 
+    @DefaultStringValue("Makes")
+    String makes();
+
     @DefaultStringValue("Create")
     String create();
 
@@ -36,6 +39,9 @@ public interface ApplicationConstants extends Constants {
     
     @DefaultStringValue("No bottles added yet!")
     String noBottlesYet();
+
+    @DefaultStringValue("No makes added yet!")
+    String noMakesYet();
 
     @DefaultStringValue("Name")
     String name();

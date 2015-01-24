@@ -1,0 +1,33 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:b="urn:import:org.gwtbootstrap3.client.ui"
+             xmlns:b.gwt="urn:import:org.gwtbootstrap3.client.ui.gwt">
+  <ui:with field="constants" type="cz.muni.fi.pa165.methanolmanager.frontend.client.i18n.ApplicationConstants" />
+
+  <ui:style>
+    .background {
+      background: red;
+    }
+  </ui:style>
+
+  <b:Modal ui:field="dialogBox" title="Make">
+    <b:ModalBody>
+      <b:Form type="HORIZONTAL">
+        <b:FieldSet>
+          <b:FormGroup>
+            <b:FormLabel for="nameEditor" text="{constants.name}" />
+            <b:TextBox ui:field="nameEditor" b:id="nameEditor" />
+          </b:FormGroup>
+          <b:FormGroup>
+            <b:FormLabel for="producerNameEditor" text="{constants.producerName}" />
+            <b:TextBox ui:field="producerNameEditor" b:id="producerNameEditor" />
+          </b:FormGroup>
+        </b:FieldSet>
+      </b:Form>
+    </b:ModalBody>
+    <b:ModalFooter>
+      <b:Button ui:field="submitButton" type="PRIMARY" text="{constants.save}" />
+      <b:Button type="DANGER" dataDismiss="MODAL" text="{constants.cancel}" />
+    </b:ModalFooter>
+  </b:Modal>
+</ui:UiBinder>
