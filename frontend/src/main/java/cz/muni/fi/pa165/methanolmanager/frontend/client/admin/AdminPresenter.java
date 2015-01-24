@@ -164,7 +164,7 @@ public class AdminPresenter extends Presenter<AdminPresenter.ViewDef, AdminPrese
             @Override
             public void onSuccess(Method method, UserDto createdUser) {
                 fetchData();
-                NotificationUtils.info(messages.userCreated(createdUser.getName()));
+                NotificationUtils.info(messages.userCreated(createdUser.getUsername()));
             }
         });
     }
@@ -180,7 +180,7 @@ public class AdminPresenter extends Presenter<AdminPresenter.ViewDef, AdminPrese
             public void onSuccess(Method method, UserDto userDto) {
                 fetchData();
                 editedItem = null;
-                NotificationUtils.info(messages.userUpdated(userDto.getName()));
+                NotificationUtils.info(messages.userUpdated(userDto.getUsername()));
             }
         });
     }
@@ -189,12 +189,12 @@ public class AdminPresenter extends Presenter<AdminPresenter.ViewDef, AdminPrese
         userService.deleteUser(user.getId(), new MethodCallback<Void>() {
             @Override
             public void onFailure(Method method, Throwable exception) {
-                NotificationUtils.error(messages.deleteUserError(user.getName(), exception.getLocalizedMessage()));
+                NotificationUtils.error(messages.deleteUserError(user.getUsername(), exception.getLocalizedMessage()));
             }
 
             @Override
             public void onSuccess(Method method, Void response) {
-                NotificationUtils.info(messages.userDeleted(user.getName()));
+                NotificationUtils.info(messages.userDeleted(user.getUsername()));
             }
         });
 
