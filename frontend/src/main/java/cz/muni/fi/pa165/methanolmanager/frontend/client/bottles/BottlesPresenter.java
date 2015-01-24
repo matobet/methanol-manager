@@ -29,6 +29,7 @@ import cz.muni.fi.pa165.methanolmanager.frontend.client.application.ApplicationP
 import cz.muni.fi.pa165.methanolmanager.frontend.client.i18n.ApplicationMessages;
 import cz.muni.fi.pa165.methanolmanager.frontend.client.place.NameTokens;
 import cz.muni.fi.pa165.methanolmanager.frontend.client.rest.BottleService;
+import cz.muni.fi.pa165.methanolmanager.frontend.client.utils.NotificationUtils;
 import cz.muni.fi.pa165.methanolmanager.service.dto.BottleDto;
 import java.util.List;
 import java.util.Set;
@@ -38,8 +39,6 @@ import org.fusesource.restygwt.client.Method;
 import org.fusesource.restygwt.client.MethodCallback;
 import org.gwtbootstrap3.client.ui.base.button.AbstractButton;
 import static org.gwtbootstrap3.extras.growl.client.ui.Growl.growl;
-import org.gwtbootstrap3.extras.growl.client.ui.GrowlHelper;
-import org.gwtbootstrap3.extras.growl.client.ui.GrowlOptions;
 
 public class BottlesPresenter extends Presenter<BottlesPresenter.ViewDef, BottlesPresenter.Proxy> implements SelectionChangeEvent.Handler {
 
@@ -144,7 +143,7 @@ public class BottlesPresenter extends Presenter<BottlesPresenter.ViewDef, Bottle
         bottleService.getBottles(new MethodCallback<List<BottleDto>>() {
             @Override
             public void onFailure(Method method, Throwable exception) {
-                showError(messages.loadBottleError(exception.getLocalizedMessage()));
+                NotificationUtils.error(messages.loadBottleError(exception.getLocalizedMessage()));
                 fireEvent(new LoadingStateChangeEvent(LOADED));
             }
 
@@ -161,13 +160,13 @@ public class BottlesPresenter extends Presenter<BottlesPresenter.ViewDef, Bottle
         bottleService.createBottle(bottle, new MethodCallback<BottleDto>() {
             @Override
             public void onFailure(Method method, Throwable throwable) {
-                showError(messages.createBottleError(throwable.getLocalizedMessage()));
+                NotificationUtils.error(messages.createBottleError(throwable.getLocalizedMessage()));
             }
 
             @Override
             public void onSuccess(Method method, BottleDto createdBottle) {
                 fetchData();
-                growl(messages.bottleCreated(createdBottle.getName()));
+                NotificationUtils.info(messages.bottleCreated(createdBottle.getName()));
             }
         });
     }
@@ -176,14 +175,14 @@ public class BottlesPresenter extends Presenter<BottlesPresenter.ViewDef, Bottle
         bottleService.updateBottle(bottle.getId(), bottle, new MethodCallback<BottleDto>() {
             @Override
             public void onFailure(Method method, Throwable throwable) {
-                showError(messages.updateBottleError(throwable.getLocalizedMessage()));
+                NotificationUtils.error(messages.updateBottleError(throwable.getLocalizedMessage()));
             }
 
             @Override
             public void onSuccess(Method method, BottleDto bottleDto) {
                 fetchData();
                 editedItem = null;
-                growl(messages.bottleUpdated(bottleDto.getName()));
+                NotificationUtils.info(messages.bottleUpdated(bottleDto.getName()));
             }
         });
     }
@@ -192,19 +191,14 @@ public class BottlesPresenter extends Presenter<BottlesPresenter.ViewDef, Bottle
         bottleService.deleteBottle(bottle.getId(), new MethodCallback<Void>() {
             @Override
             public void onFailure(Method method, Throwable exception) {
-                showError(messages.deleteBottleError(bottle.getName(), exception.getLocalizedMessage()));
+                NotificationUtils.error(messages.deleteBottleError(bottle.getName(), exception.getLocalizedMessage()));
             }
 
             @Override
             public void onSuccess(Method method, Void response) {
-                growl(messages.bottleDeleted(bottle.getName()));
+                NotificationUtils.info(messages.bottleDeleted(bottle.getName()));
             }
         });
     }
 
-    private void showError(String error) {
-        GrowlOptions options = GrowlHelper.getNewOptions();
-        options.setDangerType();
-        growl(error, options);
-    }
 }
