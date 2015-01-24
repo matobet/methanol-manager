@@ -12,9 +12,7 @@ import com.google.gwt.view.client.SetSelectionModel;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewImpl;
 import cz.muni.fi.pa165.methanolmanager.frontend.client.i18n.ApplicationConstants;
-import cz.muni.fi.pa165.methanolmanager.frontend.client.producer.ProducersPresenter;
 import cz.muni.fi.pa165.methanolmanager.service.dto.MakeDto;
-import cz.muni.fi.pa165.methanolmanager.service.dto.ProducerDto;
 import org.gwtbootstrap3.client.ui.*;
 import org.gwtbootstrap3.client.ui.base.button.AbstractButton;
 import org.gwtbootstrap3.client.ui.gwt.CellTable;
@@ -82,19 +80,19 @@ public class MakesView extends ViewImpl implements MakesPresenter.ViewDef {
             public String getValue(MakeDto make) {
                 return make.getId().toString();
             }
-        }, new TextHeader("Id"));
+        }, new TextHeader(applicationConstants.id()));
         makesTable.addColumn(new TextColumn<MakeDto>() {
             @Override
             public String getValue(MakeDto make) {
                 return make.getName();
             }
-        }, new TextHeader("Name"));
+        }, new TextHeader(applicationConstants.name()));
         makesTable.addColumn(new TextColumn<MakeDto>() {
             @Override
             public String getValue(MakeDto make) {
                 return make.getProducerName();
             }
-        }, new TextHeader("Producer name"));
+        }, new TextHeader(applicationConstants.producerName()));
 
         selectionModel = new MultiSelectionModel<>();
         makesTable.setSelectionModel(selectionModel);

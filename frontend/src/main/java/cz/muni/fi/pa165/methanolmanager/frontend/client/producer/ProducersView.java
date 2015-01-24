@@ -80,13 +80,13 @@ public class ProducersView extends ViewImpl implements ProducersPresenter.ViewDe
             public String getValue(ProducerDto producer) {
                 return producer.getId().toString();
             }
-        }, new TextHeader("Id"));
+        }, new TextHeader(applicationConstants.id()));
         producersTable.addColumn(new TextColumn<ProducerDto>() {
             @Override
             public String getValue(ProducerDto producer) {
                 return producer.getName();
             }
-        }, new TextHeader("Name"));
+        }, new TextHeader(applicationConstants.name()));
 
         selectionModel = new MultiSelectionModel<>();
         producersTable.setSelectionModel(selectionModel);

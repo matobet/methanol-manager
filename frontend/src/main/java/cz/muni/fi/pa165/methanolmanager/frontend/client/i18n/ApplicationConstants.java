@@ -7,6 +7,9 @@ public interface ApplicationConstants extends Constants {
     @DefaultStringValue("Methanol Manager")
     String applicationName();
 
+    @DefaultStringValue("ID")
+    String id();
+
     @DefaultStringValue("Stores")
     String stores();
 
