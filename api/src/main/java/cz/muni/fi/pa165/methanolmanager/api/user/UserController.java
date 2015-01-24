@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 
+import java.util.List;
+
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 /**
@@ -21,6 +23,11 @@ public class UserController {
     @RequestMapping("/{id}")
     public UserDto getUser(@PathVariable int id) {
         return userService.getUser(id);
+    }
+
+    @RequestMapping
+    public List<UserDto> getUsers() {
+        return userService.getUsers();
     }
 
     @RequestMapping(method = POST)

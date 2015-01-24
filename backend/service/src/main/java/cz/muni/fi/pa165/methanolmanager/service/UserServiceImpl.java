@@ -51,6 +51,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return mapper.map(user, UserDto.class);
     }
 
+    @Override
+    public List<UserDto> getUsers() {
+        List<UserDto> users = new ArrayList<>();
+        for (User user : userRepository.findAll()) {
+            users.add(mapper.map(user, UserDto.class));
+        }
+        return users;
+    }
+
 
     @Override
     @Transactional

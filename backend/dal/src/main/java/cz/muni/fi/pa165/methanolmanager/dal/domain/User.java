@@ -9,6 +9,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -20,6 +21,7 @@ import java.util.List;
 @ToString
 @NoArgsConstructor
 @Entity
+@Table(name = "t_users")
 public class User extends AbstractPersistable<Integer> {
 
     @Column(nullable = false, unique = true)

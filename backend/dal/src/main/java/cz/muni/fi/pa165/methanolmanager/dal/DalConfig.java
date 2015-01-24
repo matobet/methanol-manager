@@ -56,7 +56,7 @@ public class DalConfig {
 
                 adminUser.setRoles(adminRoles);
 
-                //userRepository.save(adminUser);
+                userRepository.save(adminUser);
             }
         };
     }
