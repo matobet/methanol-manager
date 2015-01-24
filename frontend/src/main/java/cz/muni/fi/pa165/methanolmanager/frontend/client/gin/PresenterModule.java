@@ -7,6 +7,8 @@ import cz.muni.fi.pa165.methanolmanager.frontend.client.application.ApplicationP
 import cz.muni.fi.pa165.methanolmanager.frontend.client.application.ApplicationView;
 import cz.muni.fi.pa165.methanolmanager.frontend.client.bottles.BottlesPresenter;
 import cz.muni.fi.pa165.methanolmanager.frontend.client.bottles.BottlesView;
+import cz.muni.fi.pa165.methanolmanager.frontend.client.make.MakesPresenter;
+import cz.muni.fi.pa165.methanolmanager.frontend.client.make.MakesView;
 import cz.muni.fi.pa165.methanolmanager.frontend.client.producer.ProducersPresenter;
 import cz.muni.fi.pa165.methanolmanager.frontend.client.producer.ProducersView;
 import cz.muni.fi.pa165.methanolmanager.frontend.client.store.StoresPresenter;
@@ -21,5 +23,6 @@ public class PresenterModule extends AbstractPresenterModule {
         bindPresenter(AdminPresenter.class, AdminPresenter.ViewDef.class, AdminView.class, AdminPresenter.Proxy.class);
         bindPresenter(ProducersPresenter.class, ProducersPresenter.ViewDef.class, ProducersView.class, ProducersPresenter.Proxy.class);
         bindPresenter(BottlesPresenter.class, BottlesPresenter.ViewDef.class, BottlesView.class, BottlesPresenter.Proxy.class);
+        bindPresenter(MakesPresenter.class, MakesPresenter.ViewDef.class, MakesView.class, MakesPresenter.Proxy.class);
     }
 }
