@@ -1,7 +1,6 @@
 package cz.muni.fi.pa165.methanolmanager.service;
 
 import cz.muni.fi.pa165.methanolmanager.service.dto.RoleDto;
-import org.springframework.security.access.annotation.Secured;
 
 import java.util.List;
 
@@ -10,7 +9,6 @@ import java.util.List;
  */
 public interface RoleService {
 
-    @Secured({"ROLE_ADMIN"})
     List<RoleDto> getRoles();
 
 }

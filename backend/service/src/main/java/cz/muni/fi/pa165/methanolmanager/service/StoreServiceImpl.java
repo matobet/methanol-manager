@@ -1,21 +1,19 @@
 package cz.muni.fi.pa165.methanolmanager.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.inject.Inject;
-
+import cz.muni.fi.pa165.methanolmanager.dal.domain.Store;
+import cz.muni.fi.pa165.methanolmanager.dal.repository.StoreRepository;
+import cz.muni.fi.pa165.methanolmanager.service.dto.StoreDto;
+import cz.muni.fi.pa165.methanolmanager.service.dto.StoreWithBottlesDto;
 import cz.muni.fi.pa165.methanolmanager.service.exception.EntityNotFoundException;
 import org.dozer.Mapper;
-import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import cz.muni.fi.pa165.methanolmanager.dal.domain.Store;
-import cz.muni.fi.pa165.methanolmanager.service.dto.StoreDto;
-import cz.muni.fi.pa165.methanolmanager.service.dto.StoreWithBottlesDto;
-import cz.muni.fi.pa165.methanolmanager.dal.repository.StoreRepository;
+import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Martin Betak
@@ -61,6 +59,7 @@ public class StoreServiceImpl implements StoreService {
 
     @Override
     @Transactional
+    @Secured({"ROLE_ADMIN"})
     public StoreDto createStore(StoreDto storeDto) {
         Store store = mapper.map(storeDto, Store.class);
 
@@ -71,6 +70,7 @@ public class StoreServiceImpl implements StoreService {
 
     @Override
     @Transactional
+    @Secured({"ROLE_ADMIN"})
     public void deleteStore(int storeId) {
         try {
             storeRepository.delete(storeId);
@@ -81,6 +81,7 @@ public class StoreServiceImpl implements StoreService {
 
     @Override
     @Transactional
+    @Secured({"ROLE_ADMIN"})
     public StoreDto updateStore(StoreDto storeDto) {
         try {
             Store store = storeRepository.findOne(storeDto.getId());

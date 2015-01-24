@@ -7,6 +7,7 @@ import cz.muni.fi.pa165.methanolmanager.service.dto.ProducerDto;
 import cz.muni.fi.pa165.methanolmanager.service.exception.EntityNotFoundException;
 import org.dozer.Mapper;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,6 +34,7 @@ public class ProducerServiceImpl implements ProducerService {
 
     @Override
     @Transactional
+    @Secured({"ROLE_ADMIN"})
     public ProducerDto createProducer(ProducerDto producerDto) {
         Producer producer = mapper.map(producerDto, Producer.class);
 
@@ -61,6 +63,7 @@ public class ProducerServiceImpl implements ProducerService {
     }
 
     @Override
+    @Secured({"ROLE_ADMIN", "ROLE_POLICE"})
     public long countProducedToxicBottles(int producerId) {
         Producer producer = producerRepository.findOne(producerId);
 
@@ -72,6 +75,7 @@ public class ProducerServiceImpl implements ProducerService {
     }
 
     @Override
+    @Secured({"ROLE_ADMIN", "ROLE_POLICE"})
     public long countProducedNonToxicBottles(int producerId) {
         Producer producer = producerRepository.findOne(producerId);
 
@@ -85,6 +89,7 @@ public class ProducerServiceImpl implements ProducerService {
 
     @Override
     @Transactional
+    @Secured({"ROLE_ADMIN"})
     public void deleteProducer(int producerId) {
         try {
             producerRepository.delete(producerId);
@@ -95,6 +100,7 @@ public class ProducerServiceImpl implements ProducerService {
 
     @Override
     @Transactional
+    @Secured({"ROLE_ADMIN"})
     public ProducerDto updateProducer(ProducerDto producerDto) {
         try {
             Producer producer = producerRepository.findOne(producerDto.getId());

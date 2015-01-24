@@ -9,6 +9,7 @@ import cz.muni.fi.pa165.methanolmanager.service.dto.MakeDto;
 import cz.muni.fi.pa165.methanolmanager.service.exception.EntityNotFoundException;
 import org.dozer.Mapper;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,6 +39,7 @@ public class MakeServiceImpl implements MakeService {
 
     @Override
     @Transactional
+    @Secured({"ROLE_ADMIN"})
     public MakeDto createMake(MakeDto makeDto){
         Make make = mapper.map(makeDto, Make.class);
         make.setProducer(resolveProducerByName(makeDto.getProducerName()));
@@ -67,6 +69,7 @@ public class MakeServiceImpl implements MakeService {
     }
 
     @Override
+    @Secured({"ROLE_ADMIN", "ROLE_POLICE"})
     public boolean hasToxicBottles(int makeId){
         Make make = makeRepository.findOne(makeId);
         if (make == null) {
@@ -77,6 +80,7 @@ public class MakeServiceImpl implements MakeService {
 
     @Override
     @Transactional
+    @Secured({"ROLE_ADMIN"})
     public void deleteMake(int makeId){
         try {
             makeRepository.delete(makeId);
@@ -87,6 +91,7 @@ public class MakeServiceImpl implements MakeService {
 
     @Override
     @Transactional
+    @Secured({"ROLE_ADMIN"})
     public MakeDto updateMake(MakeDto makeDto) {
         try {
             Make make = makeRepository.findOne(makeDto.getId());

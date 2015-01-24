@@ -8,14 +8,15 @@ import cz.muni.fi.pa165.methanolmanager.dal.repository.MakeRepository;
 import cz.muni.fi.pa165.methanolmanager.dal.repository.StoreRepository;
 import cz.muni.fi.pa165.methanolmanager.service.dto.BottleDto;
 import cz.muni.fi.pa165.methanolmanager.service.exception.EntityNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
 import org.dozer.Mapper;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Pavel Vomacka
@@ -58,6 +59,7 @@ public class BottleServiceImpl implements BottleService {
 
     @Override
     @Transactional
+    @Secured({"ROLE_ADMIN"})
     public BottleDto createBottle(BottleDto bottleDto) {
         Bottle bottle = mapper.map(bottleDto, Bottle.class);
         bottle.setMake(resolveMakeByName(bottleDto.getMakeName()));
@@ -70,6 +72,7 @@ public class BottleServiceImpl implements BottleService {
 
     @Override
     @Transactional
+    @Secured({"ROLE_ADMIN"})
     public void deleteBottle(int bottleId) {
         try {
             bottleRepository.delete(bottleId);
@@ -80,6 +83,7 @@ public class BottleServiceImpl implements BottleService {
 
     @Override
     @Transactional
+    @Secured({"ROLE_ADMIN"})
     public void stampBottle(int bottleId) {
         Bottle bottle = bottleRepository.findOne(bottleId);
 
@@ -96,6 +100,7 @@ public class BottleServiceImpl implements BottleService {
 
     @Override
     @Transactional
+    @Secured({"ROLE_ADMIN"})
     public BottleDto updateBottle(BottleDto bottleDto) {
         try {
             Bottle bottle = bottleRepository.findOne(bottleDto.getId());

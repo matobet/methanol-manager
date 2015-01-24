@@ -4,6 +4,7 @@ import cz.muni.fi.pa165.methanolmanager.dal.domain.Role;
 import cz.muni.fi.pa165.methanolmanager.dal.repository.RoleRepository;
 import cz.muni.fi.pa165.methanolmanager.service.dto.RoleDto;
 import org.dozer.Mapper;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +26,7 @@ public class RoleServiceImpl implements RoleService{
     Mapper mapper;
 
     @Override
+    @Secured({"ROLE_ADMIN"})
     public List<RoleDto> getRoles() {
         List<RoleDto> roles = new ArrayList<>();
         for (Role role : roleRepository.findAll()) {
