@@ -44,7 +44,7 @@ public class UserPopupView extends PopupViewImpl implements Editor<UserDto> {
     Modal dialogBox;
 
     @UiField
-    @Path("name")
+    @Path("username")
     TextBox nameEditor;
 
     @UiField

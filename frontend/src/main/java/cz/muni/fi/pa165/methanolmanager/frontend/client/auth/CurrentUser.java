@@ -45,7 +45,7 @@ public class CurrentUser {
     }
 
     public void login(UserDto user) {
-        loginService.login(createBasicAuthHeader(user.getName(), user.getPassword()), new MethodCallback<UserDto>() {
+        loginService.login(createBasicAuthHeader(user.getUsername(), user.getPassword()), new MethodCallback<UserDto>() {
             @Override
             public void onFailure(Method method, Throwable exception) {
                 NotificationUtils.error(messages.logInError(exception.getLocalizedMessage()));

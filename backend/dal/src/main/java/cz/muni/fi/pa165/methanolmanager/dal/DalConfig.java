@@ -16,15 +16,13 @@
 
 package cz.muni.fi.pa165.methanolmanager.dal;
 
-import cz.muni.fi.pa165.methanolmanager.dal.domain.Bottle;
-import cz.muni.fi.pa165.methanolmanager.dal.domain.Make;
-import cz.muni.fi.pa165.methanolmanager.dal.domain.Producer;
-import cz.muni.fi.pa165.methanolmanager.dal.domain.Store;
-import cz.muni.fi.pa165.methanolmanager.dal.repository.BottleRepository;
-import cz.muni.fi.pa165.methanolmanager.dal.repository.MakeRepository;
-import cz.muni.fi.pa165.methanolmanager.dal.repository.ProducerRepository;
-import cz.muni.fi.pa165.methanolmanager.dal.repository.StoreRepository;
+import cz.muni.fi.pa165.methanolmanager.dal.domain.*;
+import cz.muni.fi.pa165.methanolmanager.dal.repository.*;
+
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.orm.jpa.EntityScan;
@@ -39,4 +37,103 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EntityScan(basePackages = "cz.muni.fi.pa165.methanolmanager.dal.domain")
 @ComponentScan
 public class DalConfig {
+    @Bean
+    InitializingBean seedData(final UserRepository userRepository,
+                              final RoleRepository roleRepository) {
+        return new InitializingBean() {
+            @Override
+            public void afterPropertiesSet() throws Exception {
+                Role adminRole = new Role("ROLE_ADMIN");
+                Role policeRole = new Role("ROLE_POLICE");
+
+                roleRepository.save(adminRole);
+                roleRepository.save(policeRole);
+
+                User adminUser = new User("admin", "admin");
+
+                List<Role> adminRoles = new ArrayList<>();
+                adminRoles.add(adminRole);
+
+                adminUser.setRoles(adminRoles);
+
+                //userRepository.save(adminUser);
+            }
+        };
+    }
 }
+//public class DalConfig {
+//    @Bean
+//    InitializingBean seedData(final UserRepository userRepository) {
+//        return new InitializingBean() {
+//            @Override
+//            public void afterPropertiesSet() throws Exception {
+//                Store s1 = new Store("Brnenka", "Lidicka 234");
+//                Store s2 = new Store("Tesco", "Kr. Pole");
+//                Store s3 = new Store("NonStop", "Arabska 15");
+//                storeRepository.save(s1);
+//                storeRepository.save(s2);
+//                storeRepository.save(s3);
+//                Producer p1 = new Producer("Bozkov Producer");
+//                Producer p2 = new Producer("Finlandia Producer");
+//                Producer p3 = new Producer("Bechcer Producer");
+//                producerRepository.save(p1);
+//                producerRepository.save(p2);
+//                producerRepository.save(p3);
+//                Make m1 = new Make("Bozkov", p1);
+//                Make m2 = new Make("Finlandia", p2);
+//                Make m3 = new Make("Bechcer", p3);
+//                makeRepository.save(m1);
+//                makeRepository.save(m2);
+//                makeRepository.save(m3);
+//                bottleRepository.save(new Bottle("Tuzemak", new Date(), null, false, m1, s1));
+//                bottleRepository.save(new Bottle("Vodka", new Date(), new Date(), false, m2, s2));
+//                bottleRepository.save(new Bottle("Becherovka", new Date(), new Date(), false, m3, s3));
+//                bottleRepository.save(new Bottle("Tuzemak", new Date(), new Date(), false, m1, s1));
+//                bottleRepository.save(new Bottle("Vodka", new Date(), new Date(), false, m2, s2));
+//                bottleRepository.save(new Bottle("Becherovka", new Date(), new Date(), false, m3, s3));
+//                bottleRepository.save(new Bottle("Tuzemak", new Date(), new Date(), false, m1, s1));
+//                bottleRepository.save(new Bottle("Vodka", new Date(), null, false, m2, s2));
+//                bottleRepository.save(new Bottle("Becherovka", new Date(), null, false, m3, s3));
+//                bottleRepository.save(new Bottle("Tuzemak", new Date(), new Date(), false, m1, s1));
+//                bottleRepository.save(new Bottle("Vodka", new Date(), null, false, m2, s2));
+//                bottleRepository.save(new Bottle("Becherovka", new Date(), null, false, m3, s3));
+//                bottleRepository.save(new Bottle("Tuzemak", new Date(), null, false, m1, s1));
+//                bottleRepository.save(new Bottle("Vodka", new Date(), new Date(), false, m2, s2));
+//                bottleRepository.save(new Bottle("Becherovka", new Date(), new Date(), false, m3, s3));
+//                bottleRepository.save(new Bottle("Tuzemak", new Date(), new Date(), false, m1, s1));
+//                bottleRepository.save(new Bottle("Vodka", new Date(), new Date(), false, m2, s2));
+//                bottleRepository.save(new Bottle("Becherovka", new Date(), new Date(), false, m3, s3));
+//                bottleRepository.save(new Bottle("Tuzemak", new Date(), new Date(), false, m1, s1));
+//                bottleRepository.save(new Bottle("Vodka", new Date(), null, false, m2, s2));
+//                bottleRepository.save(new Bottle("Becherovka", new Date(), null, false, m3, s3));
+//                bottleRepository.save(new Bottle("Tuzemak", new Date(), new Date(), false, m1, s1));
+//                bottleRepository.save(new Bottle("Vodka", new Date(), null, false, m2, s2));
+//                bottleRepository.save(new Bottle("Becherovka", new Date(), null, false, m3, s3));
+//                bottleRepository.save(new Bottle("Tuzemak", new Date(), null, false, m1, s1));
+//                bottleRepository.save(new Bottle("Vodka", new Date(), new Date(), false, m2, s2));
+//                bottleRepository.save(new Bottle("Becherovka", new Date(), new Date(), false, m3, s3));
+//                bottleRepository.save(new Bottle("Tuzemak", new Date(), new Date(), false, m1, s1));
+//                bottleRepository.save(new Bottle("Vodka", new Date(), new Date(), false, m2, s2));
+//                bottleRepository.save(new Bottle("Becherovka", new Date(), new Date(), false, m3, s3));
+//                bottleRepository.save(new Bottle("Tuzemak", new Date(), new Date(), false, m1, s1));
+//                bottleRepository.save(new Bottle("Vodka", new Date(), null, false, m2, s2));
+//                bottleRepository.save(new Bottle("Becherovka", new Date(), null, false, m3, s3));
+//                bottleRepository.save(new Bottle("Tuzemak", new Date(), new Date(), false, m1, s1));
+//                bottleRepository.save(new Bottle("Vodka", new Date(), null, false, m2, s2));
+//                bottleRepository.save(new Bottle("Becherovka", new Date(), null, false, m3, s3));
+//                bottleRepository.save(new Bottle("Tuzemak", new Date(), null, false, m1, s1));
+//                bottleRepository.save(new Bottle("Vodka", new Date(), new Date(), false, m2, s2));
+//                bottleRepository.save(new Bottle("Becherovka", new Date(), new Date(), false, m3, s3));
+//                bottleRepository.save(new Bottle("Tuzemak", new Date(), new Date(), false, m1, s1));
+//                bottleRepository.save(new Bottle("Vodka", new Date(), new Date(), false, m2, s2));
+//                bottleRepository.save(new Bottle("Becherovka", new Date(), new Date(), false, m3, s3));
+//                bottleRepository.save(new Bottle("Tuzemak", new Date(), new Date(), false, m1, s1));
+//                bottleRepository.save(new Bottle("Vodka", new Date(), null, false, m2, s2));
+//                bottleRepository.save(new Bottle("Becherovka", new Date(), null, false, m3, s3));
+//                bottleRepository.save(new Bottle("Tuzemak", new Date(), new Date(), false, m1, s1));
+//                bottleRepository.save(new Bottle("Vodka", new Date(), null, false, m2, s2));
+//                bottleRepository.save(new Bottle("Becherovka", new Date(), null, false, m3, s3));
+//            }
+//        };
+//    }
+//}

@@ -97,14 +97,14 @@ public class AdminView extends ViewImpl implements AdminPresenter.ViewDef {
         usersTable.addColumn(new TextColumn<UserDto>() {
             @Override
             public String getValue(UserDto user) {
-                return user.getName();
+                return user.getUsername();
             }
         }, new TextHeader(constants.name()));
 
         usersTable.addColumn(new TextColumn<UserDto>() {
             @Override
             public String getValue(UserDto user) {
-                return user.getName();
+                return user.getUsername();
             }
         }, new TextHeader(constants.role()));
 

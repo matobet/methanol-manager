@@ -29,4 +29,8 @@ public class Role extends AbstractPersistable<Integer> {
 
     @ManyToMany(targetEntity = User.class, mappedBy = "roles")
     private List<User> users;
+
+    public Role(String name){
+        this.name = name;
+    }
 }

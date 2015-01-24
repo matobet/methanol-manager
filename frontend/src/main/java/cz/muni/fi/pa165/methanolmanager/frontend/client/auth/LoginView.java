@@ -22,7 +22,7 @@ public class LoginView extends ViewWithUiHandlers<LoginUiHandlers> implements Lo
     }
 
     @UiField
-    @Path("name")
+    @Path("username")
     TextBox nameEditor;
 
     @UiField
