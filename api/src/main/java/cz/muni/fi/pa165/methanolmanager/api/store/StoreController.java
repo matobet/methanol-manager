@@ -23,8 +23,8 @@ public class StoreController {
         return storeService.getStore(id);
     }
 
-    @RequestMapping("/{id}")
-    StoreWithBottlesDto getStoreWithBottles(@PathVariable int id){ return storeService.getStoreWithBottles(id); }
+    @RequestMapping("/id/bottles")
+    public StoreWithBottlesDto getStoreWithBottles(@PathVariable int id){ return storeService.getStoreWithBottles(id); }
 
     @RequestMapping(method = GET)
     public List<StoreDto> getStores() {
