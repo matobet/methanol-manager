@@ -10,12 +10,9 @@ package cz.muni.fi.pa165.methanolmanager.frontend.client.bottles;
  * @author petr
  */
 
-import com.google.gwt.cell.client.ButtonCell;
-import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.SimplePager;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.cellview.client.TextHeader;
@@ -27,16 +24,10 @@ import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewImpl;
 import cz.muni.fi.pa165.methanolmanager.frontend.client.i18n.ApplicationConstants;
 import cz.muni.fi.pa165.methanolmanager.service.dto.BottleDto;
-import org.gwtbootstrap3.client.ui.Button;
-import org.gwtbootstrap3.client.ui.Label;
-import org.gwtbootstrap3.client.ui.Pagination;
-import org.gwtbootstrap3.client.ui.ProgressBar;
-import org.gwtbootstrap3.client.ui.Row;
+import org.gwtbootstrap3.client.ui.*;
 import org.gwtbootstrap3.client.ui.base.button.AbstractButton;
 import org.gwtbootstrap3.client.ui.gwt.CellTable;
-import org.gwtbootstrap3.client.ui.Alert;
 
-import java.awt.*;
 import java.util.Date;
 
 public class BottlesView extends ViewImpl implements BottlesPresenter.ViewDef {
@@ -110,45 +101,45 @@ public class BottlesView extends ViewImpl implements BottlesPresenter.ViewDef {
             public String getValue(BottleDto bottle) {
                 return bottle.getId().toString();
             }
-        }, new TextHeader("Id"));
+        }, new TextHeader(applicationConstants.id()));
         bottlesTable.addColumn(new TextColumn<BottleDto>() {
             @Override
             public String getValue(BottleDto bottle) {
                 return bottle.getName();
             }
-        }, new TextHeader("Name"));
+        }, new TextHeader(applicationConstants.name()));
         bottlesTable.addColumn(new TextColumn<BottleDto>() {
             @Override
             public String getValue(BottleDto bottle) {
                 return bottle.getStoreName();
             }
-        }, new TextHeader("Store"));
+        }, new TextHeader(applicationConstants.storeName()));
         bottlesTable.addColumn(new TextColumn<BottleDto>() {
             @Override
             public String getValue(BottleDto bottle) {
                 return bottle.getMakeName();
             }
-        }, new TextHeader("Make"));
+        }, new TextHeader(applicationConstants.makeName()));
         bottlesTable.addColumn(new TextColumn<BottleDto>() {
             @Override
             public String getValue(BottleDto bottle) {
                 return DateTimeFormat.getFormat(DateTimeFormat.PredefinedFormat.DATE_MEDIUM)
                         .format(bottle.getProductionDate());
             }
-        }, new TextHeader("Production date"));
+        }, new TextHeader(applicationConstants.productionDate()));
         bottlesTable.addColumn(new TextColumn<BottleDto>() {
             @Override
             public String getValue(BottleDto bottle) {
                 Date stampDate = bottle.getStampDate();
 
                 if (stampDate == null){
-                    return "Not stamped!"; // localizovat
+                    return applicationConstants.notStamped();
                 }
 
                 return DateTimeFormat.getFormat(DateTimeFormat.PredefinedFormat.DATE_MEDIUM)
                         .format(stampDate);
             }
-        }, new TextHeader("Stamp date"));
+        }, new TextHeader(applicationConstants.stampDate()));
 
         selectionModel = new MultiSelectionModel<>();
         bottlesTable.setSelectionModel(selectionModel);
