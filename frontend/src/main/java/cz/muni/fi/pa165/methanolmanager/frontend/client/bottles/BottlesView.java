@@ -10,6 +10,7 @@ package cz.muni.fi.pa165.methanolmanager.frontend.client.bottles;
  * @author petr
  */
 
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.cellview.client.SimplePager;
@@ -31,6 +32,9 @@ import org.gwtbootstrap3.client.ui.ProgressBar;
 import org.gwtbootstrap3.client.ui.Row;
 import org.gwtbootstrap3.client.ui.base.button.AbstractButton;
 import org.gwtbootstrap3.client.ui.gwt.CellTable;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 public class BottlesView extends ViewImpl implements BottlesPresenter.ViewDef {
 
@@ -117,13 +121,15 @@ public class BottlesView extends ViewImpl implements BottlesPresenter.ViewDef {
         bottlesTable.addColumn(new TextColumn<BottleDto>() {
             @Override
             public String getValue(BottleDto bottle) {
-                return bottle.getProductionDate().toString();
+                return DateTimeFormat.getFormat(DateTimeFormat.PredefinedFormat.DATE_MEDIUM)
+                        .format(bottle.getProductionDate());
             }
         }, new TextHeader("Production date"));
         bottlesTable.addColumn(new TextColumn<BottleDto>() {
             @Override
             public String getValue(BottleDto bottle) {
-                return bottle.getStampDate().toString();
+                return DateTimeFormat.getFormat(DateTimeFormat.PredefinedFormat.DATE_MEDIUM)
+                        .format(bottle.getStampDate());
             }
         }, new TextHeader("Stamp date"));
 

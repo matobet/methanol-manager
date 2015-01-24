@@ -11,6 +11,10 @@
       <a>make.name</a>
       <b>makeName</b>
     </field>
+    <field>
+        <a>store.name</a>
+        <b>storeName</b>
+    </field>
   </mapping>
 
   <mapping>
