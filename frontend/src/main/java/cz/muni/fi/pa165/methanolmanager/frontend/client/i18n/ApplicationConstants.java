@@ -4,9 +4,6 @@ import com.google.gwt.i18n.client.Constants;
 
 public interface ApplicationConstants extends Constants {
 
-    @DefaultStringValue("ID")
-    String id();
-
     @DefaultStringValue("Methanol Manager")
     String applicationName();
 
