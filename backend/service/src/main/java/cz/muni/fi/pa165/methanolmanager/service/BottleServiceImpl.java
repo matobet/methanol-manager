@@ -63,9 +63,8 @@ public class BottleServiceImpl implements BottleService {
     public BottleDto createBottle(BottleDto bottleDto) {
         Bottle bottle = mapper.map(bottleDto, Bottle.class);
         bottle.setMake(resolveMakeByName(bottleDto.getMakeName()));
-        if(bottleDto.getStoreName() != null) {
-            bottle.setStore(resolveStoreByName(bottleDto.getStoreName()));
-        }
+        bottle.setStore(resolveStoreByName(bottleDto.getStoreName()));
+
         bottleRepository.save(bottle);
 
         return mapper.map(bottle, BottleDto.class);
@@ -109,20 +108,9 @@ public class BottleServiceImpl implements BottleService {
             if (!bottle.getMake().getName().equals(bottleDto.getMakeName())) {
                 bottle.setMake(resolveMakeByName(bottleDto.getMakeName()));
             }
-            if(bottle.getStore() != null){
-                if(bottleDto.getStoreName() != null){
-                    if (!bottle.getStore().getName().equals(bottleDto.getStoreName())) {
-                        bottle.setStore(resolveStoreByName(bottleDto.getStoreName()));
-                    }
-                }else {
-                    bottle.setStore(null);
-                }
-            }else{
-                if(bottleDto.getStoreName() != null){
-                    bottle.setStore(resolveStoreByName(bottleDto.getStoreName()));
-                }
+            if (!bottle.getStore().getName().equals(bottleDto.getStoreName())) {
+                bottle.setStore(resolveStoreByName(bottleDto.getStoreName()));
             }
-
             bottleRepository.save(bottle);
 
             return mapper.map(bottle, BottleDto.class);
