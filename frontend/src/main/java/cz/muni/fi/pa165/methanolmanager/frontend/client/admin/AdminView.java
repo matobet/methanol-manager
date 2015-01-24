@@ -92,21 +92,21 @@ public class AdminView extends ViewImpl implements AdminPresenter.ViewDef {
             public String getValue(UserDto user) {
                 return user.getId().toString();
             }
-        }, new TextHeader("Id"));
+        }, new TextHeader(constants.id()));
 
         usersTable.addColumn(new TextColumn<UserDto>() {
             @Override
             public String getValue(UserDto user) {
                 return user.getName();
             }
-        }, new TextHeader("Name"));
+        }, new TextHeader(constants.name()));
 
         usersTable.addColumn(new TextColumn<UserDto>() {
             @Override
             public String getValue(UserDto user) {
                 return user.getName();
             }
-        }, new TextHeader("Role"));
+        }, new TextHeader(constants.role()));
 
         selectionModel = new MultiSelectionModel<>();
         usersTable.setSelectionModel(selectionModel);
