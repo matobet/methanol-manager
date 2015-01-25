@@ -101,15 +101,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             }
 
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        for(final Role role: user.getRoles()){
-            authorities.add(new GrantedAuthority() {
+        final Role role = user.getRole();
 
+        authorities.add(new GrantedAuthority() {
                 @Override
                 public String getAuthority() {
                     return role.getName();
                 }
             });
-        }
+
 
         UserDetails userDetails = new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
             return userDetails;

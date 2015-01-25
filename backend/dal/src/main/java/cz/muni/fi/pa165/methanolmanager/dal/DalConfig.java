@@ -16,13 +16,10 @@
 
 package cz.muni.fi.pa165.methanolmanager.dal;
 
-import cz.muni.fi.pa165.methanolmanager.dal.domain.*;
-import cz.muni.fi.pa165.methanolmanager.dal.repository.*;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
+import cz.muni.fi.pa165.methanolmanager.dal.domain.Role;
+import cz.muni.fi.pa165.methanolmanager.dal.domain.User;
+import cz.muni.fi.pa165.methanolmanager.dal.repository.RoleRepository;
+import cz.muni.fi.pa165.methanolmanager.dal.repository.UserRepository;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.orm.jpa.EntityScan;
@@ -51,10 +48,7 @@ public class DalConfig {
 
                 User adminUser = new User("admin", "admin");
 
-                List<Role> adminRoles = new ArrayList<>();
-                adminRoles.add(adminRole);
-
-                adminUser.setRoles(adminRoles);
+                adminUser.setRole(adminRole);
 
                 userRepository.save(adminUser);
             }
