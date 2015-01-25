@@ -26,5 +26,13 @@
     </field>
   </mapping>
 
+  <mapping type="one-way">
+    <class-a>cz.muni.fi.pa165.methanolmanager.dal.domain.User</class-a>
+    <class-b>cz.muni.fi.pa165.methanolmanager.service.dto.UserDto</class-b>
+    <field>
+      <a>role.name</a>
+      <b>roleName</b>
+    </field>
+  </mapping>
 
 </mappings>
