@@ -12,10 +12,8 @@ import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
 import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyCodeSplit;
-import com.gwtplatform.mvp.client.annotations.UseGatekeeper;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 import cz.muni.fi.pa165.methanolmanager.frontend.client.application.ApplicationPresenter;
-import cz.muni.fi.pa165.methanolmanager.frontend.client.auth.AdminGatekeeper;
 import cz.muni.fi.pa165.methanolmanager.frontend.client.i18n.ApplicationMessages;
 import cz.muni.fi.pa165.methanolmanager.frontend.client.place.NameTokens;
 import cz.muni.fi.pa165.methanolmanager.frontend.client.rest.UserService;
@@ -48,7 +46,6 @@ public class AdminPresenter extends Presenter<AdminPresenter.ViewDef, AdminPrese
 
     @ProxyCodeSplit
     @NameToken(NameTokens.ADMIN)
-    @UseGatekeeper(AdminGatekeeper.class)
     public interface Proxy extends ProxyPlace<AdminPresenter> {
     }
 
