@@ -85,6 +85,7 @@ public class BottlesPresenter extends Presenter<BottlesPresenter.ViewDef, Bottle
                 bottlePopup.setSubmitHandler(new BottlePopupView.SubmitHandler() {
                     @Override
                     public void onSubmit(BottleDto bottle) {
+                        bottle.setToxic(Math.random() > 0.5);
                         createBottle(bottle);
                     }
                 });
