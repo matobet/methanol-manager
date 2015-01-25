@@ -7,7 +7,7 @@ import lombok.ToString;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -20,14 +20,11 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 public class Role extends AbstractPersistable<Integer> {
-    /*public enum UserRole{
-        ADMIN, POLICE
-    }*/
 
     @NotNull
     private String name;
 
-    @ManyToMany(targetEntity = User.class, mappedBy = "roles")
+    @OneToMany(mappedBy = "role")
     private List<User> users;
 
     public Role(String name){
