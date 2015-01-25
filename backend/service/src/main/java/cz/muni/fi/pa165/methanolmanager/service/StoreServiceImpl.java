@@ -7,7 +7,6 @@ import cz.muni.fi.pa165.methanolmanager.service.dto.StoreWithBottlesDto;
 import cz.muni.fi.pa165.methanolmanager.service.exception.EntityNotFoundException;
 import org.dozer.Mapper;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -59,7 +58,7 @@ public class StoreServiceImpl implements StoreService {
 
     @Override
     @Transactional
-    @Secured({"ROLE_ADMIN"})
+
     public StoreDto createStore(StoreDto storeDto) {
         Store store = mapper.map(storeDto, Store.class);
 
@@ -70,7 +69,7 @@ public class StoreServiceImpl implements StoreService {
 
     @Override
     @Transactional
-    @Secured({"ROLE_ADMIN"})
+
     public void deleteStore(int storeId) {
         try {
             storeRepository.delete(storeId);
@@ -81,7 +80,7 @@ public class StoreServiceImpl implements StoreService {
 
     @Override
     @Transactional
-    @Secured({"ROLE_ADMIN"})
+
     public StoreDto updateStore(StoreDto storeDto) {
         try {
             Store store = storeRepository.findOne(storeDto.getId());
