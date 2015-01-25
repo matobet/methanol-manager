@@ -50,9 +50,6 @@ public class BottlesView extends ViewImpl implements BottlesPresenter.ViewDef {
     @UiField
     CellTable<BottleDto> bottlesTable;
 
-    @UiField
-    Pagination bottlesPagination;
-
     MultiSelectionModel<BottleDto> selectionModel;
 
     private final ApplicationConstants applicationConstants;
@@ -150,18 +147,9 @@ public class BottlesView extends ViewImpl implements BottlesPresenter.ViewDef {
 
         final SimplePager pager = new SimplePager();
 
-        bottlesTable.addRangeChangeHandler(new RangeChangeEvent.Handler() {
-            @Override
-            public void onRangeChange(RangeChangeEvent event) {
-                bottlesPagination.rebuild(pager);
-            }
-        });
-
         bottlesTable.setLoadingIndicator(new ProgressBar());
         bottlesTable.setEmptyTableWidget(new Label(applicationConstants.noBottlesYet()));
 
         pager.setDisplay(bottlesTable);
-        bottlesPagination.clear();
-        bottlesPagination.rebuild(pager);
     }
 }

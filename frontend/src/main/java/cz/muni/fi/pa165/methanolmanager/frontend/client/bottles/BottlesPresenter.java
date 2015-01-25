@@ -34,6 +34,7 @@ import org.fusesource.restygwt.client.MethodCallback;
 import org.gwtbootstrap3.client.ui.base.button.AbstractButton;
 
 import javax.inject.Inject;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -86,6 +87,8 @@ public class BottlesPresenter extends Presenter<BottlesPresenter.ViewDef, Bottle
                     @Override
                     public void onSubmit(BottleDto bottle) {
                         bottle.setToxic(Math.random() > 0.5);
+                        if (bottle.getProductionDate() == null)
+                            bottle.setProductionDate(new Date());
                         createBottle(bottle);
                     }
                 });

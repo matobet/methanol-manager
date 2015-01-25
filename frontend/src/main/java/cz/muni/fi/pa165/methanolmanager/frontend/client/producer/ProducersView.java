@@ -38,9 +38,6 @@ public class ProducersView extends ViewImpl implements ProducersPresenter.ViewDe
     @UiField
     CellTable<ProducerDto> producersTable;
 
-    @UiField
-    Pagination producersPagination;
-
     MultiSelectionModel<ProducerDto> selectionModel;
 
     private final ApplicationConstants applicationConstants;
@@ -103,18 +100,9 @@ public class ProducersView extends ViewImpl implements ProducersPresenter.ViewDe
 
         final SimplePager pager = new SimplePager();
 
-        producersTable.addRangeChangeHandler(new RangeChangeEvent.Handler() {
-            @Override
-            public void onRangeChange(RangeChangeEvent event) {
-                producersPagination.rebuild(pager);
-            }
-        });
-
         producersTable.setLoadingIndicator(new ProgressBar());
         producersTable.setEmptyTableWidget(new Label(applicationConstants.noProducersYet()));
 
         pager.setDisplay(producersTable);
-        producersPagination.clear();
-        producersPagination.rebuild(pager);
     }
 }

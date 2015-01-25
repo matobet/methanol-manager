@@ -29,13 +29,10 @@ public class StoresView extends ViewImpl implements StoresPresenter.ViewDef {
     Button editButton;
 
     @UiField
-    Button deleteButton;;
+    Button deleteButton;
 
     @UiField
     CellTable<StoreDto> storesTable;
-
-    @UiField
-    Pagination storesPagination;
 
     MultiSelectionModel<StoreDto> selectionModel;
 
@@ -99,18 +96,9 @@ public class StoresView extends ViewImpl implements StoresPresenter.ViewDef {
 
         final SimplePager pager = new SimplePager();
 
-        storesTable.addRangeChangeHandler(new RangeChangeEvent.Handler() {
-            @Override
-            public void onRangeChange(RangeChangeEvent event) {
-                storesPagination.rebuild(pager);
-            }
-        });
-
         storesTable.setLoadingIndicator(new ProgressBar());
         storesTable.setEmptyTableWidget(new Label(applicationConstants.noStoresYet()));
 
         pager.setDisplay(storesTable);
-        storesPagination.clear();
-        storesPagination.rebuild(pager);
     }
 }

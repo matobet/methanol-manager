@@ -34,9 +34,6 @@ public class MakesView extends ViewImpl implements MakesPresenter.ViewDef {
     @UiField
     CellTable<MakeDto> makesTable;
 
-    @UiField
-    Pagination makesPagination;
-
     MultiSelectionModel<MakeDto> selectionModel;
 
     private final ApplicationConstants applicationConstants;
@@ -99,18 +96,9 @@ public class MakesView extends ViewImpl implements MakesPresenter.ViewDef {
 
         final SimplePager pager = new SimplePager();
 
-        makesTable.addRangeChangeHandler(new RangeChangeEvent.Handler() {
-            @Override
-            public void onRangeChange(RangeChangeEvent event) {
-                makesPagination.rebuild(pager);
-            }
-        });
-
         makesTable.setLoadingIndicator(new ProgressBar());
         makesTable.setEmptyTableWidget(new Label(applicationConstants.noMakesYet()));
 
         pager.setDisplay(makesTable);
-        makesPagination.clear();
-        makesPagination.rebuild(pager);
     }
 }

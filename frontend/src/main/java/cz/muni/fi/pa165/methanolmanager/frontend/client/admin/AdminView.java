@@ -44,9 +44,6 @@ public class AdminView extends ViewImpl implements AdminPresenter.ViewDef {
     @UiField
     CellTable<UserDto> usersTable;
 
-    @UiField
-    Pagination usersPagination;
-
     MultiSelectionModel<UserDto> selectionModel;
 
     private final ApplicationConstants constants;
@@ -113,18 +110,9 @@ public class AdminView extends ViewImpl implements AdminPresenter.ViewDef {
 
         final SimplePager pager = new SimplePager();
 
-        usersTable.addRangeChangeHandler(new RangeChangeEvent.Handler() {
-            @Override
-            public void onRangeChange(RangeChangeEvent event) {
-                usersPagination.rebuild(pager);
-            }
-        });
-
         usersTable.setLoadingIndicator(new ProgressBar());
         usersTable.setEmptyTableWidget(new Label(constants.noUsersYet()));
 
         pager.setDisplay(usersTable);
-        usersPagination.clear();
-        usersPagination.rebuild(pager);
     }
 }
