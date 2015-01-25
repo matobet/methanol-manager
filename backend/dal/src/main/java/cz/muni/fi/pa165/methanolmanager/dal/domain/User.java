@@ -8,10 +8,9 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 /**
  * Created by zuzana on 1/23/2015.
@@ -30,8 +29,8 @@ public class User extends AbstractPersistable<Integer> {
     @NotNull
     private String password;
 
-    @ManyToMany(targetEntity = Role.class)
-    private List<Role> roles;
+    @ManyToOne
+    private Role role;
 
     public User(String username, String password){
         this.username = username;

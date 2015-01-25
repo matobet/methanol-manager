@@ -1,17 +1,11 @@
 package cz.muni.fi.pa165.methanolmanager.service;
 
-import cz.muni.fi.pa165.methanolmanager.dal.domain.Role;
 import cz.muni.fi.pa165.methanolmanager.dal.domain.User;
 import cz.muni.fi.pa165.methanolmanager.dal.repository.UserRepository;
 import cz.muni.fi.pa165.methanolmanager.service.dto.UserDto;
 import cz.muni.fi.pa165.methanolmanager.service.exception.EntityNotFoundException;
 import org.dozer.Mapper;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,7 +18,7 @@ import java.util.List;
  */
 @Service
 @Transactional(readOnly = true)
-public class UserServiceImpl implements UserService, UserDetailsService {
+public class UserServiceImpl implements UserService {
 
     @Inject
     UserRepository userRepository;
@@ -34,7 +28,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     @Transactional
-    @Secured({"ROLE_ADMIN"})
+
     public UserDto createUser(UserDto userDto){
         User user = mapper.map(userDto, User.class);
 
@@ -44,7 +38,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    @Secured({"ROLE_ADMIN", "ROLE_POLICE"})
+
     public UserDto getUser(int userId) {
         User user = userRepository.findOne(userId);
         if (user == null) {
@@ -55,7 +49,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    @Secured({"ROLE_ADMIN"})
+
     public List<UserDto> getUsers() {
         List<UserDto> users = new ArrayList<>();
         for (User user : userRepository.findAll()) {
@@ -67,7 +61,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     @Transactional
-    @Secured({"ROLE_ADMIN"})
+
     public void deleteUser(int userId){
         try {
             userRepository.delete(userId);
@@ -78,7 +72,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     @Transactional
-    @Secured({"ROLE_ADMIN"})
+
     public UserDto updateUser(UserDto userDto) {
         try {
             User user = userRepository.findOne(userDto.getId());
@@ -91,7 +85,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }
     }
 
-    @Override
+    /*@Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
             User user = userRepository.findByUsername(username);
@@ -101,18 +95,18 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             }
 
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        for(final Role role: user.getRoles()){
-            authorities.add(new GrantedAuthority() {
+        final Role role = user.getRole();
 
+        authorities.add(new GrantedAuthority() {
                 @Override
                 public String getAuthority() {
                     return role.getName();
                 }
             });
-        }
+
 
         UserDetails userDetails = new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
             return userDetails;
-        }
+        }*/
 
 }

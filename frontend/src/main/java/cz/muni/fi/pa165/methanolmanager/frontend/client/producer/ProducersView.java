@@ -11,11 +11,13 @@ import com.google.gwt.view.client.RangeChangeEvent;
 import com.google.gwt.view.client.SetSelectionModel;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewImpl;
-import cz.muni.fi.pa165.methanolmanager.frontend.client.auth.CurrentUser;
 import cz.muni.fi.pa165.methanolmanager.frontend.client.i18n.ApplicationConstants;
-import cz.muni.fi.pa165.methanolmanager.frontend.client.utils.NotificationUtils;
 import cz.muni.fi.pa165.methanolmanager.service.dto.ProducerDto;
-import org.gwtbootstrap3.client.ui.*;
+import org.gwtbootstrap3.client.ui.Button;
+import org.gwtbootstrap3.client.ui.Label;
+import org.gwtbootstrap3.client.ui.Pagination;
+import org.gwtbootstrap3.client.ui.ProgressBar;
+import org.gwtbootstrap3.client.ui.Row;
 import org.gwtbootstrap3.client.ui.base.button.AbstractButton;
 import org.gwtbootstrap3.client.ui.gwt.CellTable;
 
@@ -50,9 +52,6 @@ public class ProducersView extends ViewImpl implements ProducersPresenter.ViewDe
         initWidget(binder.createAndBindUi(this));
         initProducersTable();
     }
-
-    @Inject
-    private CurrentUser currentUser;
 
     @Override
     public AbstractButton getCreateButton() {
@@ -92,14 +91,12 @@ public class ProducersView extends ViewImpl implements ProducersPresenter.ViewDe
                 return producer.getName();
             }
         }, new TextHeader(applicationConstants.name()));
-        if (currentUser != null && (currentUser.isAdmin() || currentUser.isPolice())) {
-            producersTable.addColumn(new TextColumn<ProducerDto>() {
-                @Override
-                public String getValue(ProducerDto producer) {
-                    return Long.toString(producer.getProducedToxicBottles());
-                }
-            }, new TextHeader(applicationConstants.numberOfToxic()));
-        }
+        producersTable.addColumn(new TextColumn<ProducerDto>() {
+            @Override
+            public String getValue(ProducerDto producer) {
+                return Long.toString(producer.getProducedToxicBottles());
+            }
+        }, new TextHeader(applicationConstants.numberOfToxic()));
 
         selectionModel = new MultiSelectionModel<>();
         producersTable.setSelectionModel(selectionModel);

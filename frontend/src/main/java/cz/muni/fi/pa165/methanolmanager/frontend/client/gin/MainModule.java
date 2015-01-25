@@ -21,7 +21,7 @@ public class MainModule extends AbstractPresenterModule {
 
         bindConstant().annotatedWith(DefaultPlace.class).to(NameTokens.STORES);
         bindConstant().annotatedWith(ErrorPlace.class).to(NameTokens.STORES);
-        bindConstant().annotatedWith(UnauthorizedPlace.class).to(NameTokens.LOGIN);
+        bindConstant().annotatedWith(UnauthorizedPlace.class).to(NameTokens.STORES);
 
         bind(BottleStamper.class).in(Singleton.class);
     }
