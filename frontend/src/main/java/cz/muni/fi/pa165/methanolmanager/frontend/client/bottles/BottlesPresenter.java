@@ -151,13 +151,13 @@ public class BottlesPresenter extends Presenter<BottlesPresenter.ViewDef, Bottle
         Set<BottleDto> selectedItems = getView().getBottleTableSelection().getSelectedSet();
         getView().getEditButton().setEnabled(selectedItems.size() == 1);
         getView().getDeleteButton().setEnabled(selectedItems.size() > 0);
-        getView().getStampButton().setEnabled(getNumberOfSelectedNotStampedBottles(selectedItems) > 0);
+        getView().getStampButton().setEnabled(getNumberOfSelectedNotStampedNotToxicBottles(selectedItems) > 0);
     }
 
-    private int getNumberOfSelectedNotStampedBottles(Set<BottleDto> selectedBottles){
+    private int getNumberOfSelectedNotStampedNotToxicBottles(Set<BottleDto> selectedBottles){
         int notStampedBottles = 0;
         for (BottleDto bottleDto : selectedBottles){
-            if (bottleDto.getStampDate() == null)
+            if (bottleDto.getStampDate() == null && !bottleDto.isToxic())
                 notStampedBottles += 1;
         }
         return notStampedBottles;

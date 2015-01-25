@@ -132,6 +132,10 @@ public class BottlesView extends ViewImpl implements BottlesPresenter.ViewDef {
             public String getValue(BottleDto bottle) {
                 Date stampDate = bottle.getStampDate();
 
+                if (bottle.isToxic()){
+                    return applicationConstants.toxic();
+                }
+
                 if (stampDate == null){
                     return applicationConstants.notStamped();
                 }
@@ -139,7 +143,7 @@ public class BottlesView extends ViewImpl implements BottlesPresenter.ViewDef {
                 return DateTimeFormat.getFormat(DateTimeFormat.PredefinedFormat.DATE_MEDIUM)
                         .format(stampDate);
             }
-        }, new TextHeader(applicationConstants.stampDate()));
+        }, new TextHeader(applicationConstants.bottleState()));
 
         selectionModel = new MultiSelectionModel<>();
         bottlesTable.setSelectionModel(selectionModel);

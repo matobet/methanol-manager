@@ -74,8 +74,8 @@ public interface ApplicationConstants extends Constants {
     @DefaultStringValue("Production date")
     String productionDate();
 
-    @DefaultStringValue("Stamp date")
-    String stampDate();
+    @DefaultStringValue("Bottle state")
+    String bottleState();
 
     @DefaultStringValue("Add user:")
     String addUser();
@@ -136,4 +136,7 @@ public interface ApplicationConstants extends Constants {
 
     @DefaultStringValue("Toxic totally")
     String numberOfToxic();
+
+    @DefaultStringValue("Bottle is toxic")
+    String toxic();
 }
