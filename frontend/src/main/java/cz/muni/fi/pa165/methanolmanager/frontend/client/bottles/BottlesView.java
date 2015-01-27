@@ -23,6 +23,7 @@ import com.google.gwt.view.client.SetSelectionModel;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewImpl;
 import cz.muni.fi.pa165.methanolmanager.frontend.client.i18n.ApplicationConstants;
+import cz.muni.fi.pa165.methanolmanager.frontend.client.i18n.ApplicationMessages;
 import cz.muni.fi.pa165.methanolmanager.service.dto.BottleDto;
 import org.gwtbootstrap3.client.ui.*;
 import org.gwtbootstrap3.client.ui.base.button.AbstractButton;
@@ -53,11 +54,13 @@ public class BottlesView extends ViewImpl implements BottlesPresenter.ViewDef {
     MultiSelectionModel<BottleDto> selectionModel;
 
     private final ApplicationConstants applicationConstants;
+    private final ApplicationMessages applicationMessages;
 
     @Inject
-    public BottlesView(Binder binder, ApplicationConstants applicationConstants) {
+    public BottlesView(Binder binder, ApplicationConstants applicationConstants, ApplicationMessages applicationMessages) {
         this.applicationConstants = applicationConstants;
-        
+        this.applicationMessages = applicationMessages;
+
         initWidget(binder.createAndBindUi(this));
         initBottlesTable();
     }
@@ -137,8 +140,9 @@ public class BottlesView extends ViewImpl implements BottlesPresenter.ViewDef {
                     return applicationConstants.notStamped();
                 }
 
-                return DateTimeFormat.getFormat(DateTimeFormat.PredefinedFormat.DATE_MEDIUM)
+                String date = DateTimeFormat.getFormat(DateTimeFormat.PredefinedFormat.DATE_MEDIUM)
                         .format(stampDate);
+                return applicationMessages.stampedOn(date);
             }
         }, new TextHeader(applicationConstants.bottleState()));
 

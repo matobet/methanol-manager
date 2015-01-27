@@ -9,6 +9,9 @@
             margin-left: 5px;
             min-width: 30px;
         }
+        .content {
+            margin-top: 40px;
+        }
     </ui:style>
 
     <b:Row>

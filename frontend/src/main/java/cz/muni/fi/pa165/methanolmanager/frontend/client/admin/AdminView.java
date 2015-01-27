@@ -101,7 +101,7 @@ public class AdminView extends ViewImpl implements AdminPresenter.ViewDef {
         usersTable.addColumn(new TextColumn<UserDto>() {
             @Override
             public String getValue(UserDto user) {
-                return user.getUsername();
+                return user.getRoleName();
             }
         }, new TextHeader(constants.role()));
 

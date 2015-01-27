@@ -11,12 +11,15 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gwtplatform.mvp.client.PopupViewImpl;
 import cz.muni.fi.pa165.methanolmanager.frontend.client.i18n.ApplicationConstants;
+import cz.muni.fi.pa165.methanolmanager.frontend.client.rest.RoleService;
 import cz.muni.fi.pa165.methanolmanager.frontend.client.rest.UserService;
 import cz.muni.fi.pa165.methanolmanager.frontend.client.utils.DefaultStringValueRenderer;
 import cz.muni.fi.pa165.methanolmanager.frontend.client.utils.NotificationUtils;
+import cz.muni.fi.pa165.methanolmanager.service.dto.RoleDto;
 import cz.muni.fi.pa165.methanolmanager.service.dto.UserDto;
 import org.fusesource.restygwt.client.Method;
 import org.fusesource.restygwt.client.MethodCallback;
+import org.gwtbootstrap3.client.ui.Input;
 import org.gwtbootstrap3.client.ui.Modal;
 import org.gwtbootstrap3.client.ui.TextBox;
 import org.gwtbootstrap3.client.ui.ValueListBox;
@@ -49,24 +52,27 @@ public class UserPopupView extends PopupViewImpl implements Editor<UserDto> {
 
     @UiField
     @Path("password")
-    TextBox passwdEditor;
+    Input passwdEditor;
 
-    @UiField
-    ListBox roleEditor;
+    @UiField(provided = true)
+    @Path("roleName")
+    ValueListBox<String> roleEditor;
 
     private final Driver driver;
 
     private final UserService userService;
+    private final RoleService roleService;
     private final ApplicationConstants constants;
     private SubmitHandler submitHandler;
 
     @Inject
     public UserPopupView(Binder binder, Driver driver, EventBus eventBus,
-                         UserService userService,
+                         UserService userService, RoleService roleService,
                          final ApplicationConstants constants) {
         super(eventBus);
         this.driver = driver;
         this.userService = userService;
+        this.roleService = roleService;
         this.constants = constants;
         initializeListBoxEditors();
         initWidget(binder.createAndBindUi(this));
@@ -74,8 +80,7 @@ public class UserPopupView extends PopupViewImpl implements Editor<UserDto> {
     }
 
     private void initializeListBoxEditors() {
-        roleEditor = new ListBox ();
-        roleEditor.addItem("AHOJ");
+        roleEditor = new ValueListBox<String>(new DefaultStringValueRenderer(constants.selectRole()));
     }
 
     public void show() {
@@ -83,7 +88,25 @@ public class UserPopupView extends PopupViewImpl implements Editor<UserDto> {
     }
 
     public void edit(final UserDto user) {
+        roleService.getRoles(new MethodCallback<List<RoleDto>>() {
+            @Override
+            public void onFailure(Method method, Throwable exception) {
+                NotificationUtils.error(constants.errorLoadingRoles());
+            }
 
+            @Override
+            public void onSuccess(Method method, List<RoleDto> response) {
+
+                List<String> roleNames = new ArrayList<>();
+                roleNames.add(null);
+                for (RoleDto role : response) {
+                    roleNames.add(role.getName());
+                }
+                roleEditor.setAcceptableValues(roleNames);
+
+                driver.edit(user);
+            }
+        });
     }
 
     public UserDto flush() {

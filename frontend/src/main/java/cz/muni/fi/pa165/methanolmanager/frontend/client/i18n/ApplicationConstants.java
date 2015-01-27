@@ -139,4 +139,10 @@ public interface ApplicationConstants extends Constants {
 
     @DefaultStringValue("Bottle is toxic")
     String toxic();
+
+    @DefaultStringValue("(Select role)")
+    String selectRole();
+
+    @DefaultStringValue("Error loading list of roles")
+    String errorLoadingRoles();
 }

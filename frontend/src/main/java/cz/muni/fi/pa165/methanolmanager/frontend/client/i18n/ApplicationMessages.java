@@ -117,4 +117,7 @@ public interface ApplicationMessages extends Messages {
 
     @DefaultMessage("Error stamping bottle {0}: {1}")
     String stampBottleError(String name, String error);
+
+    @DefaultMessage("Stamped on: {0}")
+    String stampedOn(String date);
 }

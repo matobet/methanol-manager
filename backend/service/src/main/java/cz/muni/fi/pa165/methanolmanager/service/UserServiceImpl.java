@@ -1,6 +1,8 @@
 package cz.muni.fi.pa165.methanolmanager.service;
 
+import cz.muni.fi.pa165.methanolmanager.dal.domain.Role;
 import cz.muni.fi.pa165.methanolmanager.dal.domain.User;
+import cz.muni.fi.pa165.methanolmanager.dal.repository.RoleRepository;
 import cz.muni.fi.pa165.methanolmanager.dal.repository.UserRepository;
 import cz.muni.fi.pa165.methanolmanager.service.dto.UserDto;
 import cz.muni.fi.pa165.methanolmanager.service.exception.EntityNotFoundException;
@@ -24,6 +26,9 @@ public class UserServiceImpl implements UserService {
     UserRepository userRepository;
 
     @Inject
+    RoleRepository roleRepository;
+
+    @Inject
     Mapper mapper;
 
     @Override
@@ -31,6 +36,9 @@ public class UserServiceImpl implements UserService {
 
     public UserDto createUser(UserDto userDto){
         User user = mapper.map(userDto, User.class);
+        if (userDto.getRoleName() != null) {
+            user.setRole(resolveRoleByName(userDto.getRoleName()));
+        }
 
         userRepository.save(user);
 
@@ -77,6 +85,9 @@ public class UserServiceImpl implements UserService {
         try {
             User user = userRepository.findOne(userDto.getId());
             mapper.map(userDto, user);
+            if (userDto.getRoleName() != user.getRole().getName()) {
+                user.setRole(resolveRoleByName(userDto.getRoleName()));
+            }
             userRepository.save(user);
 
             return mapper.map(user, UserDto.class);
@@ -85,28 +96,11 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    /*@Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
-            User user = userRepository.findByUsername(username);
-
-            if(user == null){
-                throw new UsernameNotFoundException(username);
-            }
-
-        List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        final Role role = user.getRole();
-
-        authorities.add(new GrantedAuthority() {
-                @Override
-                public String getAuthority() {
-                    return role.getName();
-                }
-            });
-
-
-        UserDetails userDetails = new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
-            return userDetails;
-        }*/
-
+    private Role resolveRoleByName(String roleName) {
+        Role role = roleRepository.findByName(roleName);
+        if (role == null) {
+            throw new EntityNotFoundException(roleName);
+        }
+        return role;
+    }
 }
